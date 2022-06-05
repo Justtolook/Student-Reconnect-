@@ -31,8 +31,9 @@ class Router {
         if (!in_array($this->request->request, $this->routeMap[$this->request->systype])) {
             return "error: could find allowed request in resolver method";
         }
-        echo "Request: " . $this->request->request . "<br>";
+        /*echo "Request: " . $this->request->request . "<br>";
         echo "SystemType: " . $this->request->systype . "<br>";
+        */
 
         switch($this->request->systype) {
             case "f":
@@ -48,7 +49,7 @@ class Router {
     }
 
     public function renderView($view) {
-        echo "Start to renderView in router.php<br>";
+        //echo "Start to renderView in router.php<br>";
         return Application::$app->view->renderView($view, Application::$systemType);
     }
 }

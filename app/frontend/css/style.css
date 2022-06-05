@@ -1,0 +1,65 @@
+:root {
+    font-size: 24pt;;
+}
+body {
+    font-size: 24pt;
+}
+h1 {
+    font-size: 32pt;
+}
+.content {
+    width: 100%;
+}
+
+.navbar {
+    background-color: var(--SRprimary);
+
+}
+
+.navbar a {
+    color: white;
+    font-size: 40pt;
+}
+
+.footer-item {
+    background-color: var(--SRprimary);
+    font-size: 40pt;
+    color: white;
+    text-align: center;
+    border: 2px solid var(--SRfooter-selected) ;
+}
+
+.footer-item-selected {
+    background-color: var(--SRfooter-selected);
+}
+
+.btn {
+    font-size: 24pt;
+    background-color: var(--SRprimary);
+    color: white;
+    padding: 20px;
+    min-width: 180px;
+    max-width: 200px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.landingpage {
+    background: linear-gradient(158.86deg, #40BF8E 4.13%, #196145 52.09%, #194333 88.61%);
+    mix-blend-mode: normal;
+    height: auto;
+}
+
+
+
+input {
+    background: #FFFFFF;
+    border: 1px solid #595959;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.container-fluid {
+    margin: 0px;
+}
