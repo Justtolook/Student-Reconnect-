@@ -10,26 +10,26 @@ $app = new Application();
  *
  * Important: Definition is Case Sensitive!
  */
-$routeMap = array(
-    "landingpage" => "frontend",
-    "Contact" => "frontend",
-    "landingpage" => "backend");
 
-$routeMapTest = array(
+
+$routeMap = array(
         "f" => array(
                 "landingpage",
-            "contact"
+            "contact",
+            "login",
+            "profile"
         ),
         "b" => array(
                 "landingpage"
 )
 );
-$app->router->routeMap = $routeMapTest;
+$app->router->routeMap = $routeMap;
 $app->run();
 
 
 
 ?>
+<!--
 <div>
 <a href="?t=f&request=landingpage">
     landingpage frontend
@@ -39,3 +39,4 @@ $app->run();
 <a href="?t=b&request=landingpage">
     landingpage backend
 </a>
+-->
