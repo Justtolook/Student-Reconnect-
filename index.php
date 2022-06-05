@@ -31,11 +31,11 @@ $app->run();
 
 ?>
 <div>
-<a href="/main/index.php?t=f&request=landingpage">
+<a href="?t=f&request=landingpage">
     landingpage frontend
 </a>
 </div>
 
-<a href="/main/index.php?t=b&request=landingpage">
+<a href="?t=b&request=landingpage">
     landingpage backend
 </a>
