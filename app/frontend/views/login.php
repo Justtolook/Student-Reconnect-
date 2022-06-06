@@ -1,6 +1,6 @@
 <div class="container-fluid">
 <h1>Bei Student Reconncet anmelden</h1>
-<form method="POST" action="?t=f&request=login">
+<form method="POST" action="?t=frontend&request=login">
     <div class="form-group">
         <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail">
     </div>

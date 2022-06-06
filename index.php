@@ -1,6 +1,10 @@
 <?php
 
 require_once 'Application.php';
+require_once 'app/frontend/controllers/SiteController.php';
+require_once 'app/frontend/controllers/ProfileController.php';
+require_once 'app/frontend/controllers/AuthController.php';
+
 $app = new Application();
 
 /**
@@ -24,7 +28,16 @@ $routeMap = array(
 )
 );
 $app->router->routeMap = $routeMap;
+$app->router->setRoute("get", "frontend", "landingpage", [SiteController::class, 'home']);
+$app->router->setRoute("get","frontend", "profile", [ProfileController::class, 'home']);
+$app->router->setRoute("post","frontend", "login", [SiteController::class, 'handleLogin']);
+$app->router->setRoute("get","frontend", "login", [AuthController::class, 'login']);
+$app->router->setRoute("post","frontend", "login", [AuthController::class, 'handleLogin']);
+$app->router->setRoute("get","frontend", "register", [AuthController::class, 'register']);
+$app->router->setRoute("post","frontend", "register", [AuthController::class, 'handleRegister']);
+
 $app->run();
+
 
 
 

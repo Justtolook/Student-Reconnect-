@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="app/frontend/css/bootstrap.css">
     <link rel="stylesheet" href="app/frontend/css/colours.css">
     <link rel="stylesheet" href="app/frontend/css/style.css">
+    <!-- TODO: include jquery for bootstrap -->
 </head>
 <body>
     <!-- define navbar -->
     <nav class="navbar sticky-top container-fluid">
-        <a class="navbar-brand" href="?t=f&request=landingpage">
+        <a class="navbar-brand" href="?t=frontend&request=landingpage">
             <img src="res/Logo_weiß_Schrift_transparent 1.png" width="150" height="150" class="d-inline-block align-top" alt="">
             Student Reconnect
         </a>
@@ -24,7 +25,7 @@
         <div class="row">
                 <a class="p-2 col footer-item">Matching</a>
                 <a class="p-2 col footer-item footer-item">Events</a>
-                <a href="?t=f&request=profile" class="p-2 col footer-item">Profil</a>
+                <a href="?t=frontend&request=profile" class="p-2 col footer-item">Profil</a>
         </div>
     </footer>
 </body>
