@@ -17,7 +17,9 @@ $routeMap = array(
                 "landingpage",
             "contact",
             "login",
-            "profile"
+            "profile",
+            "register",
+            "pwreset"
         ),
         "b" => array(
                 "landingpage"

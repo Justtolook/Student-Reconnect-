@@ -6,6 +6,11 @@ body {
 }
 h1 {
     font-size: 32pt;
+    text-align: center;
+}
+h2 {
+    font-size: 28pt;
+    text-align: center;
 }
 .content {
     width: 100%;
