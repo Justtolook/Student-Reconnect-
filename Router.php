@@ -25,6 +25,11 @@ class Router {
         else return null;
     }
 
+    /**
+     * Resolve the called request and execute the callback declared in $routes
+     * @return mixed|String
+     *
+     */
     public function resolve() {
 
         $callback = $this->routes[$this->request->method][$this->request->systype][$this->request->request] ?? false;
@@ -36,7 +41,8 @@ class Router {
             return $this->renderView($callback);
         }
         if(is_array($callback)) {
-            $callback[0] = new $callback[0](); //code used to create an instantiated class as a parameter for callback (relevant as of php 8.0)
+            Application::$app->controller = new $callback[0](); //code used to create an instantiated class as a parameter for callback (relevant as of php 8.0)
+            $callback[0] = Application::$app->controller;
         }
         return call_user_func($callback, $this->request);
     }
@@ -45,36 +51,7 @@ class Router {
      * Resolve the Request and return is corresponding view
      * @return String
      */
-    /*public function resolve() {
 
-        //no request
-        if (!isset($this->request)) {
-            echo "error";
-            var_dump($this->request);
-        }
-        //no match with systemtype
-        if (!array_key_exists($this->request->systype, $this->routeMap)) {
-            return "error: could find systemtype in resolver method";
-        }
-        //no match with resolver method
-        if (!in_array($this->request->request, $this->routeMap[$this->request->systype])) {
-            return "error: could find allowed request in resolver method";
-        }
-        //set systemtype in application instance
-        switch($this->request->systype) {
-                case "f":
-                Application::$systemType = "frontend";
-                break;
-            case "b":
-                Application::$systemType = "backend";
-                break;
-            default:
-                echo "Error: Could not find systemtype in Resolver";
-        }
-
-        //return $this->renderView($this->request->request, Application::$systemType);
-    }
-*/
     public function renderView($view) {
         return Application::$app->view->renderView($view, Application::$systemType);
     }

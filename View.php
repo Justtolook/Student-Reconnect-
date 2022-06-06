@@ -3,7 +3,7 @@
 class View
 {
     public function renderView($view, $systemType) {
-        $layoutName = Application::$app->layout;
+        $layoutName = Application::$app->controller->layout;
         $viewContent = $this->renderViewContent($view, $systemType); //TODO
         ob_start();
         include_once Application::$ROOT_DIR."/app/$systemType/views/layouts/$layoutName.php";

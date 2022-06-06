@@ -5,7 +5,24 @@ class AuthController extends Controller {
         return $this->render('login');
     }
 
-    public function register() {
+    public function handleLogin(Request $request) {
+        return 'handle submitted registration';
+    }
+
+    public function register(Request $request) {
         return $this->render('register');
+    }
+
+    public function handleRegistration() {
+
+        return 'handle submitted registration';
+    }
+
+    public function pwReset() {
+        return $this->render('pwreset');
+    }
+
+    public function handlePWReset(Request $request) {
+        return 'handle submitted pwreset data';
     }
 }

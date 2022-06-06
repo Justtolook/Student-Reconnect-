@@ -7,9 +7,9 @@
     <div class="form-group">
         <input type="password" class="form-control" id="password" name="password" placeholder="Passwort">
     </div><br>
-    <a href="?t=f&request=pwreset" class="pw-reset">Passwort vergessen?</a>
+    <a href="?t=frontend&request=pwreset" class="pw-reset">Passwort vergessen?</a>
     <button type="submit" class="btn btn-primary">Einloggen</button><br><br>
     <h2>Du hast noch keinen Account?</h2><br>
-    <a href="?t=f&request=register" class="btn">Jetzt registrieren</a><br>
+    <a href="?t=frontend&request=register" class="btn">Jetzt registrieren</a><br>
 </form>
 </div>
