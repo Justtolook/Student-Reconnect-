@@ -29,21 +29,7 @@ class Application {
     public function run() {
         echo $this->router->resolve();
     }
-    /**
-     * @return Controller
-     */
-    public function getController(): Controller
-    {
-        return $this->controller;
-    }
 
-    /**
-     * @param Controller $controller
-     */
-    public function setController(Controller $controller): void
-    {
-        $this->controller = $controller;
-    }
 /*
     public function renderView($view) {
         $layoutName = Application::$app->layout;

@@ -23,7 +23,7 @@ class Request {
     }
 
     public function fetchSysType() {
-        if(!isset($_GET["t"])) return "f"; //set default sysType if not set
+        if(!isset($_GET["t"])) return "frontend"; //set default sysType if not set
         return $_GET["t"];
     }
 

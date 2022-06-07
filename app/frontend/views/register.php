@@ -18,9 +18,9 @@
     </div><br>
     <div class="form-groups">
         <select name="gender" id="gender" placeholder="Geschlecht">
-            <option value="maennlich">Männlich</option>
-            <option value="weiblich">Weiblich</option>
-            <option value="divers">Divers</option>
+            <option value="m">Männlich</option>
+            <option value="f">Weiblich</option>
+            <option value="d">Divers</option>
         </select>
     </div><br>
     <div class="form-group">

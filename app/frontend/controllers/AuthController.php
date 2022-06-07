@@ -21,12 +21,10 @@ class AuthController extends Controller {
         $registerModel->loadData($request->getBody());
 
         if($registerModel->validate() && $registerModel->register()) {
-            return $this->render('login');
+            Application::$app->response->redirect("?t=frontend&request=login"); //new (better?) option to redirect TODO
+            return;
+            //return $this->render('login');
         }
-        //echo $this->render
-        //echo "<pre>";
-        //var_dump($registerModel->errors);
-        //var_dump($registerModel);
         return $this->render('register', ['model' => $registerModel]);
     }
 
