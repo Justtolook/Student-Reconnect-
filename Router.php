@@ -52,7 +52,7 @@ class Router {
      * @return String
      */
 
-    public function renderView($view) {
-        return Application::$app->view->renderView($view, Application::$systemType);
+    public function renderView($view, $params = []) {
+        return Application::$app->view->renderView($view, Application::$systemType, $params);
     }
 }
