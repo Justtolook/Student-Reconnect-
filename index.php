@@ -22,6 +22,7 @@ $app = new Application();
 
 
 $app->router->setRoute("get", "frontend", "landingpage", [SiteController::class, 'home']);
+$app->router->setRoute("get", "frontend", "notifications", [SiteController::class, 'notifications']);
 $app->router->setRoute("get","frontend", "profile", [ProfileController::class, 'home']);
 $app->router->setRoute("post","frontend", "login", [SiteController::class, 'handleLogin']);
 $app->router->setRoute("get","frontend", "login", [AuthController::class, 'login']);

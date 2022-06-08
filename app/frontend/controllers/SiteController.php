@@ -8,6 +8,11 @@ class SiteController extends Controller  {
         return $this->render("landingpage");
     }
 
+    public function notifications() {
+        $this->setLayout('main');
+        return $this->render("notifications");
+    }
+
     public function viewLogin() {
         return $this->render("login");
     }
