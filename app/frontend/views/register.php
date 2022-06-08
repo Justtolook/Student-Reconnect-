@@ -9,6 +9,11 @@
     </div><br>
     <div class="form-group">
         <input type="email" class="form-control <?php echo $model->hasError('email') ? 'is-invalid' : ''?>" id="email" name="email" placeholder="E-Mail">
+        <?php
+        if($model->hasError('email')) {
+            echo "<div>Bitte gib eine eine gültige Studierenden-E-Mail-Adresse der Uni-Bamberg an!<div>";
+        }
+        ?>
     </div><br>
     <div class="form-group">
         <input type="password" class="form-control <?php echo $model->hasError('password') ? 'is-invalid' : ''?>" id="password" name="password" placeholder="Passwort">

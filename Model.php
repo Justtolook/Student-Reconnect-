@@ -7,6 +7,7 @@
 abstract class Model {
     public const RULE_REQUIRED = 'required';
     public const RULE_EMAIL = 'email';
+    public const RULE_EMAIL_UNI = 'email_uni'; //TODO check for uni bamberg mail
     public const RULE_MIN = 'min';
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
@@ -37,6 +38,10 @@ abstract class Model {
                 if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->addError($attribute, self::RULE_EMAIL);
                 }
+                if ($ruleName === self::RULE_EMAIL_UNI && !strpos($value, "@stud.uni-bamberg.de")) {
+                    //check $value if "@stud.uni-bamberg.de" string is in it
+                    $this->addError($attribute, self::RULE_EMAIL_UNI);
+                }
                 if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
                     $this->addError($attribute, self::RULE_MIN, ['min' => $rule['min']]);
                 }
@@ -63,6 +68,7 @@ abstract class Model {
         return [
             self::RULE_REQUIRED => 'This field is required',
             self::RULE_EMAIL => 'This field must be valid email address',
+            self::RULE_EMAIL_UNI => 'This must be a valid university address',
             self::RULE_MIN => 'Min length of this field must be {min}',
             self::RULE_MAX => 'Max length of this field must be {max}',
             self::RULE_MATCH => 'This field must be the same as {match}',

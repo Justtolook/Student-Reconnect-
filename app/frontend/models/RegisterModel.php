@@ -21,7 +21,7 @@ class RegisterModel extends Model {
         return [
             'firstname' => [self::RULE_REQUIRED],
             'lastname' => [self::RULE_REQUIRED],
-            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, self::RULE_EMAIL_UNI],
             'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 2]],
             'passwordrepeat' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
             'gender' => [self::RULE_REQUIRED],
