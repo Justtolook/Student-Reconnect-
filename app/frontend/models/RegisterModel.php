@@ -34,6 +34,7 @@ class RegisterModel extends Model {
      * @return bool based on execution success
      */
     public function register() {
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         $statement = $this->db->prepare("INSERT INTO User (firstname, lastname, email, password, gender, birthdate) VALUES (:firstname, :lastname, :email, :password, :gender, :birthdate)");
         $statement->bindValue(':firstname', $this->firstname);
         $statement->bindValue(':lastname', $this->lastname);
@@ -45,7 +46,6 @@ class RegisterModel extends Model {
 
 
         return $statement->execute();
-        //TODO Push data into DB
     }
 
 
