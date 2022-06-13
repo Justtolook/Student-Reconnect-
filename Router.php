@@ -12,8 +12,6 @@ class Router {
         //$this->request = $this->getRequest();
         $this->request = $request;
         $this->response = $response;
-
-        echo "method: " . $request->getMethod();
     }
 
     public function setRoute($method, $systype, $request, $callback) {

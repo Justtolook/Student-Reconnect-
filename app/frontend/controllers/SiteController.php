@@ -13,15 +13,8 @@ class SiteController extends Controller  {
         return $this->render("notifications");
     }
 
-    public function viewLogin() {
-        return $this->render("login");
-    }
-
-    public function handleLogin(Request $request) {
-        $body = $request->getBody();
-        echo "<pre>";
-        var_dump($body);
-        echo "<pre>";
-        return "handling login";
+   public function settings() {
+        $this->setLayout('main');
+        return $this->render("settings");
     }
 }

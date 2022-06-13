@@ -4,9 +4,10 @@ require_once 'Application.php';
 require_once 'app/frontend/controllers/SiteController.php';
 require_once 'app/frontend/controllers/ProfileController.php';
 require_once 'app/frontend/controllers/AuthController.php';
+require_once 'app/frontend/controllers/EventsController.php';
+require_once 'app/frontend/controllers/MatchingController.php';
 
 $app = new Application();
-
 /**
  * Define the allowed Requests (e.g. index.php?t=frontend&request=landingpage) by calling $app->router->setRoute()
  * setRoute expects 4 arguments:
@@ -24,9 +25,18 @@ $app = new Application();
 $app->router->setRoute("get", "frontend", "landingpage", [SiteController::class, 'home']);
 $app->router->setRoute("get", "frontend", "notifications", [SiteController::class, 'notifications']);
 $app->router->setRoute("get","frontend", "profile", [ProfileController::class, 'home']);
-$app->router->setRoute("post","frontend", "login", [SiteController::class, 'handleLogin']);
 $app->router->setRoute("get","frontend", "login", [AuthController::class, 'login']);
 $app->router->setRoute("post","frontend", "login", [AuthController::class, 'handleLogin']);
+$app->router->setRoute("post","frontend", "logout", [AuthController::class, 'logout']);
+$app->router->setRoute("get","frontend", "settings", [SiteController::class, 'settings']);
+$app->router->setRoute("post","frontend", "settings", [SiteController::class, 'settings']);
+
+$app->router->setRoute("get","frontend", "events", [EventsController::class, 'events']);
+$app->router->setRoute("post","frontend", "events", [EventsController::class, 'events']);
+
+$app->router->setRoute("get","frontend", "matching", [MatchingController::class, 'matching']);
+$app->router->setRoute("post","frontend", "matching", [MatchingController::class, 'matching']);
+
 $app->router->setRoute("get","frontend", "register", [AuthController::class, 'register']);
 $app->router->setRoute("post","frontend", "register", [AuthController::class, 'handleRegistration']);
 $app->router->setRoute("get","frontend", "pwreset", [AuthController::class, 'pwReset']);

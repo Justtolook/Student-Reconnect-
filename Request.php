@@ -11,11 +11,6 @@ class Request {
         $this->systype = $this->fetchSysType();
         $this->request = $this->fetchRequest();
         $this->method = strtolower($this->getMethod());
-        /*$this->fetchPOSTdata();
-        echo "<pre>";
-        var_dump($this->action);
-        var_dump($this->param);
-        echo "<pre>";*/
     }
 
     public function getMethod() {
