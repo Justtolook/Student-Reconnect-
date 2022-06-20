@@ -11,7 +11,7 @@
         <input type="email" class="form-control <?php echo $model->hasError('email') ? 'is-invalid' : ''?>" id="email" name="email" placeholder="E-Mail">
         <?php
         if($model->hasError('email')) {
-            echo "<div>Bitte gib eine eine gültige Studierenden-E-Mail-Adresse der Uni-Bamberg an!<div>";
+            echo "<div>Bitte gib eine gültige Studierenden-E-Mail-Adresse der Uni-Bamberg an!<div>";
         }
         ?>
     </div><br>

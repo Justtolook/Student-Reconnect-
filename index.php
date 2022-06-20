@@ -31,6 +31,8 @@ $app->router->setRoute("get","frontend", "register", [AuthController::class, 're
 $app->router->setRoute("post","frontend", "register", [AuthController::class, 'handleRegistration']);
 $app->router->setRoute("get","frontend", "pwreset", [AuthController::class, 'pwReset']);
 $app->router->setRoute("post","frontend", "pwreset", [AuthController::class, 'handlePWReset']);
+$app->router->setRoute("get","frontend", "matching", [SiteController::class, 'matching']);
+$app->router->setRoute("get","frontend", "events", [SiteController::class, 'events']);
 
 $app->run();
 
