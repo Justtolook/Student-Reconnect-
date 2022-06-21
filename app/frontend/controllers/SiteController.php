@@ -13,14 +13,6 @@ class SiteController extends Controller  {
         return $this->render("notifications");
     }
 
-    public function matching()  {
-        return $this->render("matching");
-    }
-
-    public function events()  {
-        return $this->render("events");
-    }
-
     public function viewLogin() {
         return $this->render("login");
     }
