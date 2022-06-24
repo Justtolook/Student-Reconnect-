@@ -12,6 +12,7 @@ abstract class Model {
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
     public const RULE_WRONG_PASSWORD ='password_incorrect';
+    public const RULE_DATE= 'date';
 
     public function loadData($data) {
         foreach ($data as $key => $value) {
@@ -52,6 +53,9 @@ abstract class Model {
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
                     $this->addError($attribute, self::RULE_MATCH, ['match' => $rule['match']]);
                 }
+                if ($ruleName === self::RULE_DATE && ($value - time())/3600 < 24) {
+                    $this->addError($attribute, self::RULE_DATE);
+                }
             }
         }
         return empty($this->errors);
@@ -78,6 +82,7 @@ abstract class Model {
             self::RULE_MAX => 'Max length of this field must be {max}',
             self::RULE_MATCH => 'This field must be the same as {match}',
             self::RULE_WRONG_PASSWORD => 'Wrong password. Please try again.',
+            self::RULE_DATE=> 'The Event must be registered at least 1 Day before taking place.',
         ];
     }
 
