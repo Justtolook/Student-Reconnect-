@@ -2,6 +2,9 @@
 require_once 'Controller.php';
 require_once 'app/frontend/models/RegisterModel.php';
 require_once 'app/frontend/models/LoginModel.php';
+require_once 'app/frontend/models/PWResetModel.php';
+require_once 'app/frontend/models/PWResetEmailModel.php';
+
 
 class AuthController extends Controller {
 
@@ -67,8 +70,22 @@ class AuthController extends Controller {
         return $this->render('pwreset');
     }
 
+    public function handlePWResetEmail(Request $request) {
+        $PWResetEmailModel = new PWResetEmailModel();
+        $PWResetEmailModel->loadData($request->getBody());
+        if($PWResetEmailModel->validate()) {
+            if($PWResetEmailModel->sendEmail()) {
+                return $this->render("email sent!");
+            }
+            return $this->render("email error!");
+        }
+        return $this->render("validation error!");
+    }
+
     public function handlePWReset(Request $request) {
-        return 'handle submitted pwreset data';
+        $PWResetModel = new PWResetModel();
+        $PWResetModel->loadData($request->getBody());
+        //TODO
     }
 
 }

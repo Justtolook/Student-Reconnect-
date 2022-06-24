@@ -10,9 +10,9 @@ class PWResetModel extends Model {
     public int $verifcode;
     public int $enteredcode;
 
-    public function __construct() {
+    public function __construct(int $verifcode) {
         $this->db = new Database();
-        $this->verifcode = rand(100000,999999);
+        $this->verifcode = $verifcode;
     }
 
     public function rules(): array {
@@ -23,14 +23,6 @@ class PWResetModel extends Model {
         ];
     }
 
-    public function sendEmail() {
-        $to = $this->email;
-        $subject = "Zurücksetzen Ihres Passworts";
-        $content = "Ihr Verifizierungscode zum Zurücksetzen Ihres Passworts lautet: $this->verifcode";
-        $header = "From: studreconn@noreply.com" . "\r\n";
-
-        mail($to, $subject, $content, $header)
-    }
 
     public function resetPassword() {
         if ($enteredcode == $verifcode) {

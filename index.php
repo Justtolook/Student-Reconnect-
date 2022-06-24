@@ -42,6 +42,8 @@ $app->router->setRoute("post","frontend", "register", [AuthController::class, 'h
 $app->router->setRoute("get","frontend", "pwreset", [AuthController::class, 'pwReset']);
 $app->router->setRoute("post","frontend", "pwreset", [AuthController::class, 'handlePWReset']);
 
+$app->router->setRoute("post","frontend", "pwresetemail", [AuthController::class, 'handlePWResetEmail']);
+
 $app->run();
 
 
