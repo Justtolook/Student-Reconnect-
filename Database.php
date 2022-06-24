@@ -9,8 +9,14 @@ class Database {
     public function __construct() {
         $this->config = new Config();
         if($this->config->DB_ENABLED) {
-            $this->pdo = new PDO($this->config->DB_DSN, $this->config->DB_USER, $this->config->DB_PASSWORD);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            try {
+                $this->pdo = new PDO($this->config->DB_DSN, $this->config->DB_USER, $this->config->DB_PASSWORD);
+                $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+            /* $this->pdo = new PDO($this->config->DB_DSN, $this->config->DB_USER, $this->config->DB_PASSWORD);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); */
         }
     }
 
