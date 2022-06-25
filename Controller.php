@@ -12,4 +12,10 @@ class Controller {
         $this->layout = $layout;
     }
 
+    //check if user is logged in
+    public function isLoggedIn() : bool {
+        return isset($_SESSION['user']);
+    }
+    
+
 }

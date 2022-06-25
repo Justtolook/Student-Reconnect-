@@ -16,6 +16,15 @@
             <img src="res/Logo_weiß_Schrift_transparent 1.png" width="150" height="150" class="d-inline-block align-top" alt="">
             Student Reconnect
         </a>
+        <!-- only show notification and settings button if the user is logged in -->
+        <?php if (Application::$app->controller->isLoggedIn()) echo '
+        <a class="nav-link" href="?t=frontend&request=notifications">
+            <img src="res/notifications.png" width="55" height="55" class="d-inline-block align-top" alt="">
+        </a>
+        <a class="nav-link" href="?t=frontend&request=settings">
+            <img src="res/settings.png" width="55" height="55" class="d-inline-block align-top" alt="">
+        </a>
+        ';?>
     </nav>
     <!-- content will be inserted here by the view handler-->
     <div class="content">
@@ -24,8 +33,8 @@
     <!-- define footer -->
     <footer id="sticky-footer" class="page-footer purple fixed-bottom container-fluid">
         <div class="row">
-                <a class="p-2 col footer-item">Matching</a>
-                <a class="p-2 col footer-item footer-item">Events</a>
+                <a href="?t=frontend&request=matching" class="p-2 col footer-item">Matching</a>
+                <a href="?t=frontend&request=events" class="p-2 col footer-item footer-item">Events</a>
                 <a href="?t=frontend&request=profile" class="p-2 col footer-item">Profil</a>
         </div>
     </footer>
