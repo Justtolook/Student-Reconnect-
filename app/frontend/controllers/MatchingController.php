@@ -21,7 +21,7 @@ class MatchingController extends Controller {
         $this->UserMyself = new UserModel();
         $this->UserMatchModel = new UserMatchModel();
         $this->hasInterestModel = new HasInterestModel();
-        $this->matchingInstanceModel = new MatchingInstanceModel();
+        $this->matchingInstanceModel = new MatchingInstanceModel($_SESSION['user']['id_user']);
     }
 
     /**
@@ -68,7 +68,7 @@ class MatchingController extends Controller {
      * adds all matching instances to the UserModel $UserMyself
      */
     public function fetchMatchingInstances() {
-        $this->matchingInstanceModel->fetchAllMatchingInstancesForUser($this->UserMyself->id_user);
+        $this->matchingInstanceModel->fetchAllMatchingInstancesForUser();
         foreach($this->matchingInstanceModel->matchingInstances as $matchingInstance) {
             $this->UserMyself->matchingInstancesOld[$matchingInstance['id_user_received']] = $matchingInstance['score'];
         }
@@ -142,6 +142,16 @@ class MatchingController extends Controller {
         return $this->render("matching", ["model" => $this->UserAll[$randomUser]]);
     }
 
+    /**
+     * @return string
+     * renders the machting instances for logged in user
+     * only debug function
+     */
+    public function printMatchingInstances() {
+        echo "<pre>";
+        var_dump($this->UserMyself->matchingInstancesOld);
+    }
+
 
 
     public function matching() {
@@ -155,13 +165,30 @@ class MatchingController extends Controller {
         $this->countInterestOverlap();
         //$this->printSortedUserList();
         $this->deleteUsersWithNoInterestOverlap();
-
         return $this->renderRandomUser();
     }
 
     //API function to get a profile in json format to render it in the browser with javascript?
 
-    
+    /**
+     * @return
+     * add a positive matching instance to the database
+     */
+    public function addMatchingInstancePositive() {
+        var_dump($_POST);
+        $this->matchingInstanceModel->addMatchingInstance($_POST['id_user'], 1);
+        Application::$app->response->redirect("?t=frontend&request=matching");
+    }
+
+    /**
+     * @return
+     * add a negative matching instance to the database
+     */
+    public function addMatchingInstanceNegative() {
+        $this->matchingInstanceModel->addMatchingInstance($_POST['id_user'], 0);
+        Application::$app->response->redirect("?t=frontend&request=matching");
+    }
+
 
 
 

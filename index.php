@@ -36,6 +36,9 @@ $app->router->setRoute("post","frontend", "events", [EventsController::class, 'e
 
 $app->router->setRoute("get","frontend", "matching", [MatchingController::class, 'matching']);
 $app->router->setRoute("post","frontend", "matching", [MatchingController::class, 'matching']);
+$app->router->setRoute("post","frontend", "matching/matching", [MatchingController::class, 'addMatchingInstancePositive']);
+$app->router->setRoute("post","frontend", "matching/notmatching", [MatchingController::class, 'addMatchingInstanceNegative']);
+
 
 $app->router->setRoute("get","frontend", "register", [AuthController::class, 'register']);
 $app->router->setRoute("post","frontend", "register", [AuthController::class, 'handleRegistration']);
