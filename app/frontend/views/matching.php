@@ -18,6 +18,11 @@
         </tr>
         <tr>
             <td>
+                Interessen: <?php echo $model->description; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 swipe buttons here
             </td>
         </tr>

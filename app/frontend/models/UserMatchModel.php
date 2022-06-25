@@ -2,10 +2,6 @@
 require_once 'Model.php';
 
 class UserMatchModel extends Model {
-    public int $id_user;
-    public string $firstname;
-    public string $lastname;
-    public string $description;
     public Database $db;
 
     public function rules() : array {
@@ -14,13 +10,6 @@ class UserMatchModel extends Model {
 
     public function __construct() {
         $this->db = new Database();
-        $users = $this->loadData($this->fetchOneUser());
-        if(is_array($users)) {
-            foreach ($users as $key => $value) {
-                echo "$key: $value <br>";
-            }
-        }
-
     }
 
     public function fetchOneUser() {
@@ -30,6 +19,20 @@ class UserMatchModel extends Model {
 
         return $users;
 
+    }
+
+    public function fetchAllUser(int $id_myself) {
+        $statement = $this->db->prepare('SELECT id_user, firstname, lastname, description, gender FROM user WHERE id_user != :id_myself');
+        $statement->bindValue('id_myself', $id_myself);
+        $statement->execute();
+        return $statement->fetchall();
+    }
+
+    public function fetchUserByID(int $id) {
+        $statement = $this->db->prepare('SELECT * FROM User WHERE id_user = :id');
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+        return $statement->fetch();
     }
 
 

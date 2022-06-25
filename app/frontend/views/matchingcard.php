@@ -1,3 +1,4 @@
 <?php
-echo $model;
+var_dump($model);
+
 ?>
