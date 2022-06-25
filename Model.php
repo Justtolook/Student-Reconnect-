@@ -13,10 +13,16 @@ abstract class Model {
     public const RULE_MATCH = 'match';
     public const RULE_WRONG_PASSWORD ='password_incorrect';
 
+    /**
+     * @param $data -> e.g. a db statement result from SELECT
+     * @return void -> attributes will be defined in the model object
+     *
+     * it is important to name the attributes in the specific model class exactly like in the db
+     */
     public function loadData($data) {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
-                $this->{$key} = $value;
+                if(!is_null($value)) $this->{$key} = $value;
             }
         }
     }
