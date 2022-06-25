@@ -7,6 +7,7 @@ class UserModel extends Model {
     public string $lastname;
     public string $description;
     public string $gender;
+    public array $interests;
 
     public function rules() : array {
         return [];

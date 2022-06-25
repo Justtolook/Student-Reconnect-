@@ -18,7 +18,7 @@
         </tr>
         <tr>
             <td>
-                Interessen: <?php echo $model->description; ?>
+                Interessen: <?php echo var_dump($model->interests); ?>
             </td>
         </tr>
         <tr>
