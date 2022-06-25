@@ -26,4 +26,8 @@ class PWResetEmailModel extends model {
 
         return mail($to, $subject, $content, $header);
     }
+
+    public function saveVerificationCode() {
+        $_SESSION['verifcode'] = $this->verifcode;
+    }
 }

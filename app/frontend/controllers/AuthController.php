@@ -70,20 +70,28 @@ class AuthController extends Controller {
         return $this->render('pwreset');
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     * Function will try to send an email with an password reset verification code to the given email address.
+     *
+     */
+
     public function handlePWResetEmail(Request $request) {
         $PWResetEmailModel = new PWResetEmailModel();
         $PWResetEmailModel->loadData($request->getBody());
         if($PWResetEmailModel->validate()) {
             if($PWResetEmailModel->sendEmail()) {
-                return $this->render("email sent!");
+                $PWResetEmailModel->saveVerificationCode(); //save verification code in session variable
+                return "Email wurde gesendet!";
             }
-            return $this->render("email error!");
+            return $this->render("error_email_not_sent");
         }
-        return $this->render("validation error!");
+        return $this->render("error_email_validation");
     }
 
     public function handlePWReset(Request $request) {
-        $PWResetModel = new PWResetModel();
+        $PWResetModel = new PWResetModel($_SESSION['verifcode']);
         $PWResetModel->loadData($request->getBody());
         //TODO
     }

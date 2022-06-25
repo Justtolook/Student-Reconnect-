@@ -25,11 +25,11 @@ class PWResetModel extends Model {
 
 
     public function resetPassword() {
-        if ($enteredcode == $verifcode) {
+        if ($this->enteredcode == $this->verifcode) {
             $statement = $this->db->prepare('UPDATE Users SET password = :password WHERE email = :email');
             $statement->bindValue(':password', $this->password);
             $statement->bindValue(':email', $this->email);
-            $statement->execute();
+            return $statement->execute();
         }else {
             exit;               // TO DO error handling
         }
