@@ -10,10 +10,12 @@ require_once 'Database.php';
 class MatchingController extends Controller {
     public UserModel $UserMyself;
     public UserMatchModel $UserMatchModel;
+    public array $UserAllBase = [];
     public array $UserAll = [];
     public HasInterestModel $hasInterestModel;
     public MatchingInstanceModel $matchingInstanceModel;
     public InterestModel $interestModel;
+    public array $interestFilter = []; //array with their id's
 
     public function __construct() {
         /**
@@ -25,6 +27,116 @@ class MatchingController extends Controller {
         $this->hasInterestModel = new HasInterestModel();
         $this->matchingInstanceModel = new MatchingInstanceModel($_SESSION['user']['id_user']);
         $this->interestModel = new InterestModel();
+
+        //$userMatchModel = new UserMatchModel();
+        $this->fetchMyself();
+        $this->fetchAllUser();
+        $this->addAllInterestsToUsers();
+        $this->fetchMatchingInstances();
+        $this->deleteOldMatchesFromUserList();
+
+        $this->interestModel->fetchAllInterests();
+    }
+
+    /**
+     * @return string
+     * standard function to render the view
+     */
+    public function matching() {
+        $this->countInterestOverlap();
+        //$this->printSortedUserList();
+        $this->deleteUsersWithNoInterestOverlap();
+        return $this->renderRandomUser();
+    }
+
+    /**
+     * @return void
+     * method to set custom interest filters to filter $UserAll array
+     */
+    public function filter() {
+        $this->interestFilter = [];
+        //check if $_Session['interestFilter'] is empty
+        if(empty($_POST['interests'])) {
+            //add all interests to the interestFilter
+            foreach($this->interestModel->interests as $id => $interest) {
+                array_push($this->interestFilter, $id);
+            }
+        }
+        else {
+            foreach($_POST['interests'] as $interest) {
+                array_push($this->interestFilter, $this->interestModel->getInterestID($interest));
+            };
+            //save the interestFilter in the session
+            $this->saveInterestFilter();
+        }
+
+
+        $this->countInterestOverlap();
+        //$this->printSortedUserList();
+        $this->deleteUsersWithNoInterestOverlap();
+        return $this->renderRandomUser();
+    }
+
+    /**
+     * @return void
+     * reset the interest filter to original interests of the user
+     */
+    public function resetFilter()
+    {
+        $this->deleteInterestFilter();
+        $this->setOriginalInterests();
+        Application::$app->response->redirect("?t=frontend&request=matching");
+    }
+
+    /**
+     * @return void
+     * clear the interest filter to all interests
+     */
+    public function clearFilter() {
+        $this->deleteInterestFilter();
+        $this->interestFilter = [];
+        foreach($this->interestModel->interests as $id => $interest) {
+            array_push($this->interestFilter, $id);
+        }
+        $this->saveInterestFilter();
+        Application::$app->response->redirect("?t=frontend&request=matching");
+    }
+
+
+
+    /**
+     * @return void
+     * save the interestFilter in the session
+     * this is used to filter the users by their interests
+     */
+    public function saveInterestFilter() {
+        $_SESSION['interestFilter'] = $this->interestFilter;
+    }
+
+    /**
+     * @return void
+     * fetch the interestFilter from the session
+     * this is used to filter the users by their interests
+     */
+    public function fetchInterestFilter() {
+        $this->interestFilter = $_SESSION['interestFilter'];
+    }
+
+    /**
+     * @return void
+     * delete the interestFilter from the session
+     * this is used to filter the users by their interests
+     */
+    public function deleteInterestFilter() {
+        unset($_SESSION['interestFilter']);
+    }
+
+    /**
+     * @return bool
+     * check if the interests are set in the session
+     */
+    public function isInterestFilterSet() : bool {
+        return isset($_SESSION['interestFilter']);
     }
 
     /**
@@ -46,12 +158,21 @@ class MatchingController extends Controller {
         foreach($temp_all as $user) {
             //echo "<pre>";
             //var_dump($user);
-            $this->UserAll[$user['id_user']] = new UserModel();
-            $this->UserAll[$user['id_user']] ->loadData($user);
+            $this->UserAllBase[$user['id_user']] = new UserModel();
+            $this->UserAllBase[$user['id_user']] ->loadData($user);
+            $this->UserAll = $this->UserAllBase;
         }
         //echo "<pre>";
         //var_dump($this->UserAll);
 
+    }
+
+    /**
+     * @return void
+     * sets the original interests of the logged in user as interestFilter
+     */
+    public function setOriginalInterests() {
+        $this->interestFilter = $this->UserMyself->interests;
     }
 
     /**
@@ -64,6 +185,13 @@ class MatchingController extends Controller {
             $user->interests = $this->hasInterestModel->getInterestsForUserID($user->id_user);
         }
         $this->UserMyself->interests = $this->hasInterestModel->getInterestsForUserID($this->UserMyself->id_user);
+        //TODO: only add interests to the filter if no interests are set in the session
+        if(!$this->isInterestFilterSet()) {
+            $this->interestFilter = $this->hasInterestModel->getInterestsForUserID($this->UserMyself->id_user);
+        }
+        else {
+            $this->fetchInterestFilter();
+        }
     }
 
     /**
@@ -101,10 +229,25 @@ class MatchingController extends Controller {
      * @return void
      * count the number of interest overlaps between $UserMyself and all users in the UserAll array and saves it in $UserAll['id_user']->interestOverlapScore
      */
-    public function countInterestOverlap() {
+    /*public function countInterestOverlap() {
         foreach($this->UserAll as $user) {
             $user->interestOverlapScore = 0;
             foreach($this->UserMyself->interests as $interest) {
+                if(in_array($interest, $user->interests)) {
+                    $user->interestOverlapScore++;
+                }
+            }
+        }
+    }*/
+
+    /**
+     * @return void
+     * count the number of interest overlaps between $interestFilter and all users in the UserAll array and saves it in $UserAll['id_user']->interestOverlapScore
+     */
+    public function countInterestOverlap() {
+        foreach($this->UserAll as $user) {
+            $user->interestOverlapScore = 0;
+            foreach($this->interestFilter as $interest) {
                 if(in_array($interest, $user->interests)) {
                     $user->interestOverlapScore++;
                 }
@@ -134,6 +277,10 @@ class MatchingController extends Controller {
                 unset($this->UserAll[$user->id_user]);
             }
         }
+        if(count($this->UserAll) == 0) {
+            echo "No users found";
+            $this->UserAll = $this->UserAllBase;
+        }
     }
 
     /**
@@ -157,20 +304,7 @@ class MatchingController extends Controller {
 
 
 
-    public function matching() {
 
-        //$userMatchModel = new UserMatchModel();
-        $this->fetchMyself();
-        $this->fetchAllUser();
-        $this->addAllInterestsToUsers();
-        $this->fetchMatchingInstances();
-        $this->deleteOldMatchesFromUserList();
-        $this->countInterestOverlap();
-        //$this->printSortedUserList();
-        $this->deleteUsersWithNoInterestOverlap();
-        $this->interestModel->fetchAllInterests();
-        return $this->renderRandomUser();
-    }
 
     //API function to get a profile in json format to render it in the browser with javascript?
 
@@ -179,7 +313,6 @@ class MatchingController extends Controller {
      * add a positive matching instance to the database
      */
     public function addMatchingInstancePositive() {
-        var_dump($_POST);
         $this->matchingInstanceModel->addMatchingInstance($_POST['id_user'], 1);
         Application::$app->response->redirect("?t=frontend&request=matching");
     }
@@ -192,6 +325,7 @@ class MatchingController extends Controller {
         $this->matchingInstanceModel->addMatchingInstance($_POST['id_user'], 0);
         Application::$app->response->redirect("?t=frontend&request=matching");
     }
+
 
 
 

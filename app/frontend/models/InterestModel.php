@@ -33,4 +33,17 @@ class InterestModel extends Model {
     public function getInterestName(int $id_interest) {
         return $this->interests[$id_interest];
     }
+
+    /**
+     * @param string $name
+     * @return int id of the interest with the given name
+     *
+     * returns the id of the interest for the given name
+     */
+    public function getInterestID(string $name) {
+        foreach ($this->interests as $id => $interest) {
+            if ($interest == $name) return $id;
+        }
+        return -1;
+    }
 }
