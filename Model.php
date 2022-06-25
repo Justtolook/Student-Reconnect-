@@ -11,6 +11,7 @@ abstract class Model {
     public const RULE_MIN = 'min';
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
+    public const RULE_WRONG_PASSWORD ='password_incorrect';
 
     /**
      * @param $data -> e.g. a db statement result from SELECT
@@ -70,6 +71,10 @@ abstract class Model {
         $this->errors[$attribute][] = $message;
     }
 
+    public function addErrorManual(string $attribute, string $errorMsg) {
+        $this->errors[$attribute][] = $errorMsg;
+    }
+
     public function errorMessages() {
         return [
             self::RULE_REQUIRED => 'This field is required',
@@ -78,6 +83,7 @@ abstract class Model {
             self::RULE_MIN => 'Min length of this field must be {min}',
             self::RULE_MAX => 'Max length of this field must be {max}',
             self::RULE_MATCH => 'This field must be the same as {match}',
+            self::RULE_WRONG_PASSWORD => 'Wrong password. Please try again.',
         ];
     }
 
@@ -88,6 +94,10 @@ abstract class Model {
      */
     public function hasError(string $attribute) {
         return $this->errors[$attribute] ?? false;
+    }
+
+    public function getError(string $attribute) {
+        return $this->errors[$attribute][0] ?? '';
     }
 
 }

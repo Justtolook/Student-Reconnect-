@@ -18,6 +18,7 @@ class Application {
     public View $view;
 
     public function __construct() {
+        session_start();
         self::$app = $this;
         self::$systemType = "frontend";
         $this->request = new Request();
@@ -30,14 +31,5 @@ class Application {
         echo $this->router->resolve();
     }
 
-/*
-    public function renderView($view) {
-        $layoutName = Application::$app->layout;
-        if(Application::$app->controller) {
-            $layoutName = Application::$app->controller->layout;
-        }
-
-    }
-*/
 }
 ?>
