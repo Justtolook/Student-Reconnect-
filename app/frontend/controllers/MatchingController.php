@@ -3,6 +3,7 @@ require_once 'Controller.php';
 require_once 'app/frontend/models/UserMatchModel.php';
 require_once 'app/frontend/models/UserModel.php';
 require_once 'app/frontend/models/HasInterestModel.php';
+require_once 'app/frontend/models/MatchingInstanceModel.php';
 require_once 'Database.php';
 
 class MatchingController extends Controller {
@@ -10,6 +11,7 @@ class MatchingController extends Controller {
     public UserMatchModel $UserMatchModel;
     public array $UserAll = [];
     public HasInterestModel $hasInterestModel;
+    public MatchingInstanceModel $matchingInstanceModel;
 
     public function __construct() {
         /**
@@ -19,6 +21,7 @@ class MatchingController extends Controller {
         $this->UserMyself = new UserModel();
         $this->UserMatchModel = new UserMatchModel();
         $this->hasInterestModel = new HasInterestModel();
+        $this->matchingInstanceModel = new MatchingInstanceModel();
     }
 
     /**
@@ -60,6 +63,85 @@ class MatchingController extends Controller {
         $this->UserMyself->interests = $this->hasInterestModel->getInterestsForUserID($this->UserMyself->id_user);
     }
 
+    /**
+     * @return void
+     * adds all matching instances to the UserModel $UserMyself
+     */
+    public function fetchMatchingInstances() {
+        $this->matchingInstanceModel->fetchAllMatchingInstancesForUser($this->UserMyself->id_user);
+        foreach($this->matchingInstanceModel->matchingInstances as $matchingInstance) {
+            $this->UserMyself->matchingInstancesOld[$matchingInstance['id_user_received']] = $matchingInstance['score'];
+        }
+    }
+
+    /**
+     * @return void
+     * removes all user from the UserAll array that have been rated by the logged in user before
+     */
+    public function deleteOldMatchesFromUserList() {
+        foreach($this->UserAll as $user) {
+            if(isset($this->UserMyself->matchingInstancesOld[$user->id_user])) {
+                unset($this->UserAll[$user->id_user]);
+            }
+        }
+    }
+
+    /**
+     * @return void
+     * prints the number of users in the UserAll array
+     */
+    public function printUserListCount() {
+        echo "UserListCount: " . count($this->UserAll);
+    }
+
+    /**
+     * @return void
+     * count the number of interest overlaps between $UserMyself and all users in the UserAll array and saves it in $UserAll['id_user']->interestOverlapScore
+     */
+    public function countInterestOverlap() {
+        foreach($this->UserAll as $user) {
+            $user->interestOverlapScore = 0;
+            foreach($this->UserMyself->interests as $interest) {
+                if(in_array($interest, $user->interests)) {
+                    $user->interestOverlapScore++;
+                }
+            }
+        }
+    }
+
+    /**
+     * @return void
+     * sorts the UserAll array descending by the interestOverlapScore and prints it
+     */
+    public function printSortedUserList() {
+        uasort($this->UserAll, function($a, $b) {
+            return $b->interestOverlapScore - $a->interestOverlapScore;
+        });
+        echo "<pre>";
+        var_dump($this->UserAll);
+    }
+
+    /**
+     * @return void
+     * remove all Users from the UserAll array that have a interestOverlapScore of 0
+     */
+    public function deleteUsersWithNoInterestOverlap() {
+        foreach($this->UserAll as $user) {
+            if($user->interestOverlapScore == 0) {
+                unset($this->UserAll[$user->id_user]);
+            }
+        }
+    }
+
+    /**
+     * @return string
+     * selects a random user from the UserAll array and render the matching view with that user
+     */
+    public function renderRandomUser() {
+        $randomUser = array_rand($this->UserAll);
+        return $this->render("matching", ["model" => $this->UserAll[$randomUser]]);
+    }
+
 
 
     public function matching() {
@@ -68,7 +150,13 @@ class MatchingController extends Controller {
         $this->fetchMyself();
         $this->fetchAllUser();
         $this->addAllInterestsToUsers();
-        return $this->render('matching', ['model' => $this->UserMyself]);
+        $this->fetchMatchingInstances();
+        $this->deleteOldMatchesFromUserList();
+        $this->countInterestOverlap();
+        //$this->printSortedUserList();
+        $this->deleteUsersWithNoInterestOverlap();
+
+        return $this->renderRandomUser();
     }
 
     //API function to get a profile in json format to render it in the browser with javascript?

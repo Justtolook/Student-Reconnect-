@@ -8,6 +8,8 @@ class UserModel extends Model {
     public string $description;
     public string $gender;
     public array $interests;
+    public array $matchingInstancesOld = []; //format [userID => score]
+    public int $interestOverlapScore;
 
     public function rules() : array {
         return [];
