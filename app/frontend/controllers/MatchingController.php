@@ -4,6 +4,7 @@ require_once 'app/frontend/models/UserMatchModel.php';
 require_once 'app/frontend/models/UserModel.php';
 require_once 'app/frontend/models/HasInterestModel.php';
 require_once 'app/frontend/models/MatchingInstanceModel.php';
+require_once 'app/frontend/models/InterestModel.php';
 require_once 'Database.php';
 
 class MatchingController extends Controller {
@@ -12,6 +13,7 @@ class MatchingController extends Controller {
     public array $UserAll = [];
     public HasInterestModel $hasInterestModel;
     public MatchingInstanceModel $matchingInstanceModel;
+    public InterestModel $interestModel;
 
     public function __construct() {
         /**
@@ -22,6 +24,7 @@ class MatchingController extends Controller {
         $this->UserMatchModel = new UserMatchModel();
         $this->hasInterestModel = new HasInterestModel();
         $this->matchingInstanceModel = new MatchingInstanceModel($_SESSION['user']['id_user']);
+        $this->interestModel = new InterestModel();
     }
 
     /**
@@ -139,7 +142,7 @@ class MatchingController extends Controller {
      */
     public function renderRandomUser() {
         $randomUser = array_rand($this->UserAll);
-        return $this->render("matching", ["model" => $this->UserAll[$randomUser]]);
+        return $this->render("matching", ["model" => $this->UserAll[$randomUser], "interestModel" => $this->interestModel]);
     }
 
     /**
@@ -165,6 +168,7 @@ class MatchingController extends Controller {
         $this->countInterestOverlap();
         //$this->printSortedUserList();
         $this->deleteUsersWithNoInterestOverlap();
+        $this->interestModel->fetchAllInterests();
         return $this->renderRandomUser();
     }
 

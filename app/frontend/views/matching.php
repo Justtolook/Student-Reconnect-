@@ -18,7 +18,13 @@
         </tr>
         <tr>
             <td>
-                Interessen: <?php var_dump($model->interests); ?>
+                Interessen: <br>
+                <!-- print the interests of the user in plain text-->
+                <ul>
+                    <?php foreach($model->interests as $interest) {
+                        echo "<li>" . $interestModel->getInterestName($interest) . "</li>";
+                    } ?>
+                </ul>
             </td>
         </tr>
         <tr>
@@ -26,11 +32,11 @@
                 <!-- two buttons: one for matching and one for not matching -->
                 <form action="?t=frontend&request=matching/matching" method="post">
                     <input type="hidden" name="id_user" value="<?php echo $model->id_user; ?>">
-                    <input type="submit" value="Match">
+                    <input type="submit" value="Matchen">
                 </form>
                 <form action="?t=frontend&request=matching/notmatching" method="post">
                     <input type="hidden" name="id_user" value="<?php echo $model->id_user; ?>">
-                    <input type="submit" value="Niet Match">
+                    <input type="submit" value="Nicht Matchen">
                 </form>
             </td>
         </tr>
