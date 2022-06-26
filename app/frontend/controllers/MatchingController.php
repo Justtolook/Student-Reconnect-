@@ -5,9 +5,11 @@ require_once 'app/frontend/models/UserModel.php';
 require_once 'app/frontend/models/HasInterestModel.php';
 require_once 'app/frontend/models/MatchingInstanceModel.php';
 require_once 'app/frontend/models/InterestModel.php';
+require_once 'app/frontend/models/MatchModel.php';
 require_once 'Database.php';
 
 class MatchingController extends Controller {
+    public int $id_myself;
     public UserModel $UserMyself;
     public UserMatchModel $UserMatchModel;
     public array $UserAllBase = [];
@@ -15,6 +17,7 @@ class MatchingController extends Controller {
     public HasInterestModel $hasInterestModel;
     public MatchingInstanceModel $matchingInstanceModel;
     public InterestModel $interestModel;
+    public MatchModel $matchModel;
     public array $interestFilter = []; //array with their id's
 
     public function __construct() {
@@ -22,11 +25,13 @@ class MatchingController extends Controller {
          * check if user is logged in. If they are not, user will be redirected to the login page
          */
         if(!$this->isLoggedIn()) Application::$app->response->redirect("?t=frontend&request=login");
+        $this->id_myself = $_SESSION['user']['id_user'];
         $this->UserMyself = new UserModel();
         $this->UserMatchModel = new UserMatchModel();
         $this->hasInterestModel = new HasInterestModel();
-        $this->matchingInstanceModel = new MatchingInstanceModel($_SESSION['user']['id_user']);
+        $this->matchingInstanceModel = new MatchingInstanceModel($this->id_myself);
         $this->interestModel = new InterestModel();
+        $this->matchModel = new MatchModel($this->id_myself);
 
         //$userMatchModel = new UserMatchModel();
         $this->fetchMyself();
@@ -293,6 +298,16 @@ class MatchingController extends Controller {
     }
 
     /**
+     * @param int $id_user
+     * @return string
+     * render the matching view with the user with the id_user $id_user
+     * debug only
+     */
+    public function renderUserByID($id_user) {
+        return $this->render("matching", ["model" => $this->UserAll[$id_user], "interestModel" => $this->interestModel]);
+    }
+
+    /**
      * @return string
      * renders the machting instances for logged in user
      * only debug function
@@ -313,7 +328,11 @@ class MatchingController extends Controller {
      * add a positive matching instance to the database
      */
     public function addMatchingInstancePositive() {
-        $this->matchingInstanceModel->addMatchingInstance($_POST['id_user'], 1);
+        $userID = $_POST['id_user'];
+        $this->matchingInstanceModel->addMatchingInstance($userID, 1);
+        if($this->matchingInstanceModel->checkForPositiveMatchingScore($userID)) {
+            $this->matchModel->createMatch($userID);
+        }
         Application::$app->response->redirect("?t=frontend&request=matching");
     }
 
