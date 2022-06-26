@@ -6,6 +6,7 @@ require_once 'app/frontend/controllers/ProfileController.php';
 require_once 'app/frontend/controllers/AuthController.php';
 require_once 'app/frontend/controllers/EventsController.php';
 require_once 'app/frontend/controllers/MatchingController.php';
+require_once 'app/backend/controllers/UserController.php';
 
 $app = new Application();
 /**
@@ -44,6 +45,8 @@ $app->router->setRoute("post","frontend", "pwreset", [AuthController::class, 'ha
 
 $app->router->setRoute("post","frontend", "pwresetemail", [AuthController::class, 'handlePWResetEmail']);
 
+
+$app->router->setRoute("get","backend", "user", [UserController::class, 'home']);
 $app->run();
 
 
