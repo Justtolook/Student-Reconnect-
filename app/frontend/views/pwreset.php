@@ -21,6 +21,7 @@
     </div>
     <button type="submit"  class="btn btn-primary">Senden</button><br><br><br>
 </form>
+    <?php if(isset($_SESSION['verifcode'])) { ?>
 <form method="POST" action="?t=frontend&request=pwreset">
     <!-- TODO display errors if there are any -->
     <div class="form-group">
@@ -36,3 +37,4 @@
 </form>
     <a href="?t=frontend&request=login" class="login">Zurück zum Login</a><br>
 </div>
+<?php } ?>
