@@ -6,6 +6,7 @@ class LoginModel extends Model {
     public Database $db;
     public string $email;
     public string $password;
+    public int $id_role; //0 = guest, 1 = user, 2 = moderator, 3 = admin
 
     public function __construct() {
         $this->db = new Database();

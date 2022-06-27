@@ -6,6 +6,7 @@ require_once 'app/frontend/controllers/ProfileController.php';
 require_once 'app/frontend/controllers/AuthController.php';
 require_once 'app/frontend/controllers/EventsController.php';
 require_once 'app/frontend/controllers/MatchingController.php';
+require_once 'app/frontend/controllers/ModerationController.php';
 
 $app = new Application();
 /**
@@ -22,33 +23,37 @@ $app = new Application();
  */
 
 
-$app->router->setRoute("get", "frontend", "landingpage", [SiteController::class, 'home']);
-$app->router->setRoute("get", "frontend", "notifications", [SiteController::class, 'notifications']);
-$app->router->setRoute("get","frontend", "profile", [ProfileController::class, 'home']);
-$app->router->setRoute("get","frontend", "login", [AuthController::class, 'login']);
-$app->router->setRoute("post","frontend", "login", [AuthController::class, 'handleLogin']);
-$app->router->setRoute("post","frontend", "logout", [AuthController::class, 'logout']);
-$app->router->setRoute("get","frontend", "settings", [SiteController::class, 'settings']);
-$app->router->setRoute("post","frontend", "settings", [SiteController::class, 'settings']);
+$app->router->setRoute("get", "frontend", "landingpage", [SiteController::class, 'home'], 0);
+$app->router->setRoute("get", "frontend", "notifications", [SiteController::class, 'notifications'], 0);
+$app->router->setRoute("get","frontend", "profile", [ProfileController::class, 'profile'], 1);
+$app->router->setRoute("get","frontend", "login", [AuthController::class, 'login'], 0);
+$app->router->setRoute("post","frontend", "login", [AuthController::class, 'handleLogin'], 0);
+$app->router->setRoute("post","frontend", "logout", [AuthController::class, 'logout'], 1);
+$app->router->setRoute("get","frontend", "settings", [SiteController::class, 'settings'], 1);
+$app->router->setRoute("post","frontend", "settings", [SiteController::class, 'settings'], 1);
 
-$app->router->setRoute("get","frontend", "events", [EventsController::class, 'events']);
-$app->router->setRoute("post","frontend", "events", [EventsController::class, 'events']);
-
-$app->router->setRoute("get","frontend", "matching", [MatchingController::class, 'matching']);
-$app->router->setRoute("post","frontend", "matching", [MatchingController::class, 'matching']);
-$app->router->setRoute("post","frontend", "matching/matching", [MatchingController::class, 'addMatchingInstancePositive']);
-$app->router->setRoute("post","frontend", "matching/notmatching", [MatchingController::class, 'addMatchingInstanceNegative']);
-$app->router->setRoute("post","frontend", "matching/filter", [MatchingController::class, 'filter']);
-$app->router->setRoute("post","frontend", "matching/resetfilter", [MatchingController::class, 'resetFilter']);
-$app->router->setRoute("post","frontend", "matching/clearfilter", [MatchingController::class, 'clearFilter']);
+$app->router->setRoute("get","frontend", "events", [EventsController::class, 'events'], 1);
+$app->router->setRoute("post","frontend", "events", [EventsController::class, 'events'], 1);
 
 
-$app->router->setRoute("get","frontend", "register", [AuthController::class, 'register']);
-$app->router->setRoute("post","frontend", "register", [AuthController::class, 'handleRegistration']);
-$app->router->setRoute("get","frontend", "pwreset", [AuthController::class, 'pwReset']);
-$app->router->setRoute("post","frontend", "pwreset", [AuthController::class, 'handlePWReset']);
+$app->router->setRoute("get","frontend", "matching", [MatchingController::class, 'matching'], 1);
+$app->router->setRoute("post","frontend", "matching", [MatchingController::class, 'matching'], 1);
+$app->router->setRoute("post","frontend", "matching/matching", [MatchingController::class, 'addMatchingInstancePositive'], 1);
+$app->router->setRoute("post","frontend", "matching/notmatching", [MatchingController::class, 'addMatchingInstanceNegative'], 1);
+$app->router->setRoute("post","frontend", "matching/filter", [MatchingController::class, 'filter'], 1);
+$app->router->setRoute("post","frontend", "matching/resetfilter", [MatchingController::class, 'resetFilter'], 1);
+$app->router->setRoute("post","frontend", "matching/clearfilter", [MatchingController::class, 'clearFilter'], 1);
 
-$app->router->setRoute("post","frontend", "pwresetemail", [AuthController::class, 'handlePWResetEmail']);
+
+$app->router->setRoute("get","frontend", "register", [AuthController::class, 'register'], 0);
+$app->router->setRoute("post","frontend", "register", [AuthController::class, 'handleRegistration'], 0);
+$app->router->setRoute("get","frontend", "pwreset", [AuthController::class, 'pwReset'], 0);
+$app->router->setRoute("post","frontend", "pwreset", [AuthController::class, 'handlePWReset'], 0);
+
+$app->router->setRoute("post","frontend", "pwresetemail", [AuthController::class, 'handlePWResetEmail'], 0);
+
+$app->router->setRoute("get","frontend", "moderation", [ModerationController::class, 'moderation'], 1); //TODO change to 2
+$app->router->setRoute("post","frontend", "moderation", [ModerationController::class, 'moderation'], 1);
 
 $app->run();
 

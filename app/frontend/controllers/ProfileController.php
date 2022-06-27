@@ -19,7 +19,7 @@ class ProfileController extends Controller {
      * @return string
      * render the standard profile page
      */
-    public function home() {
+    public function profile() {
         $this->interestModel->fetchAllInterests();
         return $this->render("profile", ["visitenkarte" => $this->visitenkartenModel, "interestModel" => $this->interestModel]);
     }

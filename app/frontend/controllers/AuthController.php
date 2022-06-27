@@ -9,11 +9,6 @@ require_once 'app/frontend/models/PWResetEmailModel.php';
 class AuthController extends Controller {
 
     public function __construct() {
-        /**
-         * check if user is logged in.
-         * If they are logged in redirect to the profile page as no login or registration is needed.
-         */
-        if($this->isLoggedIn()) Application::$app->response->redirect("?t=frontend&request=profile");
     }
 
     public function login() {
@@ -41,7 +36,6 @@ class AuthController extends Controller {
             if($user) {
                 $_SESSION['user'] = $user;
                 Application::$app->response->redirect("?t=frontend&request=profile");
-                return;
             }
         }
         //add an Error that will be used to show that user that the password is wrong
