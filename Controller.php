@@ -16,6 +16,10 @@ class Controller {
     public function isLoggedIn() : bool {
         return isset($_SESSION['user']);
     }
+
+    public function getUserRole() : int {
+        return $_SESSION['user']['id_role'];
+    }
     
 
 }

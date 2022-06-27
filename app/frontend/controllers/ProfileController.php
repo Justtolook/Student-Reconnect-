@@ -6,7 +6,7 @@ class ProfileController extends Controller {
      * @return string
      * render the standard profile page
      */
-    public function home() {
+    public function profile() {
         return $this->render("profile");
     }
 
