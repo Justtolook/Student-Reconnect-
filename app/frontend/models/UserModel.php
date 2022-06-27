@@ -6,28 +6,16 @@ class UserModel extends Model {
     public string $firstname;
     public string $lastname;
     public string $description;
-    public Database $db;
+    public string $gender;
+    public array $interests;
+    public array $matchingInstancesOld = []; //format [userID => score]
+    public int $interestOverlapScore;
 
     public function rules() : array {
         return [];
     }
 
     public function __construct() {
-        $this->db = new Database();
         $this->description = "";
-        /*$users = $this->loadData($this->fetchUserByID());
-        if(is_array($users)) {
-            foreach ($users as $key => $value) {
-                echo "$key: $value <br>";
-            }
-        }*/
-
-    }
-
-    public function fetchUserByID(int $id) {
-        $statement = $this->db->prepare('SELECT * FROM User WHERE id_user = :id');
-        $statement->bindValue(':id', $id);
-        $statement->execute();
-        return $statement->fetch();
     }
 }
