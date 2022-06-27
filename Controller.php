@@ -17,6 +17,16 @@ class Controller {
         return isset($_SESSION['user']);
     }
 
+    //check if user is moderator
+    public function isModerator() : bool {
+        return $_SESSION['user']['id_role'] >= 2;
+    }
+
+    //check if user is admin
+    public function isAdmin() : bool {
+        return $_SESSION['user']['id_role'] === 3;
+    }
+
     public function getUserRole() : int {
         return $_SESSION['user']['id_role'];
     }
