@@ -12,7 +12,6 @@ class EventCreationModel extends Model {
     public string $dateCreated;
     public int $id_userCreator;
     public int $eventDate1;
-    public int $dateCreated1;
 
     public function __construct() {
         $this->db = new Database();
