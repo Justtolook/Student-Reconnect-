@@ -25,6 +25,18 @@ class HasInterestModel extends Model {
     }
 
     /**
+     * return void
+     * fetch only interests from hasInterest table for specific user
+     */
+    public function fetchInterestsForUserID(int $userID) {
+        $sql = "SELECT * FROM hasInterest WHERE id_user = :user_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $userID);
+        $stmt->execute();
+        $this->hasInterests = $stmt->fetchAll();
+    }
+
+    /**
      * @param int $UserID
      * @return array of interests id's for the given UserID
      */
