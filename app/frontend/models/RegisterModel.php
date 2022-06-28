@@ -34,14 +34,14 @@ class RegisterModel extends Model {
      * @return bool based on execution success
      */
     public function register() {
-        $statement1 = $db->prepare("SELECT * FROM Users WHERE email = $this->email");
+        /*$statement1 = $db->prepare("SELECT * FROM user WHERE email = $this->email");
         while ($row = $statement1->fetch()) {
             if (!empty($row['email'])) {
                 exit;                           // TO DO complete error handling
             }
-        }
+        }*/
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        $statement = $this->db->prepare("INSERT INTO User (firstname, lastname, email, password, gender, birthdate) VALUES (:firstname, :lastname, :email, :password, :gender, :birthdate)");
+        $statement = $this->db->prepare("INSERT INTO User (firstname, lastname, email, password, gender, birthdate, id_role) VALUES (:firstname, :lastname, :email, :password, :gender, :birthdate), :id_role");
         $statement->bindValue(':firstname', $this->firstname);
         $statement->bindValue(':lastname', $this->lastname);
         $statement->bindValue(':password', $this->password);
@@ -49,6 +49,7 @@ class RegisterModel extends Model {
         $statement->bindValue(':password', $this->password);
         $statement->bindValue(':gender', $this->gender);
         $statement->bindValue(':birthdate', $this->birthdate);
+        $statement->bindValue(':id_role', 1);
 
 
         return $statement->execute();
