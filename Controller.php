@@ -30,6 +30,14 @@ class Controller {
     public function getUserRole() : int {
         return $_SESSION['user']['id_role'];
     }
+
+    public function isRoleSet() : bool {
+        return isset($_SESSION['user']['id_role']);
+    }
+
+    public function setRoleZero() {
+        $_SESSION['user']['id_role'] = 0;
+    }
     
 
 }

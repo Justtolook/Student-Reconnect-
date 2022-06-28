@@ -29,7 +29,8 @@ $app->router->setRoute("get", "frontend", "notifications", [SiteController::clas
 $app->router->setRoute("get","frontend", "profile", [ProfileController::class, 'profile'], 1);
 $app->router->setRoute("get","frontend", "login", [AuthController::class, 'login'], 0);
 $app->router->setRoute("post","frontend", "login", [AuthController::class, 'handleLogin'], 0);
-$app->router->setRoute("post","frontend", "logout", [AuthController::class, 'logout'], 1);
+$app->router->setRoute("get","frontend", "logout", [AuthController::class, 'logout'], 0);
+$app->router->setRoute("post","frontend", "logout", [AuthController::class, 'logout'], 0);
 $app->router->setRoute("get","frontend", "settings", [SiteController::class, 'settings'], 1);
 $app->router->setRoute("post","frontend", "settings", [SiteController::class, 'settings'], 1);
 

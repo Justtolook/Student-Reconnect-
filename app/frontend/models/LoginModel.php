@@ -20,7 +20,7 @@ class LoginModel extends Model {
     }
 
     public function login() {
-        $statement = $this->db->prepare('SELECT * FROM User WHERE email = :email');
+        $statement = $this->db->prepare('SELECT * FROM user WHERE email = :email');
         $statement->bindValue(':email', $this->email);
         $statement->execute();
         $user = $statement->fetch();

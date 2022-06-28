@@ -13,7 +13,7 @@ class UserMatchModel extends Model {
     }
 
     public function fetchOneUser() {
-        $statement = $this->db->prepare('SELECT * FROM User WHERE id_user = 1');
+        $statement = $this->db->prepare('SELECT * FROM user WHERE id_user = 1');
         $statement->execute();
         $users = $statement->fetch();
 
@@ -29,7 +29,7 @@ class UserMatchModel extends Model {
     }
 
     public function fetchUserByID(int $id) {
-        $statement = $this->db->prepare('SELECT * FROM User WHERE id_user = :id');
+        $statement = $this->db->prepare('SELECT * FROM user WHERE id_user = :id');
         $statement->bindValue(':id', $id);
         $statement->execute();
         return $statement->fetch();
