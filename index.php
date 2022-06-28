@@ -19,7 +19,8 @@ $app = new Application();
  *   -> controller class: any specific controller that shall handle the request
  *   -> action: the name of a function that shall be called and is defined in the above controller
  * Important: Definition is Case Sensitive!
- *
+ * 
+ * 0 = guest, 1 = user, 2 = moderator, 3 = admin
  */
 
 
