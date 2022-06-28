@@ -1,5 +1,6 @@
 <?php
 
+require_once 'Database.php';
 /**
  * based on https://github.com/thecodeholic/tc-php-mvc-core
  */
@@ -7,11 +8,13 @@
 abstract class Model {
     public const RULE_REQUIRED = 'required';
     public const RULE_EMAIL = 'email';
-    public const RULE_EMAIL_UNI = 'email_uni'; //TODO check for uni bamberg mail
+    public const RULE_EMAIL_UNI = 'email_uni';
     public const RULE_MIN = 'min';
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
     public const RULE_WRONG_PASSWORD ='password_incorrect';
+    public const RULE_EMAIL_UNIQUE = 'email_unique';
+
 
     /**
      * @param $data -> e.g. a db statement result from SELECT
@@ -23,6 +26,20 @@ abstract class Model {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
                 if(!is_null($value)) $this->{$key} = $value;
+            }
+        }
+    }
+        
+    public function checkEmailNotUnique(string $email) {
+        $db = new Database;
+        $statement = $db->prepare("SELECT * FROM user WHERE email = :email");
+        $statement->bindValue(':email', $email);
+        $statement->execute();
+        while ($row = $statement->fetch()) {
+            if (!empty($row['email'])) {
+                return true;
+            }else {
+                return false;
             }
         }
     }
@@ -58,6 +75,9 @@ abstract class Model {
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
                     $this->addError($attribute, self::RULE_MATCH, ['match' => $rule['match']]);
                 }
+                if ($ruleName === self::RULE_EMAIL_UNIQUE && $this->checkEmailNotUnique($value)) {
+                    $this->addError($attribute, self::RULE_EMAIL_UNIQUE);
+                }
             }
         }
         return empty($this->errors);
@@ -77,13 +97,14 @@ abstract class Model {
 
     public function errorMessages() {
         return [
-            self::RULE_REQUIRED => 'This field is required',
-            self::RULE_EMAIL => 'This field must be valid email address',
-            self::RULE_EMAIL_UNI => 'This must be a valid university address',
-            self::RULE_MIN => 'Min length of this field must be {min}',
-            self::RULE_MAX => 'Max length of this field must be {max}',
-            self::RULE_MATCH => 'This field must be the same as {match}',
-            self::RULE_WRONG_PASSWORD => 'Wrong password. Please try again.',
+            self::RULE_REQUIRED => 'Dieses Feld ist ein Pflichfeld.',
+            self::RULE_EMAIL => 'Bitte geben sie eine gültige E-Mail Adresse an.',
+            self::RULE_EMAIL_UNI => 'Sie müssen eine gültige E-Mail Adresse der Uni Bamberg verwenden.',
+            self::RULE_MIN => 'Die minimale Länge dieses Feldes muss {min} sein.',
+            self::RULE_MAX => 'Die maximale Länge dieses Feldes muss {max} sein.',
+            self::RULE_MATCH => 'Dieses Feld muss {match} entsprechen.',
+            self::RULE_WRONG_PASSWORD => 'Das Passwort ist falsch. Bitte versuchen Sie es erneut.',
+            self::RULE_EMAIL_UNIQUE => 'Diese E-Mail Adresse wird bereits verwendet.'
         ];
     }
 
@@ -101,3 +122,4 @@ abstract class Model {
     }
 
 }
+?>
