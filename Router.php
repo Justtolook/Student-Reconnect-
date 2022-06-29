@@ -2,20 +2,18 @@
 include_once 'Request.php';
 
 class Router {
-    public array $routeMap;
-    //public string $request;
     public Request $request;
     public Response $response;
     protected array $routes;
 
     public function __construct(Request $request, Response $response) {
-        //$this->request = $this->getRequest();
         $this->request = $request;
         $this->response = $response;
     }
 
-    public function setRoute($method, $systype, $request, $callback) {
-        $this->routes[$method][$systype][$request] = $callback;
+    public function setRoute($method, $systype, $request, $callback, $permissionNeed) {
+        $this->routes[$method][$systype][$request]['callback'] = $callback;
+        $this->routes[$method][$systype][$request]['permissionNeed'] = $permissionNeed;
     }
 
     public function getRequest() {
@@ -29,8 +27,8 @@ class Router {
      *
      */
     public function resolve() {
-
-        $callback = $this->routes[$this->request->method][$this->request->systype][$this->request->request] ?? false;
+        $callback = $this->routes[$this->request->method][$this->request->systype][$this->request->request]['callback'] ?? false;
+        $permissionNeeded = $this->routes[$this->request->method][$this->request->systype][$this->request->request]['permissionNeed'] ?? false;
         if($callback === false) {
             $this->response->setStatusCode(404);
             return $this->renderView("_404");
@@ -38,7 +36,22 @@ class Router {
         if(is_string($callback)) {
             return $this->renderView($callback);
         }
+        if($permissionNeeded === false) {
+            $this->response->setStatusCode(403);
+            return $this->renderView("_403");
+        }
         if(is_array($callback)) {
+            //check for permissions and unnecessary site calls
+            if(!Application::$app->controller->isLoggedIn() && $permissionNeeded > 0) {
+                Application::$app->response->redirect("?t=frontend&request=login");
+            }
+            if(Application::$app->controller->isLoggedIn() && $permissionNeeded === 0) {
+                Application::$app->response->redirect("?t=frontend&request=matching");
+            }
+            if(Application::$app->controller->isLoggedIn() && $permissionNeeded > Application::$app->controller->getUserRole()) {
+                return $this->renderView("_403");
+            }
+            //replace standard controller with custom controller
             Application::$app->controller = new $callback[0](); //code used to create an instantiated class as a parameter for callback (relevant as of php 8.0)
             $callback[0] = Application::$app->controller;
         }

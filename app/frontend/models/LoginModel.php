@@ -6,6 +6,7 @@ class LoginModel extends Model {
     public Database $db;
     public string $email;
     public string $password;
+    public int $id_role; //0 = guest, 1 = user, 2 = moderator, 3 = admin
 
     public function __construct() {
         $this->db = new Database();
@@ -19,7 +20,7 @@ class LoginModel extends Model {
     }
 
     public function login() {
-        $statement = $this->db->prepare('SELECT * FROM User WHERE email = :email');
+        $statement = $this->db->prepare('SELECT * FROM user WHERE email = :email');
         $statement->bindValue(':email', $this->email);
         $statement->execute();
         $user = $statement->fetch();

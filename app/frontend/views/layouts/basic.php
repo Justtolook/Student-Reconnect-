@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="app/frontend/css/bootstrap.css">
     <link rel="stylesheet" href="app/frontend/css/colours.css">
     <link rel="stylesheet" href="app/frontend/css/style.css">
-    <!-- TODO: include jquery for bootstrap -->
 </head>
 <body>
 <!-- define navbar -->

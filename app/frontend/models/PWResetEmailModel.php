@@ -1,5 +1,5 @@
 <?php
-require_once 'model.php';
+require_once 'Model.php';
 require_once 'Database.php';
 
 class PWResetEmailModel extends model {
@@ -27,7 +27,21 @@ class PWResetEmailModel extends model {
         return mail($to, $subject, $content, $header);
     }
 
-    public function saveVerificationCode() {
-        $_SESSION['verifcode'] = $this->verifcode;
+    /**
+     * @return void
+     * print the verifcode in the browsers console
+     * only for debugging purposes
+     */
+    public function printVerifCode() {
+        echo "<script>console.log('" . $this->verifcode . "');</script>";
+        return true;
     }
+
+    public function saveVerificationCode() {
+        $_SESSION['verifcode'] = [
+            'email' => $this->email,
+         'code' => $this->verifcode];
+    }
+
+
 }
