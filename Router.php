@@ -42,7 +42,6 @@ class Router {
         }
         if(is_array($callback)) {
             //check for permissions and unnecessary site calls
-            //if(!Application::$app->controller->isRoleSet()) Application::$app->controller->setRoleZero;
             if(!Application::$app->controller->isLoggedIn() && $permissionNeeded > 0) {
                 Application::$app->response->redirect("?t=frontend&request=login");
             }

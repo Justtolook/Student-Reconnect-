@@ -283,7 +283,7 @@ class MatchingController extends Controller {
             }
         }
         if(count($this->UserAll) == 0) {
-            echo "No users found";
+            //echo "No users found";
             $this->UserAll = $this->UserAllBase;
         }
     }

@@ -12,6 +12,7 @@ class RegisterModel extends Model {
     public string $passwordrepeat;
     public string $gender;
     public string $birthdate;
+    public int $id_role = 1;
 
     public function __construct() {
         $this->db = new Database();
@@ -35,7 +36,7 @@ class RegisterModel extends Model {
      */
     public function register() {
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        $statement = $this->db->prepare("INSERT INTO user (firstname, lastname, email, password, gender, birthdate) VALUES (:firstname, :lastname, :email, :password, :gender, :birthdate)");
+        $statement = $this->db->prepare("INSERT INTO user (firstname, lastname, email, password, gender, birthdate, id_role) VALUES (:firstname, :lastname, :email, :password, :gender, :birthdate, :id_role)");
         $statement->bindValue(':firstname', $this->firstname);
         $statement->bindValue(':lastname', $this->lastname);
         $statement->bindValue(':password', $this->password);
@@ -43,7 +44,7 @@ class RegisterModel extends Model {
         $statement->bindValue(':password', $this->password);
         $statement->bindValue(':gender', $this->gender);
         $statement->bindValue(':birthdate', $this->birthdate);
-
+        $statement->bindValue('id_role', $this->id_role);
 
         return $statement->execute();
     }
