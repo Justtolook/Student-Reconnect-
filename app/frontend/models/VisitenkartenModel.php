@@ -1,5 +1,5 @@
 <?php
-require_once 'model.php';
+require_once 'Model.php';
 require_once 'app/frontend/models/HasInterestModel.php';
 
 class VisitenkartenModel extends Model{
