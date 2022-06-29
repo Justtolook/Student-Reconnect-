@@ -15,6 +15,7 @@ class A_UserModel extends Model {
     public int $scoreHost = 0;
     public int $scoreAttendee = 0;
     public int $id_role = 0;
+    public array $interests;
 
     public function rules(): array {
         return [];

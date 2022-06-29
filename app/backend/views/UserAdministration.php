@@ -22,6 +22,7 @@
             $('#user-edit-modal-role-user').prop('checked', false);
             $('#user-edit-modal-role-moderator').prop('checked', false);
             $('#user-edit-modal-role-admin').prop('checked', false);
+            $('#user-edit-modal-interests').val();
 
             var userId = $(this).attr('data-user-id');
             //get current url
@@ -43,6 +44,7 @@
                     $('#user-edit-modal-contactinfo').val(user.contactInformation);
                     $('#user-edit-modal-scoreHost').val(user.scoreHost);
                     $('#user-edit-modal-scoreAttendee').val(user.scoreAttendee);
+                    $('#user-edit-modal-interests').val(user.interests);
                     //select the correct radio button according to role
                     if (user.id_role == 1) {
                         $('#user-edit-modal-role-user').prop('checked', true);
@@ -200,6 +202,15 @@ $(document).ready(function() {
                     <div class="form-check">
                         <input type="radio" class="form-check-input" id="user-edit-modal-role-admin" name="id_role" value="3">
                         <label class="form-check-label" for="user-edit-modal-role-admin">Administrator</label>
+                    </div>
+                    <!-- show the interests of the user -->
+                    <div class="form-group">
+                        <label for="user-edit-modal-interests">Interests</label>
+                        <select multiple class="form-control" id="user-edit-modal-interests" name="interests[]">
+                            <?php foreach($interestModel->interests as $key => $name) { ?>
+                            <option value="<?php echo $key; ?>"><?php echo $name; ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary user-edit-modal-save">Daten Updaten</button>
                 </form>
