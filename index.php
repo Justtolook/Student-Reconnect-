@@ -65,7 +65,7 @@ $app->router->setRoute("get","frontend", "moderation", [ModerationController::cl
 $app->router->setRoute("post","frontend", "moderation", [ModerationController::class, 'moderation'], 2);
 
 
-$app->router->setRoute("get","backend", "user", [UserController::class, 'home']);
+$app->router->setRoute("get","backend", "user", [UserController::class, 'home'], 3);
 $app->run();
 
 

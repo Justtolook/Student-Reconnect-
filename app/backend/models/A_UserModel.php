@@ -1,7 +1,7 @@
 <?php
 require_once 'Model.php';
 
-class UserModel extends Model {
+class A_UserModel extends Model {
     public int $id_user;
     public string $firstname;
     public string $lastname;

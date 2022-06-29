@@ -1,9 +1,9 @@
 <?php
 require_once 'Model.php';
 require_once 'Database.php';
-require_once 'app/backend/models/UserModel.php';
+require_once 'app/backend/models/A_UserModel.php';
 
-class UserAdministrationModel extends Model {
+class A_UserAdministrationModel extends Model {
     public array $users;
     public Database $db;
 
@@ -27,7 +27,7 @@ class UserAdministrationModel extends Model {
      */
     public function createUserModels($userQuery) {
         foreach($userQuery as $user) {
-            $userModel = new UserModel();
+            $userModel = new A_UserModel();
             $userModel->loadData($user);
             $this->users[] = $userModel;
         }
