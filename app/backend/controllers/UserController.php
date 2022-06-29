@@ -19,5 +19,42 @@ class UserController extends Controller {
         return $this->render('UserAdministration', ['users' => $this->userAdministrationModel->users]);
     }
 
+    /**
+     * @param Request $request
+     * @return void
+     * API to get the data a specific user by id from the database and return it as a JSON object
+     */
+    public function API_getUserById(Request $request) {
+        $id_user = $request->getBody()['uid'];
+        $user = $this->userAdministrationModel->getUserById($id_user);
+        echo json_encode($user);
+    }
+
+    /**
+     * @param Request $request
+     * @return void
+     * API to update a user
+     */
+    public function API_editUser(Request $request) {
+        $id_user = $request->getBody()['id_user'];
+        $user = $this->userAdministrationModel->getUserById($id_user);
+        $user->loadData($request->getBody());
+        //echo "<pre>";
+        //print_r($user);
+        $user->save();
+        Application::$app->response->redirect("?t=backend&request=user");
+    }
+
+    /**
+     * @param Request $request
+     * delete user by id
+     */
+    public function API_deleteUser(Request $request) {
+        $id_user = $request->getBody()['id_user'];
+        $user = $this->userAdministrationModel->getUserById($id_user);
+        $user->delete();
+        Application::$app->response->redirect("?t=backend&request=user");
+    }
+
 
 }

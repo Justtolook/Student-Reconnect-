@@ -1,5 +1,6 @@
 <?php
 
+
 require_once 'Application.php';
 require_once 'app/frontend/controllers/SiteController.php';
 require_once 'app/frontend/controllers/ProfileController.php';
@@ -66,20 +67,12 @@ $app->router->setRoute("post","frontend", "moderation", [ModerationController::c
 
 
 $app->router->setRoute("get","backend", "user", [UserController::class, 'home'], 3);
+$app->router->setRoute("get","backend", "API_getUser", [UserController::class, 'API_getUserById'], 3);
+$app->router->setRoute("post","backend", "API_editUser", [UserController::class, 'API_editUser'], 3);
+$app->router->setRoute("post","backend", "API_deleteUser", [UserController::class, 'API_deleteUser'], 3);
 $app->run();
 
 
 
 
 ?>
-<!--
-<div>
-<a href="?t=f&request=landingpage">
-    landingpage frontend
-</a>
-</div>
-
-<a href="?t=b&request=landingpage">
-    landingpage backend
-</a>
--->

@@ -33,5 +33,21 @@ class A_UserAdministrationModel extends Model {
         }
     }
 
+    /**
+     * return the UserModel object for the given id from the users array
+     */
+    public function getUserById($id_user) {
+        //$uid = $request->getBody()['uid'];
+        foreach ($this->users as $user) {
+            if ($user->id_user == $id_user) {
+                return $user;
+            }
+        }
+    }
+
+
+
+
+
 
 }
