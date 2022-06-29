@@ -9,11 +9,6 @@ require_once 'app/frontend/models/PWResetEmailModel.php';
 class AuthController extends Controller {
 
     public function __construct() {
-        /**
-         * check if user is logged in.
-         * If they are logged in redirect to the profile page as no login or registration is needed.
-         */
-        if($this->isLoggedIn()) Application::$app->response->redirect("?t=frontend&request=profile");
     }
 
     public function login() {
@@ -41,7 +36,6 @@ class AuthController extends Controller {
             if($user) {
                 $_SESSION['user'] = $user;
                 Application::$app->response->redirect("?t=frontend&request=profile");
-                return;
             }
         }
         //add an Error that will be used to show that user that the password is wrong
@@ -81,9 +75,9 @@ class AuthController extends Controller {
         $PWResetEmailModel = new PWResetEmailModel();
         $PWResetEmailModel->loadData($request->getBody());
         if($PWResetEmailModel->validate()) {
-            if($PWResetEmailModel->sendEmail()) {
+            if($PWResetEmailModel->printVerifCode()) { //to be changed to sendMail() TODO if mail is working
                 $PWResetEmailModel->saveVerificationCode(); //save verification code in session variable
-                return "Email wurde gesendet!";
+                return $this->render('pwreset', ['model' => $PWResetEmailModel]);
             }
             return $this->render("error_email_not_sent");
         }
@@ -91,9 +85,17 @@ class AuthController extends Controller {
     }
 
     public function handlePWReset(Request $request) {
-        $PWResetModel = new PWResetModel($_SESSION['verifcode']);
+        $PWResetModel = new PWResetModel();
+        if(!$PWResetModel->isVerifCodeSet()) {
+            return $this->render("error_verifcode_not_set");
+        }
         $PWResetModel->loadData($request->getBody());
-        //TODO
+        if(!$PWResetModel->validate()) return $this->render("pwreset", ['model' => $PWResetModel]);
+        $PWResetModel->loadVerifCode();
+        echo $PWResetModel->verifcode;
+        if($PWResetModel->resetPassword()) return $this->render("pwreset", ['model' => $PWResetModel]);
+        else return $this->render("pwreset", ['model' => $PWResetModel]);
+
     }
 
 }
