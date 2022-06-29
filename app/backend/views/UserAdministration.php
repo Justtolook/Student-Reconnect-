@@ -61,7 +61,7 @@
 
 
 $(document).ready( function () {
-$('#UserTable').DataTable();
+    $('#UserTable').DataTable();
 } );
 // AJAX call to get user data by id and dump it in the modal
 /*

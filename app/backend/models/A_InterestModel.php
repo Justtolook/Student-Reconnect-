@@ -46,4 +46,37 @@ class A_InterestModel extends Model {
         }
         return -1;
     }
+
+    /**
+     * @param int $id_interest
+     * @return [int] => [string]
+     * returns the interest with the given id
+     */
+    public function getInterestById(int $id_interest) {
+        $interest = ['id_interest' => $id_interest, 'name' => $this->getInterestName($id_interest)];
+        return $interest;
+    }
+
+    /**
+     * @param int $id_interest
+     * @return void
+     * saves the interest with the given id
+     */
+    public function save(int $id_interest) {
+        $statement = $this->db->prepare('UPDATE interest SET name = :name WHERE id_interest = :id_interest');
+        $statement->bindValue(':id_interest', $id_interest);
+        $statement->bindValue(':name', $this->getInterestName($id_interest));
+        $statement->execute();
+    }
+
+    /**
+     * @param string $name
+     * @return void
+     * adds a new interest with the given name
+     */
+    public function add(string $name) {
+        $statement = $this->db->prepare('INSERT INTO interest (name) VALUES (:name)');
+        $statement->bindValue(':name', $name);
+        $statement->execute();
+    }
 }

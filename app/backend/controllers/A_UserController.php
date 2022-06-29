@@ -3,7 +3,7 @@ require_once 'Controller.php';
 require_once 'app/backend/models/A_UserAdministrationModel.php';
 require_once 'app/backend/models/A_InterestModel.php';
 
-class UserController extends Controller {
+class A_UserController extends Controller {
     public A_UserAdministrationModel $userAdministrationModel;
     public A_InterestModel $interestModel;
 

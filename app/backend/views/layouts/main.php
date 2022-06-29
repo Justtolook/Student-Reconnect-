@@ -16,7 +16,7 @@ header("Access-Control-Allow-Origin: *");
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">Student Reconnect - Administration</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,7 +24,7 @@ header("Access-Control-Allow-Origin: *");
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="?t=backend&request=user">Users</a>
             <a class="nav-item nav-link" href="?t=backend&request=events">Events</a>
-            <a class="nav-item nav-link" href="?t=backend&request=interessen">Interessen</a>
+            <a class="nav-item nav-link" href="?t=backend&request=interests">Interessen</a>
         </div>
     </div>
 </nav>

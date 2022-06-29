@@ -53,7 +53,8 @@ class A_HasInterestModel extends Model {
      * @return void
      * set the given interests for the given user
      */
-    public function setInterestsForUserID(int $UserID, array $interests) {
+    public function setInterestsForUserID(int $UserID, $interests) {
+        if(is_null($interests)) return;
         $sql = "DELETE FROM hasInterest WHERE id_user = :user_id";
         $statement = $this->db->prepare($sql);
         $statement->bindValue(':user_id', $UserID);
