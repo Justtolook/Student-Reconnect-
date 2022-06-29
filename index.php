@@ -9,6 +9,7 @@ require_once 'app/frontend/controllers/MatchingController.php';
 require_once 'app/frontend/controllers/ModerationController.php';
 require_once 'app/frontend/controllers/SettingsController.php';
 require_once 'app/frontend/controllers/NotificationsController.php';
+require_once 'app/backend/controllers/UserController.php';
 
 $app = new Application();
 /**
@@ -63,6 +64,8 @@ $app->router->setRoute("post","frontend", "pwresetemail", [AuthController::class
 $app->router->setRoute("get","frontend", "moderation", [ModerationController::class, 'moderation'], 2);
 $app->router->setRoute("post","frontend", "moderation", [ModerationController::class, 'moderation'], 2);
 
+
+$app->router->setRoute("get","backend", "user", [UserController::class, 'home']);
 $app->run();
 
 
