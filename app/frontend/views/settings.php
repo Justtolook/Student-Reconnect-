@@ -11,4 +11,10 @@ if(Application::$app->controller->isModerator()) {
         <input type="submit" value="Moderationsbereich" class="btn btn-primary">
     </form>
     </div>';}
+if(Application::$app->controller->isAdmin()) {
+    echo '<div class="form-group">
+    <form action="?t=backend&request=user" method="post">
+        <input type="submit" value="Adminbereich" class="btn btn-primary">
+    </form>
+    </div>';}
 ?>

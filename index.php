@@ -69,6 +69,7 @@ $app->router->setRoute("post","frontend", "moderation", [ModerationController::c
 
 
 $app->router->setRoute("get","backend", "user", [A_UserController::class, 'home'], 3);
+$app->router->setRoute("post","backend", "user", [A_UserController::class, 'home'], 3);
 $app->router->setRoute("get","backend", "API_getUser", [A_UserController::class, 'API_getUserById'], 3);
 $app->router->setRoute("post","backend", "API_editUser", [A_UserController::class, 'API_editUser'], 3);
 $app->router->setRoute("post","backend", "API_deleteUser", [A_UserController::class, 'API_deleteUser'], 3);
