@@ -68,4 +68,16 @@ class A_HasInterestModel extends Model {
         }
     }
 
+    /**
+     * @param int $id_interest
+     * @return void
+     * delete all hasInterests with the given id_interest
+     */
+    public function deleteByInterestId(int $id_interest) {
+        $sql = "DELETE FROM hasInterest WHERE id_interest = :interest_id";
+        $statement = $this->db->prepare($sql);
+        $statement->bindValue(':interest_id', $id_interest);
+        $statement->execute();
+    }
+
 }

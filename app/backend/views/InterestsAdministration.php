@@ -58,7 +58,7 @@ $(document).ready( function () {
             <td><?php echo $name; ?></td>
             <td>
                 <a data-toggle="modal" data-target="#InterestEditModal" class="interest-edit-button btn btn-primary" data-interest-id="<?php echo $id; ?>">Edit</a>
-                <a href="?t=backend&request=deleteInterest&id=<?php echo $id; ?>" class="btn btn-danger">Delete</a>
+                <a href="?t=backend&request=API_deleteInterest&iid=<?php echo $id; ?>" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         <?php } ?>

@@ -79,4 +79,15 @@ class A_InterestModel extends Model {
         $statement->bindValue(':name', $name);
         $statement->execute();
     }
+
+    /**
+     * @param int $id_interest
+     * @return void
+     * deletes the interest with the given id
+     */
+    public function delete(int $id_interest) {
+        $statement = $this->db->prepare('DELETE FROM interest WHERE id_interest = :id_interest');
+        $statement->bindValue(':id_interest', $id_interest);
+        $statement->execute();
+    }
 }

@@ -4,12 +4,14 @@ require_once 'app/backend/models/A_InterestModel.php';
 
 class A_InterestsController extends Controller {
     public A_InterestModel $interestModel;
+    public A_HasInterestModel $hasInterestModel;
 
     public function __construct() {
         //set systemtype to backend of the application
         Application::$systemType = "backend";
         $this->interestModel = new A_InterestModel();
         $this->interestModel->fetchAllInterests();
+        $this->hasInterestModel = new A_HasInterestModel();
     }
 
     public function home() {
@@ -46,6 +48,18 @@ class A_InterestsController extends Controller {
      */
     public function API_addInterest(Request $request) {
         $this->interestModel->add($request->getBody()['interest-add-name']);
+        Application::$app->response->redirect("?t=backend&request=interests");
+    }
+
+    /**
+     * @param Request $request
+     * @return void
+     * API to delete an interest (in interest and hasInterest table)
+     */
+    public function API_deleteInterest(Request $request) {
+        $id_interest = $request->getBody()['iid'];
+        $this->interestModel->delete($id_interest);
+        $this->hasInterestModel->deleteByInterestId($id_interest);
         Application::$app->response->redirect("?t=backend&request=interests");
     }
 }

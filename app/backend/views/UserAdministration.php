@@ -134,7 +134,7 @@ $(document).ready(function() {
             <td><?php echo $user->scoreHost; ?></td>
             <td><?php echo $user->scoreAttendee; ?></td>
             <td><?php echo $user->id_role; ?></td>
-            <td><button data-toggle="modal" data-target="#UserEditModal" class="user-edit-button" data-user-id="<?php echo $user->id_user; ?>">Edit</button></td>
+            <td><button data-toggle="modal" data-target="#UserEditModal" class="user-edit-button btn btn-primary" data-user-id="<?php echo $user->id_user; ?>">Edit</button></td>
         </tr>
         <?php } ?>
     </tbody>

@@ -78,6 +78,7 @@ $app->router->setRoute("get","backend", "interests", [A_InterestsController::cla
 $app->router->setRoute("get","backend", "API_getInterest", [A_InterestsController::class, 'API_getInterest'], 3);
 $app->router->setRoute("post","backend", "API_editInterest", [A_InterestsController::class, 'API_editInterest'], 3);
 $app->router->setRoute("post","backend", "API_addInterest", [A_InterestsController::class, 'API_addInterest'], 3);
+$app->router->setRoute("get","backend", "API_deleteInterest", [A_InterestsController::class, 'API_deleteInterest'], 3);
 
 $app->run();
 
