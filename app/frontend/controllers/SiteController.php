@@ -7,14 +7,4 @@ class SiteController extends Controller  {
         $this->setLayout('basic');
         return $this->render("landingpage");
     }
-
-    public function notifications() {
-        $this->setLayout('main');
-        return $this->render("notifications");
-    }
-
-   public function settings() {
-        $this->setLayout('main');
-        return $this->render("settings");
-    }
 }
