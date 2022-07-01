@@ -29,4 +29,17 @@ class A_EventsController extends Controller{
         $event->save();
         Application::$app->response->redirect("?t=backend&request=events");
     }
+
+    public function API_getAttendeesByEventId(Request $request) {
+        $id_event = $request->getBody()['eid'];
+        $attendees = $this->eventAdministrationModel->getEventById($id_event)->signOns;
+        echo json_encode($attendees);
+    }
+
+    public function API_toggleAttendeeAcceptance(Request $request) {
+        $id_event = $request->getBody()['eid'];
+        $id_user = $request->getBody()['uid'];
+        $this->eventAdministrationModel->toggleAttendeeAcceptance($id_event, $id_user);
+        echo json_encode($this->eventAdministrationModel->getEventById($id_event)->signOns);
+    }
 }

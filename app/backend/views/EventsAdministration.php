@@ -3,12 +3,52 @@
 <h1>Events Administration</h1>
 
 <script>
+    function loadAttendeeList(id_event) {
+        console.log("loadAttendeeList");
+        /**
+         * Fetch the attendees for the event via ajax and fill the datatable
+         */
+        $.ajax({
+            url: 'index.php',
+            type: 'GET',
+            data: {
+                't': 'backend',
+                'request': 'API_getAttendeesByEventId',
+                'eid': id_event
+            },
+            success: function(data) {
+                console.log(data);
+                var attendees = JSON.parse(data);
+                var table = $('#EventAttendeeList').DataTable();
+                table.clear();
+                for (var i = 0; i < attendees.length; i++) {
+                    table.row.add([
+                        attendees[i].id_User,
+                        attendees[i].signOnDate,
+                        attendees[i].ratingHost,
+                        attendees[i].ratingAttendee,
+                        attendees[i].accepted,
+                        '<button data-user-id="' + attendees[i].id_User + '" data-event-id="' + id_event + '" class="btn btn-outline-primary" id="toggle-acceptance" type="button">Toggle Akzeptierung</button>' +
+                        '<button class="btn btn-outline-danger" type="button">Löschen</button>'
+                    ]).draw();
+                    //add a button to last last column of the Datatable
+
+                }
+            }
+        });
+    }
+
+
+
     //fill the event edit modal if the user clicks on the edit button
     $(document).ready(function() {
-        $('.event-edit-button').click(function() {
+
+        $('.event-edit-button').click(
+            function() {
         //$('#eventsTable').on('click', '#event-edit-button', function() {
-            var id = $(this).attr('data-event-id');
-            console.log(id);
+                var id = $(this).attr('data-event-id');
+                loadAttendeeList(id);
+                console.log(id);
             $.ajax({
                 url: 'index.php',
                 type: 'GET',
@@ -31,8 +71,41 @@
                     $('#eventNumberAttendees').val(event.numberAttendees);
                 }
             });
+
+
+    });
+        //toggle the acceptance of an attendee and call the API to update the database via ajax
+        $('#EventAttendeeList').on('click', '#toggle-acceptance', function() {
+            var uid = $(this).attr('data-user-id');
+            var eid = $(this).attr('data-event-id');
+            console.log(eid);
+            $.ajax({
+                url: 'index.php',
+                type: 'get',
+                data: {
+                    't': 'backend',
+                    'request': 'API_toggleAttendeeAcceptance',
+                    'eid': eid,
+                    'uid': uid
+                },
+                success: function(data) {
+                    //reload the attendeelist for the event
+                    loadAttendeeList(eid);
+                    /*var event = JSON.parse(data);
+                    $('#id_User').val(event.id_User);
+                    $('#eventName').val(event.name);
+                    $('#eventDescription').val(event.description);
+                    $('#eventDate').val(event.eventDate);
+                    $('#eventLocation').val(event.location);
+                    $('#eventLocationRough').val(event.location_rough);
+                    $('#eventCreator').val(event.id_userCreator);
+                    $('#eventCreatedTimestamp').val(event.createdTimestamp);
+                    $('#eventNumberAttendees').val(event.numberAttendees);*/
+                }
+            });
         });
     });
+
 
 
     $(document).ready( function () {
@@ -40,18 +113,6 @@
     } );
 </script>
 
-<!--
-implement a table to display all events with this data as columns:
-    public int $id_event;
-    public string $name = "";
-    public string $description = "";
-    public string $location = "";
-    public string $location_rough = "";
-    public int $id_userCreator;
-    public DateTime $eventDate;
-    public DateTime $createdTimestamp;
-    public int $numberAttendees = 0;
--->
 <table id="EventsTable">
     <thead>
         <tr>
@@ -89,7 +150,7 @@ implement a table to display all events with this data as columns:
 </table>
 <!-- create the modal for editing an event -->
 <div class="modal fade" id="EventEditModal" tabindex="-1" role="dialog" aria-labelledby="EventEditModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="EventEditModalLabel">Event bearbeiten</h5>
@@ -129,6 +190,23 @@ implement a table to display all events with this data as columns:
                         <button type="submit" class="btn btn-primary" id="eventEditSubmit">Speichern</button>
                     </div>
                 </form>
+                <hr>
+                <h6>Teilnehmende:</h6>
+                <table id="EventAttendeeList">
+                    <thead>
+                    <tr>
+                        <th>ID_User</th>
+                        <th>SignOnDate</th>
+                        <th>RatingHost</th>
+                        <th>RatingAttendee</th>
+                        <th>Akzeptiert</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

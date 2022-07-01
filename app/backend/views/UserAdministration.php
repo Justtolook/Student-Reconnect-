@@ -4,7 +4,7 @@
 
 ?>
 <h1>User Administration</h1>
-<!-- print a table with all users and their data specified in UserModel-->
+
 <script>
     $(document).ready(function() {
         $('.user-edit-button').click(function() {

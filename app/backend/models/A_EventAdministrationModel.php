@@ -29,6 +29,7 @@ class A_EventAdministrationModel extends Model {
         foreach ($eventQuery as $event) {
             $eventModel = new A_EventModel();
             $eventModel->loadData($event);
+            $eventModel->fetchAndSetSignOns();
             $this->events[] = $eventModel;
         }
     }
@@ -43,6 +44,25 @@ class A_EventAdministrationModel extends Model {
                 return $event;
             }
         }
+    }
+
+    public function toggleAttendeeAcceptance($id_event, $id_user) {
+        $db = new Database();
+        //get the current status of the signon
+        foreach($this->getEventById($id_event)->signOns as $signOn) {
+            if ($signOn->id_User == $id_user) {
+                $currentStatus = $signOn->accepted;
+                $signOn->accepted = !$currentStatus;
+            }
+        }
+        if($currentStatus == 0) {
+            $statement = $db->prepare('UPDATE eventSignOn SET accepted = 1 WHERE id_event = :id_event AND id_user = :id_user');
+        } else {
+            $statement = $db->prepare('UPDATE eventSignOn SET accepted = 0 WHERE id_event = :id_event AND id_user = :id_user');
+        }
+        $statement->bindValue(':id_event', $id_event);
+        $statement->bindValue(':id_user', $id_user);
+        $statement->execute();
     }
 
 

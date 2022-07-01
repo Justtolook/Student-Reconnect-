@@ -1,6 +1,7 @@
 <?php
 require_once 'Model.php';
 require_once 'Database.php';
+require_once 'app/backend/models/A_EventSignOnModel.php';
 
 class A_EventModel extends Model {
     public int $id_event;
@@ -12,6 +13,7 @@ class A_EventModel extends Model {
     public $eventDate;
     public $createdTimestamp;
     public int $numberAttendees = 0;
+    public array $signOns = [];
 
 
     public function rules(): array {
@@ -30,6 +32,8 @@ class A_EventModel extends Model {
         $statement->bindValue(':eventDate', $this->eventDate);
         $statement->bindValue(':createdTimestamp', $this->createdTimestamp);
         $statement->bindValue(':numberAttendees', $this->numberAttendees);
+
+        //TODO save signOns
         return $statement->execute();
     }
 
@@ -39,5 +43,18 @@ class A_EventModel extends Model {
         $statement->bindValue(':id_event', $this->id_event);
         return $statement->execute();
     }
+
+    public function fetchAndSetSignOns() : void {
+        $db = new Database();
+        $statement = $db->prepare('SELECT * FROM eventSignOn WHERE id_event = :id_event');
+        $statement->bindValue(':id_event', $this->id_event);
+        $statement->execute();
+        foreach ($statement->fetchAll() as $signOn) {
+            $signOnModel = new A_EventSignOnModel();
+            $signOnModel->loadData($signOn);
+            $this->signOns[] = $signOnModel;
+        }
+    }
+
 
 }
