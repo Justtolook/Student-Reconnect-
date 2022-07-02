@@ -188,13 +188,13 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Description</th>
-            <th>Location</th>
-            <th>Location Rough</th>
-            <th>Creator</th>
-            <th>Date</th>
-            <th>Created</th>
-            <th>Attendees</th>
+            <th>Beschreibung</th>
+            <th>Ort</th>
+            <th>Ort (grob)</th>
+            <th>ID Ersteller</th>
+            <th>Datum</th>
+            <th>Erstellt</th>
+            <th>Max. Attendees</th>
             <th>Actions</th>
         </tr>
     </thead>
