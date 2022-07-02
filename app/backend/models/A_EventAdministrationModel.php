@@ -65,6 +65,31 @@ class A_EventAdministrationModel extends Model {
         $statement->execute();
     }
 
+    /**
+     * @param $id_event
+     * @param $id_user
+     * @return void
+     * Delete the event signOn for the given user and event from the database
+     */
+    public function deleteAttendee($id_event, $id_user) {
+        $db = new Database();
+        $statement = $db->prepare('DELETE FROM eventSignOn WHERE id_event = :id_event AND id_user = :id_user');
+        $statement->bindValue(':id_event', $id_event);
+        $statement->bindValue(':id_user', $id_user);
+        $statement->execute();
+        //remove user from the signOn array in the eventModel
+        foreach($this->events as $event) {
+            if ($event->id_event == $id_event) {
+                foreach($event->signOns as $signOn) {
+                    if ($signOn->id_User == $id_user) {
+                        $event->signOns = array_diff($event->signOns, [$signOn]);
+                    }
+                }
+            }
+        }
+
+    }
+
 
 
 }

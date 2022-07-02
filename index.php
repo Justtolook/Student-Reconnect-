@@ -79,6 +79,7 @@ $app->router->setRoute("get","backend", "API_getEventById", [A_EventsController:
 $app->router->setRoute("post","backend", "API_editEvent", [A_EventsController::class, 'API_editEvent'], 3);
 $app->router->setRoute("get","backend", "API_getAttendeesByEventId", [A_EventsController::class, 'API_getAttendeesByEventId'], 3);
 $app->router->setRoute("get","backend", "API_toggleAttendeeAcceptance", [A_EventsController::class, 'API_toggleAttendeeAcceptance'], 3);
+$app->router->setRoute("get","backend", "API_deleteAttendee", [A_EventsController::class, 'API_deleteAttendee'], 3);
 
 
 $app->router->setRoute("get","backend", "interests", [A_InterestsController::class, 'home'], 3);

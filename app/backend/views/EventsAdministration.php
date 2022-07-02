@@ -29,7 +29,7 @@
                         attendees[i].ratingAttendee,
                         attendees[i].accepted,
                         '<button data-user-id="' + attendees[i].id_User + '" data-event-id="' + id_event + '" class="btn btn-outline-primary" id="toggle-acceptance" type="button">Toggle Akzeptierung</button>' +
-                        '<button class="btn btn-outline-danger" type="button">Löschen</button>'
+                        '<button data-user-id="' + attendees[i].id_User + '" data-event-id="' + id_event + '" class="btn btn-outline-danger" id="delete-attendee" type="button">Löschen</button>'
                     ]).draw();
                     //add a button to last last column of the Datatable
 
@@ -91,19 +91,35 @@
                 success: function(data) {
                     //reload the attendeelist for the event
                     loadAttendeeList(eid);
-                    /*var event = JSON.parse(data);
-                    $('#id_User').val(event.id_User);
-                    $('#eventName').val(event.name);
-                    $('#eventDescription').val(event.description);
-                    $('#eventDate').val(event.eventDate);
-                    $('#eventLocation').val(event.location);
-                    $('#eventLocationRough').val(event.location_rough);
-                    $('#eventCreator').val(event.id_userCreator);
-                    $('#eventCreatedTimestamp').val(event.createdTimestamp);
-                    $('#eventNumberAttendees').val(event.numberAttendees);*/
                 }
             });
         });
+
+        /**
+         * Delete an attendee from an event and call the API to update the database via ajax
+         */
+        $('#EventAttendeeList').on('click', '#delete-attendee', function() {
+            var uid = $(this).attr('data-user-id');
+            var eid = $(this).attr('data-event-id');
+            console.log(eid);
+            $.ajax({
+                url: 'index.php',
+                type: 'get',
+                data: {
+                    't': 'backend',
+                    'request': 'API_deleteAttendee',
+                    'eid': eid,
+                    'uid': uid
+                },
+                success: function(data) {
+                    //reload the attendeelist for the event
+                    loadAttendeeList(eid);
+                }
+            });
+        });
+
+
+
     });
 
 

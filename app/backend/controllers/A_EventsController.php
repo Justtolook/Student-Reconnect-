@@ -42,4 +42,13 @@ class A_EventsController extends Controller{
         $this->eventAdministrationModel->toggleAttendeeAcceptance($id_event, $id_user);
         echo json_encode($this->eventAdministrationModel->getEventById($id_event)->signOns);
     }
+
+    public function API_deleteAttendee(Request $request) {
+        $id_event = $request->getBody()['eid'];
+        $id_user = $request->getBody()['uid'];
+        $this->eventAdministrationModel->deleteAttendee($id_event, $id_user);
+        echo json_encode($this->eventAdministrationModel->getEventById($id_event)->signOns);
+    }
+
+
 }
