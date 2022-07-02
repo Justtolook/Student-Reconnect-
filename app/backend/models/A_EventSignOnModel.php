@@ -25,6 +25,8 @@ class A_EventSignOnModel extends Model {
         $this->loadData($this->getSignOnsByEventId($id_event));
     }
 
+
+
     //TODO Save() and Delete()
 
 }

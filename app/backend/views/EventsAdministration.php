@@ -1,10 +1,11 @@
 <link rel="stylesheet" href="app/backend/css/jquery.dataTables.min.css">
 <script src="app/backend/js/jquery.dataTables.min.js"></script>
 <h1>Events Administration</h1>
+<!-- reload button -->
+<button class="btn btn-primary" onclick="loadEventList()">Reload</button>
 
 <script>
     function loadAttendeeList(id_event) {
-        console.log("loadAttendeeList");
         /**
          * Fetch the attendees for the event via ajax and fill the datatable
          */
@@ -31,24 +32,79 @@
                         '<button data-user-id="' + attendees[i].id_User + '" data-event-id="' + id_event + '" class="btn btn-outline-primary" id="toggle-acceptance" type="button">Toggle Akzeptierung</button>' +
                         '<button data-user-id="' + attendees[i].id_User + '" data-event-id="' + id_event + '" class="btn btn-outline-danger" id="delete-attendee" type="button">Löschen</button>'
                     ]).draw();
-                    //add a button to last last column of the Datatable
+                }
+            }
+        });
+    }
+
+    /**
+     * fetch all event data via ajax and fill the datatable 'EventsTable'
+     * Columns:
+     *
+     */
+    function loadEventList() {
+        $.ajax({
+            url: 'index.php',
+            type: 'GET',
+            data: {
+                't': 'backend',
+                'request': 'API_getEvents'
+            },
+            success: function(data) {
+                var events = JSON.parse(data);
+                var table = $('#EventsTable').DataTable();
+                table.clear();
+                for (var i = 0; i < events.length; i++) {
+                    table.row.add([
+                        events[i].id_event,
+                        events[i].name,
+                        events[i].description,
+                        events[i].location,
+                        events[i].location_rough,
+                        events[i].id_userCreator,
+                        events[i].eventDate,
+                        events[i].createdTimestamp,
+                        events[i].numberAttendees,
+                        '<button data-event-id="' + events[i].id_event + '" data-toggle="modal" data-target="#EventEditModal" class="event-edit-button btn btn-primary">Edit</button>' +
+                        '<button data-event-id="' + events[i].id_event + '" type="button" class="btn btn-outline-danger event-delete-button">Delete</button>'
+                    ]).draw();
 
                 }
             }
         });
     }
 
-
+    /**
+     * delete an event and reload the list of events
+     */
+    function deleteEvent(id_event) {
+        $.ajax({
+            url: 'index.php',
+            type: 'GET',
+            data: {
+                't': 'backend',
+                'request': 'API_deleteEvent',
+                'eid': id_event
+            },
+            success: function(data) {
+                loadEventList();
+            }
+        });
+    }
 
     //fill the event edit modal if the user clicks on the edit button
     $(document).ready(function() {
+        loadEventList();
 
-        $('.event-edit-button').click(
-            function() {
-        //$('#eventsTable').on('click', '#event-edit-button', function() {
+        //call the function to delete an event
+        $('#EventsTable').on('click', '.event-delete-button', function() {
+            var id_event = $(this).data('event-id');
+            deleteEvent(id_event);
+        });
+
+        $('#EventsTable').on('click', '.event-edit-button', function() {
                 var id = $(this).attr('data-event-id');
                 loadAttendeeList(id);
-                console.log(id);
             $.ajax({
                 url: 'index.php',
                 type: 'GET',
@@ -58,7 +114,6 @@
                     'eid': id
                 },
                 success: function(data) {
-                    console.log(data);
                     var event = JSON.parse(data);
                     $('#id_event').val(event.id_event);
                     $('#eventName').val(event.name);
@@ -101,7 +156,6 @@
         $('#EventAttendeeList').on('click', '#delete-attendee', function() {
             var uid = $(this).attr('data-user-id');
             var eid = $(this).attr('data-event-id');
-            console.log(eid);
             $.ajax({
                 url: 'index.php',
                 type: 'get',
@@ -145,23 +199,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($events as $event) { ?>
-        <tr>
-            <td><?php echo $event->id_event; ?></td>
-            <td><?php echo $event->name; ?></td>
-            <td><?php echo $event->description; ?></td>
-            <td><?php echo $event->location; ?></td>
-            <td><?php echo $event->location_rough; ?></td>
-            <td><?php echo $event->id_userCreator; ?></td>
-            <td><?php echo $event->eventDate; ?></td>
-            <td><?php echo $event->createdTimestamp; ?></td>
-            <td><?php echo $event->numberAttendees; ?></td>
-            <td>
-                <button data-toggle="modal" data-target="#EventEditModal" class="event-edit-button btn btn-primary" data-event-id="<?php echo $event->id_event; ?>">Bearbeiten</button>
-                <a class="btn btn-outline-danger" href="?t=backend&request=API_deleteEvent&eid=<?php echo $event->id_event; ?>">Löschen</a>
-            </td>
-        </tr>
-        <?php } ?>
+
     </tbody>
 </table>
 <!-- create the modal for editing an event -->

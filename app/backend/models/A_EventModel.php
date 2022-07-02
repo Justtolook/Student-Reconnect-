@@ -33,15 +33,15 @@ class A_EventModel extends Model {
         $statement->bindValue(':createdTimestamp', $this->createdTimestamp);
         $statement->bindValue(':numberAttendees', $this->numberAttendees);
 
-        //TODO save signOns
         return $statement->execute();
     }
 
-    public function delete() : bool {
+    public function delete() {
         $db = new Database();
         $statement = $db->prepare('DELETE FROM event WHERE id_event = :id_event');
         $statement->bindValue(':id_event', $this->id_event);
-        return $statement->execute();
+        $statement->execute();
+        $this->deleteSignOns();
     }
 
     public function fetchAndSetSignOns() : void {
@@ -54,6 +54,16 @@ class A_EventModel extends Model {
             $signOnModel->loadData($signOn);
             $this->signOns[] = $signOnModel;
         }
+    }
+
+    /**
+     * delete all signons for an event
+     */
+    public function deleteSignOns() : void {
+        $db = new Database();
+        $statement = $db->prepare('DELETE FROM eventSignOn WHERE id_event = :id_event');
+        $statement->bindValue(':id_event', $this->id_event);
+        $statement->execute();
     }
 
 

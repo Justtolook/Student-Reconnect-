@@ -50,5 +50,21 @@ class A_EventsController extends Controller{
         echo json_encode($this->eventAdministrationModel->getEventById($id_event)->signOns);
     }
 
+    public function API_deleteEvent(Request $request) {
+        $id_event = $request->getBody()['eid'];
+        $event = $this->eventAdministrationModel->getEventById($id_event);
+        $event->delete();
+        //remove the deleted event from the events array
+        $this->eventAdministrationModel->events = array_filter($this->eventAdministrationModel->events, function($event) use ($id_event) {
+            return $event->id_event != $id_event;
+        });
+
+        Application::$app->response->redirect("?t=backend&request=events");
+    }
+
+    public function API_getEvents(Request $request) {
+        echo json_encode($this->eventAdministrationModel->events);
+    }
+
 
 }
