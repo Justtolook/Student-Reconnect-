@@ -75,6 +75,15 @@ $app->router->setRoute("post","backend", "API_editUser", [A_UserController::clas
 $app->router->setRoute("post","backend", "API_deleteUser", [A_UserController::class, 'API_deleteUser'], 3);
 
 $app->router->setRoute("get","backend", "events", [A_EventsController::class, 'home'], 3);
+$app->router->setRoute("get","backend", "API_getEvents", [A_EventsController::class, 'API_getEvents'], 3);
+$app->router->setRoute("get","backend", "API_getEventById", [A_EventsController::class, 'API_getEventById'], 3);
+$app->router->setRoute("get","backend", "API_deleteEvent", [A_EventsController::class, 'API_deleteEvent'], 3);
+$app->router->setRoute("post","backend", "API_editEvent", [A_EventsController::class, 'API_editEvent'], 3);
+$app->router->setRoute("get","backend", "API_getAttendeesByEventId", [A_EventsController::class, 'API_getAttendeesByEventId'], 3);
+$app->router->setRoute("get","backend", "API_toggleAttendeeAcceptance", [A_EventsController::class, 'API_toggleAttendeeAcceptance'], 3);
+$app->router->setRoute("get","backend", "API_deleteAttendee", [A_EventsController::class, 'API_deleteAttendee'], 3);
+
+
 $app->router->setRoute("get","backend", "interests", [A_InterestsController::class, 'home'], 3);
 $app->router->setRoute("get","backend", "API_getInterest", [A_InterestsController::class, 'API_getInterest'], 3);
 $app->router->setRoute("post","backend", "API_editInterest", [A_InterestsController::class, 'API_editInterest'], 3);

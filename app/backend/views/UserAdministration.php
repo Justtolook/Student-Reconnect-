@@ -4,7 +4,7 @@
 
 ?>
 <h1>User Administration</h1>
-<!-- print a table with all users and their data specified in UserModel-->
+
 <script>
     $(document).ready(function() {
         $('.user-edit-button').click(function() {
@@ -26,12 +26,17 @@
 
             var userId = $(this).attr('data-user-id');
             //get current url
-            var url_base = window.location.host + window.location.pathname;
+            //var url_base = window.location.host + window.location.pathname;
             $.ajax({
-                url: url_base + '?t=backend&request=API_getUser&uid=' + userId,
+                url: 'index.php',
+                data: {
+                    't': 'backend',
+                    'request': 'API_getUser',
+                    'uid': userId
+                },
                 type: 'GET',
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     var user = JSON.parse(data);
                     $('#user-edit-modal-id').val(user.id_user);
                     $('#user-delete-modal-id').val(user.id_user);
@@ -63,45 +68,7 @@
 $(document).ready( function () {
     $('#UserTable').DataTable();
 } );
-// AJAX call to get user data by id and dump it in the modal
-/*
-// AJAX call to update data with the inserted data in the modal
-$(document).ready(function() {
-    $('.user-edit-modal-save').click(function() {
-        var userId = $('#user-edit-modal-id').val();
-        var firstname = $('#user-edit-modal-firstname').val();
-        var lastname = $('#user-edit-modal-lastname').val();
-        var email = $('#user-edit-modal-email').val();
-        var birthdate = $('#user-edit-modal-birthdate').val();
-        var gender = $('#user-edit-modal-gender').val();
-        var description = $('#user-edit-modal-description').val();
-        var contactinfo = $('#user-edit-modal-contactinfo').val();
-        var scoreHost = $('#user-edit-modal-scoreHost').val();
-        var scoreAttendee = $('#user-edit-modal-scoreAttendee').val();
-        var role = $('#user-edit-modal-role').val();
-        //get current url
-        var url_base = window.location.host + window.location.pathname;
 
-        $.ajax({
-            url: url_base + '?t=backend&request=API_editUser',
-            type: 'POST',
-            data: {
-                id: userId,
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
-                birthdate: birthdate,
-                gender: gender,
-                description: description,
-                contactinfo: contactinfo,
-                scoreHost: scoreHost,
-                scoreAttendee: scoreAttendee,
-                role: role,
-            }
-        });
-    })
-} );
-*/
 </script>
 <table id="UserTable">
     <thead>
