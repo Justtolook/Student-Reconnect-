@@ -13,6 +13,7 @@ abstract class Model {
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
     public const RULE_WRONG_PASSWORD ='password_incorrect';
+    public const RULE_DATE= 'date';
     public const RULE_EMAIL_UNIQUE = 'email_unique';
 
 
@@ -75,6 +76,9 @@ abstract class Model {
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
                     $this->addError($attribute, self::RULE_MATCH, ['match' => $rule['match']]);
                 }
+                if ($ruleName === self::RULE_DATE && ($value - time())/3600 < 24) {
+                    $this->addError($attribute, self::RULE_DATE);
+                }
                 if ($ruleName === self::RULE_EMAIL_UNIQUE && $this->checkEmailNotUnique($value)) {
                     $this->addError($attribute, self::RULE_EMAIL_UNIQUE);
                 }
@@ -104,7 +108,8 @@ abstract class Model {
             self::RULE_MAX => 'Die maximale Länge dieses Feldes muss {max} sein.',
             self::RULE_MATCH => 'Dieses Feld muss {match} entsprechen.',
             self::RULE_WRONG_PASSWORD => 'Das Passwort ist falsch. Bitte versuchen Sie es erneut.',
-            self::RULE_EMAIL_UNIQUE => 'Diese E-Mail Adresse wird bereits verwendet.'
+            self::RULE_EMAIL_UNIQUE => 'Diese E-Mail Adresse wird bereits verwendet.',
+            self::RULE_DATE=> 'The Event must be registered at least 1 Day before taking place.'
         ];
     }
 

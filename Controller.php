@@ -8,6 +8,14 @@ class Controller {
         return Application::$app->router->renderView($view, $params);
     }
 
+    public function renderContent($view, $params = []) : string {
+        return Application::$app->router->renderViewContent($view, $params);
+    }
+
+    public function getIDUser() : int {
+        return $_SESSION['user']['id_user'];
+    }
+
     public function setLayout($layout) {
         $this->layout = $layout;
     }
