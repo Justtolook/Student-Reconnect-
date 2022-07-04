@@ -112,20 +112,8 @@
     //handle event report button click
     function report() {
         var eventId = $('#report-event-button').attr('data-eid');
-        console.log(eventId);
-        $.ajax({
-            url: 'index.php',
-            type: 'GET',
-            data: {
-                't': 'frontend',
-                'request': 'API_reportEvent',
-                'eid': eventId
-            },
-            success: function(data) {
-                console.log(data);
-                console.log("reported");
-            }
-        });
+        //redirect to the report event page
+        window.location.href = 'index.php?t=frontend&request=reportEvent&id_event=' + eventId;
     }
 
     //handle getmyevents button click

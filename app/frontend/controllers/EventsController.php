@@ -44,12 +44,6 @@ class EventsController extends Controller {
         $this->eventFeedModel->getEventById($eid)->toggleSignOn($uid);
     }
 
-    //TODO
-    public function API_reportEvent(Request $request) {
-        $eid = $request->getBody()['eid'];
-        $uid = $this->getIDUser();
-        $this->eventFeedModel->getEventById($eid)->reportEvent($uid);
-    }
 
     public function API_getMyEvents(Request $request) {
         $uid = $this->getIDUser();

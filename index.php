@@ -49,7 +49,7 @@ $app->router->setRoute("post","frontend", "events", [EventsController::class, 'e
 $app->router->setRoute("get","frontend", "API_getAllEvents", [EventsController::class, 'API_getAllEvents'], 1);
 $app->router->setRoute("get","frontend", "API_getEventDetails", [EventsController::class, 'API_getEventDetails'], 1);
 $app->router->setRoute("get","frontend", "API_toggleSignOnForEvent", [EventsController::class, 'API_toggleSignOnForEvent'], 1);
-$app->router->setRoute("get","frontend", "API_reportEvent", [EventsController::class, 'API_reportEvent'], 1);
+//$app->router->setRoute("get","frontend", "API_reportEvent", [EventsController::class, 'API_reportEvent'], 1);
 $app->router->setRoute("get","frontend", "API_getMyEvents", [EventsController::class, 'API_getMyEvents'], 1);
 $app->router->setRoute("get","frontend", "API_deleteEvent", [EventsController::class, 'API_deleteEvent'], 1);
 
@@ -72,6 +72,8 @@ $app->router->setRoute("post","frontend", "pwresetemail", [AuthController::class
 
 $app->router->setRoute("get","frontend", "moderation", [ModerationController::class, 'moderation'], 2);
 $app->router->setRoute("post","frontend", "moderation", [ModerationController::class, 'moderation'], 2);
+$app->router->setRoute("get","frontend", "reportEvent", [ModerationController::class, 'reportEvent'], 1);
+$app->router->setRoute("post","frontend", "handleReport", [ModerationController::class, 'handleReport'], 1);
 
 
 $app->router->setRoute("get","backend", "user", [A_UserController::class, 'home'], 3);
