@@ -1,13 +1,51 @@
 <?php
 
 require_once 'Controller.php';
+require_once 'app/frontend/models/EventFeedModel.php';
 
 class EventsController extends Controller {
+    public EventFeedModel $eventFeedModel;
+
     public function __construct() {
+        $this->eventFeedModel = new EventFeedModel();
+        $this->eventFeedModel->initEvents($this->eventFeedModel->fetchAllEvents());
     }
 
     public function events() {
         return $this->render('events');
+    }
+
+    public function API_getAllEvents() {
+        //$this->eventFeedModel->initEvents($this->eventFeedModel->fetchAllEvents());
+        ob_start();
+        foreach ($this->eventFeedModel->events as $event) {
+            echo $this->renderContent('eventcard', ['event' => $event]);
+        }
+        echo ob_get_clean();
+    }
+
+    public function API_getEventDetails(Request $request) {
+        $eid = $request->getBody()['eid'];
+        $event = $this->eventFeedModel->getEventById($eid);
+        $event = array (
+            'id_event' => $event->id_event,
+            'name' => $event->name,
+            'description' => $event->description,
+            'location_rough' => $event->location_rough,
+            'eventDate' => $event->eventDate,
+            'id_userCreator' => $event->id_userCreator,
+            'createdTimestamp' => $event->createdTimestamp,
+            'numberAttendees' => $event->numberAttendees,
+            'numberSignOns' => $event->countSignOns(),
+            'signOnStatus' => $event->getSignOnStatus($this->getIDUser())
+        );
+        echo json_encode($event);
+    }
+
+    public function API_toggleSignOnForEvent(Request $request) {
+        $eid = $request->getBody()['eid'];
+        $uid = $this->getIDUser();
+        $this->eventFeedModel->getEventById($eid)->toggleSignOn($uid);
     }
 
 }
