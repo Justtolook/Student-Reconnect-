@@ -10,8 +10,7 @@ class EditProfileModel extends Model {
     public string $lastname;
     public string $description;
     public string $contactInformation;
-    public array $interestsGiven;
-    public string $pictureref;          //TO DO
+    //public array $interestsGiven;
 
     public function __construct() {
         $this->db = new Database();
@@ -26,7 +25,7 @@ class EditProfileModel extends Model {
     }
 
     public function saveChanges() {
-        $statement = $this->db->prepare('UPDATE User SET   firstname = :firstname,
+        $statement = $this->db->prepare('UPDATE user SET   firstname = :firstname,
                                                             lastname = :lastname,
                                                             description = :description,
                                                             contactInformation = :contactInformation
@@ -36,8 +35,9 @@ class EditProfileModel extends Model {
         $statement->bindValue(':description', $this->description);
         $statement->bindValue(':contactInformation', $this->contactInformation);
         $statement->bindValue(':id_user', $this->id_user);
-        $statement->execute();
-        setInterestsForUserID($this->id_user, $this->interestsGiven);
+        //setInterestsForUserID($this->id_user, $this->interestsGiven);
+
+        return $statement->execute();
     }
 }
 ?>

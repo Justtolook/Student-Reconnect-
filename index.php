@@ -45,6 +45,9 @@ $app->router->setRoute("get","frontend", "events", [EventsController::class, 'ev
 $app->router->setRoute("post","frontend", "events", [EventsController::class, 'events'], 1);
 
 $app->router->setRoute("get","frontend", "profileedit", [ProfileController::class, 'profileedit'], 1);
+$app->router->setRoute("post","frontend", "profileedit", [ProfileController::class, 'handleProfileEditing'], 1);
+$app->router->setRoute("get","frontend", "profilepicedit", [ProfileController::class, 'profilepicedit'], 1);
+$app->router->setRoute("post","frontend", "profilepicedit", [ProfileController::class, 'handleProfilePicEditing'], 1);
 
 $app->router->setRoute("get","frontend", "matching", [MatchingController::class, 'matching'], 1);
 $app->router->setRoute("post","frontend", "matching", [MatchingController::class, 'matching'], 1);

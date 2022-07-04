@@ -2,10 +2,13 @@
     Profile
 </h1>
 
+<div>
+<a href="?t=frontend&request=profilepicedit" class="btn">Profilbild bearbeiten</a><br>
+</div>
+
 <?php
 // print own visitenkarte
 include 'app/frontend/views/visitenkartenModal.php';
-
 
 //Show Profile Information 
 if($profile->id_user != $_SESSION['user']['id_user']) {
