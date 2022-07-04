@@ -11,6 +11,7 @@ class EditProfileModel extends Model {
     public string $description;
     public string $contactInformation;
     public array $interestsGiven;
+    public string $pictureref;          //TO DO
 
     public function __construct() {
         $this->db = new Database();

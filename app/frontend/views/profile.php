@@ -27,3 +27,6 @@ echo "</ul>";
 echo "Kontaktinformationen: <br>" . $profile->contactInformation;
 
 ?>
+<div>
+<a href="?t=frontend&request=profileedit" class="btn">Profil bearbeiten</a><br>
+</div>
