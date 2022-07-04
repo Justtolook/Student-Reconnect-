@@ -116,5 +116,9 @@ class EventModel extends Model {
         return 0;
     }
 
+    public function getIDUserCreator() {
+        return $this->id_userCreator;
+    }
+
 
 }

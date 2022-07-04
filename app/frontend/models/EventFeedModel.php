@@ -42,4 +42,24 @@ class EventFeedModel extends Model{
         return false;
     }
 
+    public function getMyEvents($uid) {
+        $myEvents = [];
+        foreach($this->events as $event) {
+            if($event->id_userCreator == $uid) {
+                $myEvents[] = $event;
+            }
+        }
+        return $myEvents;
+    }
+
+    public function deleteEvent($eid) {
+        $event = $this->getEventById($eid);
+        if($event) {
+            $event->delete();
+            $this->events = array_filter($this->events, function($event) use ($eid) {
+                return $event->id_event != $eid;
+            });
+        }
+    }
+
 }
