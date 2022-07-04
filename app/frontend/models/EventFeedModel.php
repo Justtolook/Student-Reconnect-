@@ -17,6 +17,11 @@ class EventFeedModel extends Model{
         return [];
     }
 
+    /**
+     * @param $queryResult
+     * @return void
+     * initializes the events array with the given events from query result
+     */
     public function initEvents($queryResult) {
         //var_dump($queryResult);
         foreach ($queryResult as $event) {
@@ -27,12 +32,21 @@ class EventFeedModel extends Model{
         }
     }
 
+    /**
+     * @return array|false
+     * Return all events as a query result
+     */
     public function fetchAllEvents() {
         $statement = $this->db->prepare('SELECT * FROM event');
         $statement->execute();
         return $statement->fetchAll();
     }
 
+    /**
+     * @param $eid
+     * @return false|mixed
+     * return an event object for the given event id
+     */
     public function getEventById($eid) {
         foreach($this->events as $event) {
             if($event->id_event == $eid) {
@@ -42,6 +56,11 @@ class EventFeedModel extends Model{
         return false;
     }
 
+    /**
+     * @param $uid
+     * @return array
+     * Return all events the signed in user has created
+     */
     public function getMyEvents($uid) {
         $myEvents = [];
         foreach($this->events as $event) {
@@ -52,6 +71,11 @@ class EventFeedModel extends Model{
         return $myEvents;
     }
 
+    /**
+     * @param $eid
+     * @return void
+     * deletes an event from the database and the events array
+     */
     public function deleteEvent($eid) {
         $event = $this->getEventById($eid);
         if($event) {
@@ -62,10 +86,15 @@ class EventFeedModel extends Model{
         }
     }
 
+    /**
+     * @param $searchTerm
+     * @return array of events
+     * Searches for events with the given search term in their name or description. (Case insensitive)
+     */
     public function searchEvents($searchTerm) {
         $searchResults = [];
         foreach($this->events as $event) {
-            if(strpos($event->name, $searchTerm) !== false || strpos($event->description, $searchTerm) !== false) {
+            if(stripos($event->name, $searchTerm) !== false || strpos($event->description, $searchTerm) !== false) {
                 $searchResults[] = $event;
             }
         }
