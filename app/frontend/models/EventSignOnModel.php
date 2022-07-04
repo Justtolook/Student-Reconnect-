@@ -49,6 +49,17 @@ class EventSignOnModel extends Model {
         $statement->execute();
     }
 
+    public function update() : bool {
+        $db = new Database();
+        $statement = $db->prepare('UPDATE eventSignOn SET ratingHost = :ratingHost, ratingAttendee = :ratingAttendee, accepted = :accepted WHERE id_Event = :id_event AND id_user = :id_user');
+        $statement->bindValue(':id_event', $this->id_Event);
+        $statement->bindValue(':id_user', $this->id_User);
+        $statement->bindValue(':ratingHost', $this->ratingHost);
+        $statement->bindValue(':ratingAttendee', $this->ratingAttendee);
+        $statement->bindValue(':accepted', $this->accepted);
+        return $statement->execute();
+    }
+
 
 
 

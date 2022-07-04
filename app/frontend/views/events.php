@@ -79,6 +79,7 @@
                     $('#my-event-details-maxAttendees').text(eventDetails.numberAttendees);
                     //set the data-eid attribute of the sign-on button to the event id
                     $('#my-event-delete-button').attr('data-eid', eventId);
+                    getAttendees(eventId);
                 }
             });
         });
@@ -163,7 +164,54 @@
         });
     }
 
+    function getAttendees(eid) {
+        $.ajax({
+            url: 'index.php',
+            type: 'GET',
+            data: {
+                't': 'frontend',
+                'request': 'API_getAttendees',
+                'eid': eid
+            },
+            success: function(data) {
+                $('#my-event-details-attendees-list-body').html(data);
+            }
+        });
+    }
 
+    function toggleAcceptance(data) {
+        var eventId = $(data).attr('data-eid');
+        var userId = $(data).attr('data-uid');
+        $.ajax({
+            url: 'index.php',
+            type: 'GET',
+            data: {
+                't': 'frontend',
+                'request': 'API_toggleAcceptance',
+                'eid': eventId,
+                'uid': userId
+            },
+            success: function(result) {
+                result = JSON.parse(result);
+                if(result.success) {
+                    //rename the button according to new status
+                    var n_accepted = $('#my-event-details-signons').text();
+                    if(result.newStatus) {
+                        $(data).text('Ablehnen');
+                        $('#my-event-details-signons').text(parseInt(n_accepted) + 1);
+                    } else {
+                        $(data).text('Annehmen');
+                        $('#my-event-details-signons').text(parseInt(n_accepted) - 1);
+                    }
+                }
+                else {
+                    //create a negative alert
+                    $('#alert-container-details').html('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Fehler!</strong> Du hast keine Berechtigung dazu.</div>');
+                }
+
+            }
+        });
+    }
 
 
 </script>
@@ -214,12 +262,25 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div id="alert-container-details"></div>
                 <div id="my-event-details-description"></div>
                 <div id="my-event-details-location_rough"></div>
                 <div id="my-event-details-eventDate"></div>
                 <div id="my-event-details-attendees">Akzeptierte Teilnehmende:
                     <span id="my-event-details-signons"></span>/<span id="my-event-details-maxAttendees"></span>
                 </div>
+                <br>
+                <table class="my-event-details-attendees-list">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my-event-details-attendees-list-body">
+
+                    </tbody>
+                </table>
             </div>
 
             <div class="modal-footer">

@@ -2,6 +2,7 @@
 
 require_once 'Controller.php';
 require_once 'app/frontend/models/EventFeedModel.php';
+require_once 'app/frontend/models/UserModel.php';
 
 class EventsController extends Controller {
     public EventFeedModel $eventFeedModel;
@@ -65,6 +66,33 @@ class EventsController extends Controller {
         if($this->eventFeedModel->getEventById($eid)->getIDUserCreator() == $uid) {
             $this->eventFeedModel->deleteEvent($eid);
             echo json_encode(['success' => true]);
+        }
+        else {
+            echo json_encode(array(
+                'success' => false,
+                'error' => 'Du bist nicht der Ersteller dieses Events!'));
+        }
+    }
+
+    public function API_getAttendees(Request $request) {
+        $eid = $request->getBody()['eid'];
+        $attendees = $this->eventFeedModel->getEventById($eid)->signOns;
+        ob_start();
+        foreach ($attendees as $attendee) {
+            $user = new UserModel();
+            $user = $user->getUserById($attendee->id_User);
+            echo $this->renderContent('attendeelistitem', ['attendee' => $attendee, 'user' => $user]);
+        }
+        echo ob_get_clean();
+    }
+
+    public function API_toggleAcceptance(Request $request) {
+        $eid = $request->getBody()['eid'];
+        $uid = $request->getBody()['uid'];
+        if($this->eventFeedModel->getEventById($eid)->id_userCreator == $this->getIDUser()) {
+            $newStatus = $this->eventFeedModel->getEventById($eid)->toggleAcceptance($uid);
+            echo json_encode(['success' => true,
+                'newStatus' => $newStatus]);
         }
         else {
             echo json_encode(array(

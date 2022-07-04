@@ -118,6 +118,13 @@ class EventModel extends Model {
 
     }
 
+    public function toggleAcceptance($uid) {
+        $signOn = $this->getSignOn($uid);
+        $signOn->accepted = !$signOn->accepted;
+        $signOn->update();
+        return $signOn->accepted;
+    }
+
     public function getSignOnStatus($uid) {
         $signOn = $this->getSignOn($uid);
         if($signOn) {

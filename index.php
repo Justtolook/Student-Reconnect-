@@ -52,6 +52,8 @@ $app->router->setRoute("get","frontend", "API_toggleSignOnForEvent", [EventsCont
 //$app->router->setRoute("get","frontend", "API_reportEvent", [EventsController::class, 'API_reportEvent'], 1);
 $app->router->setRoute("get","frontend", "API_getMyEvents", [EventsController::class, 'API_getMyEvents'], 1);
 $app->router->setRoute("get","frontend", "API_deleteEvent", [EventsController::class, 'API_deleteEvent'], 1);
+$app->router->setRoute("get","frontend", "API_getAttendees", [EventsController::class, 'API_getAttendees'], 1);
+$app->router->setRoute("get","frontend", "API_toggleAcceptance", [EventsController::class, 'API_toggleAcceptance'], 1);
 
 
 $app->router->setRoute("get","frontend", "matching", [MatchingController::class, 'matching'], 1);
