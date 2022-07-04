@@ -179,6 +179,10 @@
         });
     }
 
+    /**
+     * toggle the acceptance for the specific event and user
+     * @param data
+     */
     function toggleAcceptance(data) {
         var eventId = $(data).attr('data-eid');
         var userId = $(data).attr('data-uid');
@@ -213,6 +217,23 @@
         });
     }
 
+    function searchEvents() {
+        var search = $('#search-events-input').val();
+        console.log(search);
+        $.ajax({
+            url: 'index.php',
+            type: 'GET',
+            data: {
+                't': 'frontend',
+                'request': 'API_searchEvents',
+                'searchTerm': search
+            },
+            success: function(data) {
+                $('#eventFeed').html(data);
+            }
+        });
+    }
+
 
 </script>
 <div id="alert-container"></div>
@@ -220,6 +241,13 @@
 <button class="btn btn-outline-primary" data-toggle="modal" data-target="#EventCreationModal">Event erstellen</button>
 <button class="btn btn-primary search-my-events-button" onclick="getMyEvents()">Meine Events</button>
 <button class="search-all-events-button btn btn-primary" onclick="getAllEvents()">Alle</button>
+<form>
+    <div class="form-group">
+        <label for="search-events-input">Suche</label>
+        <input type="text" class="form-control" id="search-events-input" name="searchTerm" placeholder="Suche">
+    </div>
+    <button type="button" class="btn btn-primary" onclick="searchEvents()">Suchen</button>
+</form>
 
 <div class="eventFeed" id="eventFeed">
 

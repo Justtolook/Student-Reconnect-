@@ -101,4 +101,10 @@ class EventsController extends Controller {
         }
     }
 
+    public function API_searchEvents(Request $request) {
+        $searchTerm = $request->getBody()['searchTerm'];
+        $events = $this->eventFeedModel->searchEvents($searchTerm);
+        $this->renderEventCards($events);
+    }
+
 }

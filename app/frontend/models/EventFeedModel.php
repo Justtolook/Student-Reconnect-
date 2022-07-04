@@ -62,4 +62,14 @@ class EventFeedModel extends Model{
         }
     }
 
+    public function searchEvents($searchTerm) {
+        $searchResults = [];
+        foreach($this->events as $event) {
+            if(strpos($event->name, $searchTerm) !== false || strpos($event->description, $searchTerm) !== false) {
+                $searchResults[] = $event;
+            }
+        }
+        return $searchResults;
+    }
+
 }
