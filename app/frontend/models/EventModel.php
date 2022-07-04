@@ -76,6 +76,16 @@ class EventModel extends Model {
         return count($this->signOns);
     }
 
+    public function countSignOnsAccepted() : int {
+        $count = 0;
+        foreach ($this->signOns as $signOn) {
+            if ($signOn->accepted) {
+                $count++;
+            }
+        }
+        return $count;
+    }
+
     public function getSignOn($uid) {
         foreach($this->signOns as $signOn) {
             if($signOn->id_User == $uid) {

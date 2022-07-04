@@ -39,7 +39,8 @@
                     $('#event-details-description').text(eventDetails.description);
                     $('#event-details-location_rough').text(eventDetails.location_rough);
                     $('#event-details-eventDate').text(eventDetails.eventDate);
-                    $('#event-details-attendees').text(eventDetails.numberAttendees);
+                    $('#event-details-signons').text(eventDetails.numberSignOns);
+                    $('#event-details-maxAttendees').text(eventDetails.numberAttendees);
                     //set the data-eid attribute of the sign-on button to the event id
                     $('#event-sign-on-button').attr('data-eid', eventId);
                     //set the data-eid attribute of the report button to the event id
@@ -74,7 +75,8 @@
                     $('#my-event-details-description').text(eventDetails.description);
                     $('#my-event-details-location_rough').text(eventDetails.location_rough);
                     $('#my-event-details-eventDate').text(eventDetails.eventDate);
-                    $('#my-event-details-attendees').text(eventDetails.numberAttendees);
+                    $('#my-event-details-signons').text(eventDetails.numberSignOns);
+                    $('#my-event-details-maxAttendees').text(eventDetails.numberAttendees);
                     //set the data-eid attribute of the sign-on button to the event id
                     $('#my-event-delete-button').attr('data-eid', eventId);
                 }
@@ -189,7 +191,9 @@
                 <div id="event-details-description"></div>
                 <div id="event-details-location_rough"></div>
                 <div id="event-details-eventDate"></div>
-                <div id="event-details-attendees"></div>
+                <div id="event-details-attendees">Teilnehmende:
+                    <span id="event-details-signons"></span>/<span id="event-details-maxAttendees"></span>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -213,7 +217,9 @@
                 <div id="my-event-details-description"></div>
                 <div id="my-event-details-location_rough"></div>
                 <div id="my-event-details-eventDate"></div>
-                <div id="my-event-details-attendees"></div>
+                <div id="my-event-details-attendees">Akzeptierte Teilnehmende:
+                    <span id="my-event-details-signons"></span>/<span id="my-event-details-maxAttendees"></span>
+                </div>
             </div>
 
             <div class="modal-footer">

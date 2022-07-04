@@ -32,7 +32,7 @@ class EventsController extends Controller {
             'id_userCreator' => $event->id_userCreator,
             'createdTimestamp' => $event->createdTimestamp,
             'numberAttendees' => $event->numberAttendees,
-            'numberSignOns' => $event->countSignOns(),
+            'numberSignOns' => $event->countSignOnsAccepted(),
             'signOnStatus' => $event->getSignOnStatus($this->getIDUser())
         );
         echo json_encode($event);
