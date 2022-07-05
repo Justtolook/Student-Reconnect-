@@ -13,8 +13,13 @@
             //get current url
             var url_base = window.location.host + window.location.pathname;
             $.ajax({
-                url: url_base + '?t=backend&request=API_getInterest&iid=' + interestId,
+                url: 'index.php',
                 type: 'GET',
+                data: {
+                    't': 'backend',
+                    'request': 'API_getInterest',
+                    'iid': interestId
+                },
                 success: function(data) {
                     console.log(data);
                     var interest = JSON.parse(data);

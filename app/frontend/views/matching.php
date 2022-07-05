@@ -6,7 +6,7 @@
         <div class="row d-flex justify-content-center">
             <span class="mb-3 mt-2">Interessen</span>
             <div class="col-md-11">
-                </label>
+
                 <!-- checkboxes with interest to filter the user list -->
                 <form action="?t=frontend&request=matching/filter" method="post">
                     <?php
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div class="card pastelgrün">
+    <div class="card pastelgruen">
         <div class="card-header">
             <h2>
                 <?php echo $model->firstname . " " . $model->lastname; ?>

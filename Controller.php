@@ -32,7 +32,7 @@ class Controller {
 
     //check if user is admin
     public function isAdmin() : bool {
-        return $_SESSION['user']['id_role'] === 3;
+        return $_SESSION['user']['id_role'] == 3;
     }
 
     public function getUserRole() : int {
