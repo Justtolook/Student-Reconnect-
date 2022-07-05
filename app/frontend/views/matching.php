@@ -1,71 +1,74 @@
-<h1>Matching</h1>
 <div class="matchCard">
-    <table>
-        <!-- checkboxes with interest to filter the user list -->
-        <tr>
-            <td>
+    <div class="text-center">
+        <button class="btn text-center" onclick="showFilter()">Filter deiner Suche</button>
+    </div>
+    <div class="matchingFilter">
+        <div class="row d-flex justify-content-center">
+            <span class="mb-3 mt-2">Interessen</span>
+            <div class="col-md-11">
+                </label>
+                <!-- checkboxes with interest to filter the user list -->
                 <form action="?t=frontend&request=matching/filter" method="post">
                     <?php
-                    foreach($interestModel->interests as $interest) {
-                        echo '<input type="checkbox" name="interests[]" value="' . $interest . '">' . $interest . '<br>';
+                    foreach ($interestModel->interests as $interest) {
+                        echo '<label class="PillList-item"><input type="checkbox" name="interests[]" value="' .
+                            $interest . '"><span class="PillList-label">' . $interest .
+                            '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span></span></label>';
                     }
                     ?>
-                    <input type="submit" name="filter" value="Filter">
+                    <br class="spacer">
+                    <input class="btn" type="submit" name="filter" value="Filter setzen">
                 </form>
-            </td>
-        <tr>
-            <td>
                 <!-- reset filter button -->
                 <form action="?t=frontend&request=matching/resetfilter" method="post">
-                    <input type="submit" name="reset" value="Reset Filter">
+                    <input class="btn float-left" type="submit" name="reset" value="Filter zurücksetzen">
                 </form>
-            </td>
-            <td>
                 <!-- clear filter button -->
                 <form action="?t=frontend&request=matching/clearfilter" method="post">
-                    <input type="submit" name="clear" value="Clear Filter">
+                    <input class="btn" type="submit" name="clear" value="Filter löschen">
                 </form>
-            </td>
-        </tr>
-
-        <tr>
+            </div>
+        </div>
+    </div>
+    <div class="card pastelgrün">
+        <div class="card-header">
             <h2>
-                <?php echo $model->firstname . " " . $model->lastname;?>
+                <?php echo $model->firstname . " " . $model->lastname; ?>
             </h2>
-        </tr>
-        <tr>
-            <td>
-                image
-            </td>
-        </tr>
-        <tr>
-            <td>
+            <div class="text-center">
+                <img class="card-img w-50 mt-2 mb-4" src="res/Marie Becker.png" alt="Profilbild">
+            </div>
+        </div>
+        <div class="card-body">
+            <p>
                 <?php echo $model->description; ?>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Interessen: <br>
+            </p>
+            <p>Interessen:
                 <!-- print the interests of the user in plain text-->
-                <ul>
-                    <?php foreach($model->interests as $interest) {
-                        echo "<li>" . $interestModel->getInterestName($interest) . "</li>";
-                    } ?>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>
+                <?php foreach ($model->interests as $interest) {
+                    echo "<li>" . $interestModel->getInterestName($interest) . "</li>";
+                } ?>
+            </p>
+        </div>
+        <div class="card-footer row justify-content-md-center">
+            <div class="col col-lg-2 text-center">
                 <!-- two buttons: one for matching and one for not matching -->
                 <form action="?t=frontend&request=matching/matching" method="post">
                     <input type="hidden" name="id_user" value="<?php echo $model->id_user; ?>">
-                    <input type="submit" value="Matchen">
+                    <button class="bg-white" type="submit" id="matchen">
+                        <i class="fa-solid fa-check text-success"></i>
+                    </button>
                 </form>
+            </div>
+            <div class="col col-lg-2 text-center">
                 <form action="?t=frontend&request=matching/notmatching" method="post">
                     <input type="hidden" name="id_user" value="<?php echo $model->id_user; ?>">
-                    <input type="submit" value="Nicht Matchen">
+                    <button class="bg-white" type="submit" id="nichtMatchen">
+                        <i class="fa-solid fa-xmark text-danger bg-white"></i>
+                    </button>
                 </form>
-            </td>
-        </tr>
-    </table>
+            </div>
+        </div>
+    </div>
 </div>
+<script src="app/frontend/js/matching.js"></script>
