@@ -44,7 +44,7 @@ h2 {
     color: white;
     padding: 20px;
     min-width: 180px;
-    max-width: 200px;
+    max-width: auto;
     margin: 20px;
     border-radius: 10px;
 }
@@ -69,35 +69,35 @@ input {
     margin: 0px;
 }
 
-.pillList-item {
+.PillList-item {
     cursor: pointer;
     display: inline-block;
     float: left;
-    font-size: 14px;
+    font-size: 30px;
     font-weight: normal;
-    line-height: 20px;
-    margin: 0 12px 12px 0;
+    line-height: 50px;
+    margin: 0 25px 25px 0;
     text-transform: capitalize;
 }
 
-.pillList-item input[type="checkbox"]{
+.PillList-item input[type="checkbox"] {
     display: none;
 }
 
 .PillList-item input[type="checkbox"]:checked + .PillList-label {
     background-color: #40bf8e;
-    border: 1px solid rgb(255, 255, 255);
-    color: #fff;
-    padding-right: 16px;
-    padding-left: 16px;
+    color: rgb(255, 255, 255);
+    display: block;
+    padding-right: 23px;
+    padding-left: 23px;
 }
 
 .PillList-label {
-    border: 1px solid #1da1f2;
-    border-radius: 20px;
-    color: #1c94e0;
+    border: 2px solid #40bf8e;
+    border-radius: 50px;
+    color: #40bf8e;
     display: block;
-    padding: 7px 28px;
+    padding: 14px 52px;
     text-decoration: none;
 }
 
@@ -115,14 +115,14 @@ input[type="checkbox"]:checked
 }
 
 .PillList-label .Icon {
-    width: 12px;
-    height: 12px;
-    margin: 0 0 0 12px;
+    width: 35px;
+    height: 35px;
+    margin: 0 0 0 24px;
 }
 
 .Icon--smallest {
-    width: 12px;
-    height: 12px;
+    font-size: 35px;
+    line-height: 35px;
 }
 
 .Icon {
@@ -131,4 +131,12 @@ input[type="checkbox"]:checked
     font-style: normal;
     vertical-align: baseline;
     position: relative;
+}
+
+.spacer {
+    margin-top: 180px;
+}
+
+.pastelgrün {
+    background-color: #DFF2E9;
 }
