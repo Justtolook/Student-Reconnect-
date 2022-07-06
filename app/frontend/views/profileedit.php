@@ -18,11 +18,12 @@
     <div class="form-group">
         <label for="interests">Interessen</label>
         <select multiple="multiple" class="form-control" id="interests" name="interests[]">
-            <?php   $interestModel->fetchAllInterests(); 
-                    $userInterests = $hasInterestModel->getInterestsForUserID($id_user); ?>
-            <?php foreach($interestModel->interests as $key => $name) { ?>
-            <option value="<?php echo $key; ?>" <?php if(in_array($key,$userInterests)) echo ' selected="selected"'; ?>><?php echo $name; ?></option>
-            <?php } ?>
+           <?php
+           foreach ($interestModel->interests as $id => $name) {
+               if(in_array($id, $profile->interests)) echo '<option selected value="' . $id . '">' . $name . '</option>';
+               else echo '<option value="' . $id . '">' . $name . '</option>';
+              }
+               ?>
         </select>
     </div>
     <button type="submit" class="btn btn-primary">Änderungen speichern</button><br><br>

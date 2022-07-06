@@ -23,7 +23,10 @@ class ProfileController extends Controller {
         $this->visitenkartenModel = new VisitenkartenModel($this->id_user);
         $this->ShowProfileModel = new ShowProfileModel($this->id_user);
         $this->interestModel = new InterestModel();
+        $this->interestModel->fetchAllInterests();
         $this->hasInterestModel = new HasInterestModel();
+        $this->hasInterestModel->fetchInterestsForUserID($this->id_user);
+        $this->ShowProfileModel->interests = $this->hasInterestModel->getInterestsForUserID($this->id_user);
     }
     /**
      * @return string
