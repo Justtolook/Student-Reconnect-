@@ -16,10 +16,12 @@
         <input type="text" class="form-control <?php echo $model->hasError('contactInformation') ? 'is-invalid' : ''?>" value="<?php echo $profile->contactInformation ?>" id="contactInformation" name="contactInformation">
     </div><br>
     <div class="form-group">
-        <label for="user-edit-modal-interests">Interessen</label>
-        <select multiple class="form-control" id="user-edit-modal-interests" name="interests[]">
+        <label for="interests">Interessen</label>
+        <select multiple="multiple" class="form-control" id="interests" name="interests[]">
+            <?php   $interestModel->fetchAllInterests(); 
+                    $userInterests = $hasInterestModel->getInterestsForUserID($id_user); ?>
             <?php foreach($interestModel->interests as $key => $name) { ?>
-            <option value="<?php echo $key; ?>"><?php echo $name; ?></option>
+            <option value="<?php echo $key; ?>" <?php if(in_array($key,$userInterests)) echo ' selected="selected"'; ?>><?php echo $name; ?></option>
             <?php } ?>
         </select>
     </div>

@@ -5,7 +5,6 @@ require_once 'Database.php';
 class EditProfilePicModel extends Model {
     public Database $db;
     public int $id_user;
-    public string $oldimageref;
 
     public function __construct() {
         $this->db = new Database();
@@ -17,7 +16,7 @@ class EditProfilePicModel extends Model {
     }
 
     public function uploadProfileImg() {
-        $target_dir = "web06.iis.uni-bamberg.de/WIP/wip22_g1/imgprofile/";
+        $target_dir = "res/imgprofile/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -52,7 +51,8 @@ class EditProfilePicModel extends Model {
         // if everything is ok, try to upload file
         } else {
             $filename = $this->renameFile($target_dir, $imageFileType);
-            $target_file = $target_dir . $filename . "." . $imageFileType;
+            $filename = $filename . "." . $imageFileType;
+            $target_file = $target_dir . $filename;
     
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                 echo "Die Datei ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " wurde hochgeladen.";
@@ -83,9 +83,12 @@ class EditProfilePicModel extends Model {
         $statement1 = $this->db->prepare('SELECT image FROM user WHERE id_user = :id_user');
         $statement1->bindValue(':id_user', $this->id_user);
         $statement1->execute();
-        $this->oldimageref = $statement1->fetch();
-        $targetdir = "imgprofile/" . "$this->oldimageref";
-        unlink("$targetdir");
+        $row = $statement1->fetch();
+        if(!empty($row['image'])) {
+            $oldimageref = $row['image'];
+            $targetdir = "res/imgprofile/" . $oldimageref;
+            echo (unlink($targetdir));
+        }
         $statement2 = $this->db->prepare('UPDATE user SET image = :imageref WHERE id_user = :id_user');
         $statement2->bindValue(':imageref', $imageref);
         $statement2->bindValue(':id_user', $this->id_user);

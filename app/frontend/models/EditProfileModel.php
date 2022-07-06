@@ -10,7 +10,7 @@ class EditProfileModel extends Model {
     public string $lastname;
     public string $description;
     public string $contactInformation;
-    //public array $interestsGiven;
+    public array $interests;
 
     public function __construct() {
         $this->db = new Database();
@@ -35,7 +35,7 @@ class EditProfileModel extends Model {
         $statement->bindValue(':description', $this->description);
         $statement->bindValue(':contactInformation', $this->contactInformation);
         $statement->bindValue(':id_user', $this->id_user);
-        //setInterestsForUserID($this->id_user, $this->interestsGiven);
+        setInterestsForUserID($this->id_user, $this->interests);
 
         return $statement->execute();
     }
