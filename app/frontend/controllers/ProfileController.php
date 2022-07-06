@@ -53,11 +53,12 @@ class ProfileController extends Controller {
 
     public function handleProfilePicEditing(Request $request) {
         $EditProfilePicModel = new EditProfilePicModel();
-        $EditProfilePicModel->loadData($request->getBody());
-        if($EditProfilePicModel->saveImageRef()) {
+        if($EditProfilePicModel->saveNewImageRef()) {
             Application::$app->response->redirect("?t=frontend&request=profile");
             return;
         }
+
         return $this->render('profilepicedit', ['model' => $EditProfilePicModel]);
     }
 }
+?>
