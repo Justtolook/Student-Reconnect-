@@ -46,6 +46,15 @@ class NotificationModel extends Model {
         }
        
     }
+
+    public function setNotificationToRead($id_user_match){
+            $statement = $this->db->prepare('UPDATE matches SET notificationRead = 1
+                 WHERE (id_User_1 = :id_myself AND id_User_2 = :id_user_match)  
+                 OR (id_User_2 = :id_myself AND id_User_1 = :id_user_match)');
+            $statement->bindValue(':id_myself', $this->id_myself);
+            $statement->bindValue(':id_user_match', $id_user_match);
+            $statement->execute();
+    }
     
 
 }

@@ -1,6 +1,7 @@
 <?php
 require_once 'Model.php';
 require_once 'app/frontend/models/HasInterestModel.php';
+require_once 'app/frontend/models/InterestModel.php';
 
 class VisitenkartenModel extends Model{
     public $id_user;
@@ -8,8 +9,12 @@ class VisitenkartenModel extends Model{
     public $lastname;
     public $description;
     public $contactInformation;
-    public array $interests;  // format id der interessen oder array $id => $name
+    public array $interests;  // format id
+    
+    public array $interestsWithNames; // format [id => name]
     public HasInterestModel $hasInterestModel;
+
+    public InterestModel $interestModel;
     public Database $db;
 
     public function __construct(int $id_user) {
@@ -17,7 +22,12 @@ class VisitenkartenModel extends Model{
         $this->loadData($this->getVisitenkartenByUserID($id_user));
         $this->hasInterestModel = new HasInterestModel();
         $this->hasInterestModel->fetchInterestsForUserID($id_user);
+        $this->interestModel = new InterestModel();
+        $this->interestModel->fetchAllInterests();
         $this->interests = $this->hasInterestModel->getInterestsForUserID($id_user);
+        foreach($this->interests as $id){
+            $this->interestsWithNames[$id] = $this->interestModel->getInterestName($id);
+        }
     }
 
     public function rules() : array {
