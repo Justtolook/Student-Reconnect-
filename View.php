@@ -16,7 +16,7 @@ class View
             $$key = $value;
         }
         ob_start();
-        include_once Application::$ROOT_DIR."/app/$systemType/views/$view.php";
+        include Application::$ROOT_DIR."/app/$systemType/views/$view.php";
         return ob_get_clean();
     }
 }

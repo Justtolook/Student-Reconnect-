@@ -44,7 +44,7 @@ h2 {
     color: white;
     padding: 20px;
     min-width: 180px;
-    max-width: 200px;
+    max-width: auto;
     margin: 20px;
     border-radius: 10px;
 }
@@ -67,4 +67,73 @@ input {
 
 .container-fluid {
     margin: 0px;
+}
+
+.PillList-item {
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+    font-size: 30px;
+    font-weight: normal;
+    line-height: 50px;
+    margin: 0 25px 25px 0;
+    text-transform: capitalize;
+}
+
+.PillList-item input[type="checkbox"] {
+    display: none;
+}
+
+.PillList-item input[type="checkbox"]:checked + .PillList-label {
+    background-color: #40bf8e;
+    color: rgb(255, 255, 255);
+    display: block;
+    padding-right: 23px;
+    padding-left: 23px;
+}
+
+.PillList-label {
+    border: 2px solid #40bf8e;
+    border-radius: 50px;
+    color: #40bf8e;
+    display: block;
+    padding: 14px 52px;
+    text-decoration: none;
+}
+
+.PillList-item input[type="checkbox"]:checked + .PillList-label .Icon--checkLight {
+    display: inline-block;
+}
+
+.PillList-item input[type="checkbox"]:checked + .PillList-label .Icon--addLight,
+.PillList-label .Icon--checkLight,
+.PillList-children {
+    display: none;
+}
+
+.PillList-label .Icon {
+    width: 35px;
+    height: 35px;
+    margin: 0 0 0 24px;
+}
+
+.Icon--smallest {
+    font-size: 35px;
+    line-height: 35px;
+}
+
+.Icon {
+    background: transparent;
+    display: inline-block;
+    font-style: normal;
+    vertical-align: baseline;
+    position: relative;
+}
+
+.spacer {
+    margin-top: 180px;
+}
+
+.pastelgruen {
+    background-color: #DFF2E9;
 }
