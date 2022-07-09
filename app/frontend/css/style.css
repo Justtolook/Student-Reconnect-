@@ -2,14 +2,10 @@
     font-size: 24pt;;
 }
 
-html {
-    height: 100%;
-}
-
 body {
     font-size: 24pt;
-    height: 100%;
 }
+
 h1 {
     font-size: 32pt;
     text-align: center;
