@@ -1,8 +1,14 @@
 :root {
     font-size: 24pt;;
 }
+
+html {
+    height: 100%;
+}
+
 body {
     font-size: 24pt;
+    height: 100%;
 }
 h1 {
     font-size: 32pt;
@@ -18,7 +24,6 @@ h2 {
 
 .navbar {
     background-color: var(--SRprimary);
-
 }
 
 .navbar a {
@@ -38,6 +43,13 @@ h2 {
     background-color: var(--SRfooter-selected);
 }
 
+.footer-item:hover{
+    background-color: var(--SRfooter-selected);
+    text-decoration: none;
+    color: white;
+    border: 2px solid var(--SRprimary) ;
+}
+
 .btn {
     font-size: 24pt;
     background-color: var(--SRprimary);
@@ -47,6 +59,18 @@ h2 {
     max-width: auto;
     margin: 20px;
     border-radius: 10px;
+}
+
+.btn:hover {
+    color: white;
+}
+
+.btn-matching {
+    background-color: white;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 2px solid var(--SRprimary);
 }
 
 .landingpage {
@@ -131,7 +155,7 @@ input {
 }
 
 .spacer {
-    margin-top: 180px;
+    margin-top: 200px;
 }
 
 .pastelgruen {
