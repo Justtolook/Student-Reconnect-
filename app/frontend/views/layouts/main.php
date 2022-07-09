@@ -34,10 +34,10 @@
         {{content}}
     </div>
     <!-- define footer -->
-    <footer id="sticky-footer" class="page-footer purple fixed-bottom container-fluid">
+    <footer class="fixed-bottom container-fluid">
         <div class="row">
                 <a href="?t=frontend&request=matching" class="p-2 col footer-item">Matching</a>
-                <a href="?t=frontend&request=events" class="p-2 col footer-item footer-item">Events</a>
+                <a href="?t=frontend&request=events" class="p-2 col footer-item">Events</a>
                 <a href="?t=frontend&request=profile" class="p-2 col footer-item">Profil</a>
         </div>
     </footer>

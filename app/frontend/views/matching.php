@@ -6,7 +6,6 @@
         <div class="row d-flex justify-content-center">
             <span class="mb-3 mt-2">Interessen</span>
             <div class="col-md-11">
-
                 <!-- checkboxes with interest to filter the user list -->
                 <form action="?t=frontend&request=matching/filter" method="post">
                     <?php
@@ -17,7 +16,7 @@
                     }
                     ?>
                     <br class="spacer">
-                    <input class="btn" type="submit" name="filter" value="Filter setzen">
+                        <input class="btn" type="submit" name="filter" value="Filter setzen">
                 </form>
                 <!-- reset filter button -->
                 <form action="?t=frontend&request=matching/resetfilter" method="post">
@@ -30,8 +29,8 @@
             </div>
         </div>
     </div>
-    <div class="card pastelgruen">
-        <div class="card-header">
+    <div class="card pastelgruen m-3">
+        <div class="p-3">
             <h2>
                 <?php echo $model->firstname . " " . $model->lastname; ?>
             </h2>
@@ -50,23 +49,31 @@
                 } ?>
             </p>
         </div>
-        <div class="card-footer row justify-content-md-center">
+        <div class="row justify-content-md-center">
             <div class="col col-lg-2 text-center">
                 <!-- two buttons: one for matching and one for not matching -->
                 <form action="?t=frontend&request=matching/matching" method="post">
                     <input type="hidden" name="id_user" value="<?php echo $model->id_user; ?>">
-                    <button class="bg-white" type="submit" id="matchen">
-                        <i class="fa-solid fa-check text-success"></i>
+                    <button class="btn-matching" type="submit" id="matchen">
+                        <i class="fa-solid fa-check fa-2xl text-success"></i>
                     </button>
                 </form>
             </div>
             <div class="col col-lg-2 text-center">
                 <form action="?t=frontend&request=matching/notmatching" method="post">
                     <input type="hidden" name="id_user" value="<?php echo $model->id_user; ?>">
-                    <button class="bg-white" type="submit" id="nichtMatchen">
-                        <i class="fa-solid fa-xmark text-danger bg-white"></i>
+                    <button class="btn-matching" type="submit" id="nichtMatchen">
+                        <i class="fa-solid fa-xmark fa-2xl text-danger"></i>
                     </button>
                 </form>
+            </div>
+        </div>
+        <div class="row justify-content-md-center pb-3">
+            <div class="col col-lg-2 text-center">
+                <span>Matchen</span>
+            </div>
+            <div class="col col-lg-2 text-center">
+                <span>Nicht Matchen</span>
             </div>
         </div>
     </div>
