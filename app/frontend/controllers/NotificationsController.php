@@ -3,6 +3,7 @@ require_once 'Controller.php';
 require_once 'app/frontend/models/NotificationModel.php';
 require_once 'app/frontend/models/MatchModel.php'; 
 require_once 'app/frontend/models/VisitenkartenModel.php';
+require_once 'app/frontend/models/EventModel.php';
 
 
 class NotificationsController extends Controller {
@@ -20,7 +21,7 @@ class NotificationsController extends Controller {
         
     
     public function notifications() {
-        return $this->render("notifications", ["notifications" => $this->NotificationModel]);
+        return $this->render("notifications", ["notifications" => $this->NotificationModel, "eventModel" => $this->NotificationModel]);
     }
 
     public function markAsReadNotification(Request $request){
@@ -34,6 +35,14 @@ class NotificationsController extends Controller {
         $id_user_match = $request->getBody()['id_user_match'];
         $test = $this->VisitenkartenModel->getVisitenkartenByUserID($this->id_myself);
         return $test->render("profile", ["visitenkarte" => $this->VisitenkartenModel]);
+    }
+
+    
+    public function showEvent (Request $request){
+        $id_user = $request->getBody()['id_user'];
+        print "ID_USER: " . $id_user;
+        $data = $this->eventModel->getAcceptedEvents($id_user);
+        return $data->render("notifications", ["events" => $this->EventModel]);
     }
 
 }

@@ -16,6 +16,7 @@ class NotificationModel extends Model {
         $this->db = new Database();
         $this->id_myself = $id_myself;
         $this->fetchMatches();
+        $this->getAcceptedEvents($this->id_myself);
         //$this->matchModel = new MatchModel($id_myself);
     }
 
@@ -54,6 +55,28 @@ class NotificationModel extends Model {
             $statement->bindValue(':id_myself', $this->id_myself);
             $statement->bindValue(':id_user_match', $id_user_match);
             $statement->execute();
+    }
+
+
+
+    public function getAcceptedEvents($id_user) : array{
+        $db = new Database();
+        $statement = $db->prepare('SELECT * FROM eventSignOn INNER Join event on eventSignOn.id_Event = event.id_event');
+        $statement->execute();
+        $eventsSignedIn = [];
+        foreach($statement->fetchAll() as $item) {
+            if ($item['id_User'] == $id_user && $item['accepted'] == 1) {
+                $this->eventsSignedIn[] = array (
+                    'event_id_user' => $item['id_User'],
+                    'event_id' => $item['id_Event'], 
+                    'event_name' => $item['name'],
+                    'event_location_rough' => $item['location_rough'],
+                    'event_time' => $item['eventDate']);
+                }
+        }   
+        
+        return $this->eventsSignedIn;
+        
     }
     
 
