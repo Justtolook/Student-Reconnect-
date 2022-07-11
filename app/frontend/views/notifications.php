@@ -143,38 +143,12 @@ function openVisitenkarte(id_user) {
             
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-        </div>
-    </div>
-</div>
-
-
-<div class="eventcard modal" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Event</h3>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
+                </div>
             </div>
-            <div class="modal-body">
-                <div id="eventcard">
-                    <div id="eventcard_name"></div>
-                    <div id="eventcard_location_rough"></div>
-                    <div id="eventcard_eventDate"></div>
-                </div>
-            
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                </div>
         </div>
     </div>
 </div>
 
-
-<div class="eventFeed" id="eventFeed">
-
-</div>
 
 <div class="modal fade" id="EventDetailsModal" tabindex="-1" role="dialog" aria-labelledby="EventDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -202,5 +176,34 @@ function openVisitenkarte(id_user) {
         </div>
     </div>
 </div>
+
+
+<div class="eventcard modal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Event</h3>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="eventcard">
+                    <div id="eventcard_name"></div>
+                    <div id="eventcard_location_rough"></div>
+                    <div id="eventcard_eventDate"></div>
+                </div>
+            
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 
