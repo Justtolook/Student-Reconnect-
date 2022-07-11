@@ -8,6 +8,11 @@ class NotificationModel extends Model {
     public int $id_User_1;
     public int $id_User_2;
     public int $timestamp;
+    public $name;
+    public $description;
+    public $location_rough;
+    public $eventDate;
+
     public int $notificationRead;
     public array $matches = [];
     //public MatchModel $matchModel;
@@ -78,6 +83,7 @@ class NotificationModel extends Model {
         return $this->eventsSignedIn;
         
     }
+
     
 
 }
