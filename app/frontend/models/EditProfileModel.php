@@ -5,6 +5,7 @@ require_once 'HasInterestModel.php';
 
 class EditProfileModel extends Model {
     public Database $db;
+    public HasInterestModel $hasInterestModel;
     public int $id_user;
     public string $firstname;
     public string $lastname;
@@ -15,6 +16,7 @@ class EditProfileModel extends Model {
     public function __construct() {
         $this->db = new Database();
         $this->id_user = $_SESSION['user']['id_user'];
+        $this->hasInterestModel = new HasInterestModel();
     }
 
     public function rules(): array {
@@ -35,7 +37,7 @@ class EditProfileModel extends Model {
         $statement->bindValue(':description', $this->description);
         $statement->bindValue(':contactInformation', $this->contactInformation);
         $statement->bindValue(':id_user', $this->id_user);
-        setInterestsForUserID($this->id_user, $this->interests);
+        $this->hasInterestModel->setInterestsForUserID($this->id_user, $this->interests);
 
         return $statement->execute();
     }
