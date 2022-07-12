@@ -69,6 +69,31 @@ function openVisitenkarte(id_user) {
         });
 
     }; 
+
+//handle event sign on button click
+function EventSignOff() {
+        var eventId = $('#event-sign-on-button').attr('data-eid');
+        console.log(eventId);
+        $.ajax({
+            url: 'index.php',
+            type: 'GET',
+            data: {
+                't': 'frontend',
+                'request': 'API_toggleSignOnForEvent',
+                'eid': eventId
+            },
+            success: function(data) {
+                console.log(data);
+                console.log("toggled");
+                $('#event-sign-on-button').text('Abmelden');
+                
+            }
+        });
+    }
+
+
+
+
 </script>
 
 
@@ -77,27 +102,33 @@ function openVisitenkarte(id_user) {
 <div class= "notificationCard">
     <div class = "matchingNotification">
     <?php
-        foreach ($notifications->matches as $match) {
-            //if ($match['notificationRead'] != 1){
-                if(!$match['notificationRead']) {
-                    echo "<div class='newNotification'>Neu!</div>";
-                    echo "<form action='?t=frontend&request=notifications/markAsReadNotification'  method='POST'>";
+        //ignore warning
+        error_reporting(E_ERROR | E_PARSE);
+        if ($notifications->matches != null){
+            foreach ($notifications->matches as $match) {
+                //if ($match['notificationRead'] != 1){
+                    if(!$match['notificationRead']) {
+                        echo "<div class='newNotification'>Neu!</div>";
+                        echo "<form action='?t=frontend&request=notifications/markAsReadNotification'  method='POST'>";
+                        echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>"; 
+                        echo "<input class='btn float-left' type='submit' name='markAsReadNotification' value='Gelesen'>";
+                        echo "</form>";
+                    }
+                    echo "<button type='button' class='btn float-left' onclick='openVisitenkarte(" . $match['id_user'] . ")'>Visitenkarte</button>";
+                    /*
+                    echo "<form action='?t=frontend&request=notifications/showVisitenkarte'  method='POST'>";
                     echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>"; 
-                    echo "<input class='btn float-left' type='submit' name='markAsReadNotification' value='Gelesen'>";
-                    echo "</form>";
-                }
-                echo "<button type='button' class='btn float-left' onclick='openVisitenkarte(" . $match['id_user'] . ")'>Visitenkarte</button>";
-                /*
-                echo "<form action='?t=frontend&request=notifications/showVisitenkarte'  method='POST'>";
-                echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>"; 
-                echo "<input class='btn float-left' type='submit' name='showVisitenkarte' value='Visitenkarte anzeigen'>";
-                echo "</form>";*/
-                
-                echo "Sie wurde gematched mit der UserID: " . $match['id_user'] . "<br>";
-                echo "Der Timestamp des Matches ist: " . $match['timestamp'] . "<br>";
-                //echo "Gelesen? " . $match['notificationRead'] . "<br>";
-                echo "<hr>";
-            //} 
+                    echo "<input class='btn float-left' type='submit' name='showVisitenkarte' value='Visitenkarte anzeigen'>";
+                    echo "</form>";*/
+                    
+                    echo "Sie wurde gematched mit der UserID: " . $match['id_user'] . "<br>";
+                    echo "Der Timestamp des Matches ist: " . $match['timestamp'] . "<br>";
+                    //echo "Gelesen? " . $match['notificationRead'] . "<br>";
+                    echo "<hr>";
+                //} 
+            }
+        } else {
+            echo "Keine Matches gefunden";
         }
     ?>    
     </div>
@@ -107,7 +138,10 @@ function openVisitenkarte(id_user) {
 <div class= "eventCard">
     <div class= "eventNotification">
         <?php
-        foreach($eventNotification->eventsSignedIn as $event) {
+        //ignore warning 
+        error_reporting(E_ERROR | E_PARSE);
+        if ($eventNotification->eventsSignedIn != null){
+            foreach($eventNotification->eventsSignedIn as $event) {
                 echo "<div class='newNotification'>Neu!</div>";
                // echo "<form action='?t=frontend&request=notifications/showEvent'  method='POST'>";
                 echo "<input type='hidden' name='id_user' value= '" . $event['event_id_user'] . "'>"; 
@@ -116,6 +150,9 @@ function openVisitenkarte(id_user) {
                 echo "Das Event findet am: " . $event['event_time'] ." statt." ."<br>";
                 echo "Die Event Location wird in der Gegend: " . $event['event_location_rough'] ." sein." ."<br>";
                 echo "<hr>";
+            }
+        } else {
+            echo "Sie sind zu keinem Event angemeldet.";
         }
         ?>
     </div>
@@ -155,7 +192,6 @@ function openVisitenkarte(id_user) {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="event-details-name"></h5>
-                <button type="button" data-eid="" id="report-event-button" class="report-event-button btn btn-outline-danger" onclick="report()">Melden</button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -171,7 +207,7 @@ function openVisitenkarte(id_user) {
 
             <div class="modal-footer">
                 <!-- sign on button -->
-                <button type="button" class="btn btn-primary event-sign-on-button" id="event-sign-on-button" data-eid="" onclick="toggleSignOn()">Anmelden</button>
+                <button type="button" class="btn btn-primary event-sign-on-button" id="event-sign-on-button" data-eid="" onclick="EventSignOff()">Abmelden</button>
             </div>
         </div>
     </div>

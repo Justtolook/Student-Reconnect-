@@ -64,7 +64,7 @@ class NotificationModel extends Model {
 
 
 
-    public function getAcceptedEvents($id_user) : array{
+    public function getAcceptedEvents($id_user){
         $db = new Database();
         $statement = $db->prepare('SELECT * FROM eventSignOn INNER Join event on eventSignOn.id_Event = event.id_event');
         $statement->execute();
@@ -79,9 +79,6 @@ class NotificationModel extends Model {
                     'event_time' => $item['eventDate']);
                 }
         }   
-        
-        return $this->eventsSignedIn;
-        
     }
 
     
