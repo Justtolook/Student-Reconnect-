@@ -12,7 +12,6 @@ class NotificationModel extends Model {
     public $description;
     public $location_rough;
     public $eventDate;
-
     public int $notificationRead;
     public array $matches = [];
     //public MatchModel $matchModel;
@@ -50,7 +49,6 @@ class NotificationModel extends Model {
 
             }
         }
-       
     }
 
     public function setNotificationToRead($id_user_match){
@@ -76,12 +74,12 @@ class NotificationModel extends Model {
                     'event_id' => $item['id_Event'], 
                     'event_name' => $item['name'],
                     'event_location_rough' => $item['location_rough'],
-                    'event_time' => $item['eventDate']);
+                    'event_time' => $item['eventDate'], 
+                    'event_id_userCreator' => $item['id_userCreator']);
                 }
         }   
     }
 
-    
 
 }
 

@@ -4,6 +4,7 @@ require_once 'app/frontend/models/NotificationModel.php';
 require_once 'app/frontend/models/MatchModel.php'; 
 require_once 'app/frontend/models/VisitenkartenModel.php';
 require_once 'app/frontend/models/EventModel.php';
+require_once 'app/frontend/models/EventsignonModel.php';
 
 
 class NotificationsController extends Controller {
@@ -11,6 +12,7 @@ class NotificationsController extends Controller {
     public NotificationModel $NotificationModel;
     public VisitenkartenModel $VisitenkartenModel;
     public EventModel $EventModel;
+    public EventSignOnModel $EventSignOnModel;
 
     public function __construct(){
         if(!$this->isLoggedIn()) Application::$app->response->redirect("?t=frontend&request=login");
@@ -18,6 +20,7 @@ class NotificationsController extends Controller {
         $this->NotificationModel = new NotificationModel($this->id_myself);
         $this->VisitenkartenModel = new VisitenkartenModel($this->id_myself);
         $this->EventModel = new EventModel();
+        $this->EventSignOnModel = new EventSignOnModel();
     }
     
         
@@ -40,6 +43,26 @@ class NotificationsController extends Controller {
     }
 
     
+    public function handleHostRating(Request $request) {
+        $eventModel = new EventSignOnModel();
+        $eventModel->id_Event = $request->getBody()['ratingForm-eid'];
+        $eventModel->id_User = $request->getBody()['ratingForm-uid'];
+        $eventModel->ratingHost = $request->getBody()['ratingForm-rating'];
+        if($eventModel->updateHostScore()) {
+            Application::$app->response->redirect("?t=frontend&request=notifications");
+            return;
+        }
+        return $this->render("notifications");
+    }
+
+
+    public function handleAttendeeRating($id_user, $rating, $eventid) {
+        $eventModel = new EventSignOnModel();
+        $eventModel->id_User = $id_user;
+        $eventModel->id_Event = $eventid;
+        $eventModel->ratingAttendee = $rating;
+        $eventModel->updateAttendeeScore();
+    }
 
  /*   public function showEvent (Request $request){
         $id_user = $request->getBody()['id_user'];

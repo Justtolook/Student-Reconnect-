@@ -58,13 +58,8 @@ function openVisitenkarte(id_user) {
                 //set the data-eid attribute of the sign-on button to the event id
                 $('#event-sign-on-button').attr('data-eid', event_id);
                 //set the data-eid attribute of the report button to the event id
-                $('#report-event-button').attr('data-eid', event_id);
-                //set the text of the sign on button to sign off if the user is already signed on
-                if (eventDetails.signOnStatus == 1) {
-                    $('#event-sign-on-button').text('Abmelden');
-                } else {
-                    $('#event-sign-on-button').text('Anmelden');
-                }
+                //$('#report-event-button').attr('data-eid', event_id);
+                
             } 
         });
 
@@ -86,23 +81,55 @@ function EventSignOff() {
                 console.log(data);
                 console.log("toggled");
                 $('#event-sign-on-button').text('Abmelden');
-                
+                //reload page
+                location.reload();
             }
         });
     }
+
+ //handle event report button click
+ //TODO Report für User ermöglichen
+ function reportUser() {
+        var userID = $('#report-user-button').attr('id_user');
+        console.log (userID);
+        //redirect to the report event page
+        window.location.href = 'index.php?t=frontend&request=reportEvent&id_event=' + userID;
+    }
+
+//handle rating button click
+function rateUser(id_user) {
+    //show modal
+    $('.ratingModal').modal('show');
+    $.ajax({
+        type: "GET",
+        url: "index.php",
+        data: {
+            't': 'frontend',
+            'request': 'API_getRating',
+            'id_user': id_user
+        },
+        success: function(data) {
+            var data = JSON.parse(data);
+            console.log(data);
+            $('#rating_name').text(data.firstname + ' ' + data.lastname);
+            /* ToDo Scale for rating */
+        }
+    });
+}   
+
 
 
 
 
 </script>
 
-
+<!-- Match Notification -->
 <h1>Benachrichtigungen</h1>
 <h5>Matches</h5>
 <div class= "notificationCard">
     <div class = "matchingNotification">
     <?php
-        //ignore warning
+        //ignore warning if no matches are found
         error_reporting(E_ERROR | E_PARSE);
         if ($notifications->matches != null){
             foreach ($notifications->matches as $match) {
@@ -134,16 +161,31 @@ function EventSignOff() {
     </div>
 </div>
 
+<!-- Event Notifications -->
 <h5>Events</h5>
 <div class= "eventCard">
     <div class= "eventNotification">
         <?php
-        //ignore warning 
+        //ignore warning if no events are found
         error_reporting(E_ERROR | E_PARSE);
         if ($eventNotification->eventsSignedIn != null){
             foreach($eventNotification->eventsSignedIn as $event) {
-                echo "<div class='newNotification'>Neu!</div>";
-               // echo "<form action='?t=frontend&request=notifications/showEvent'  method='POST'>";
+                /* Check if Event is over --> due to Rating Option */
+                if (strtotime("now") > strtotime($event['event_time'])) {
+                   echo "User Creator ID: " . $event['event_id_userCreator'] . "<br>";
+                   echo "Session User ID: " . $_SESSION['user']['id_user'] . "<br>";
+                   /* If Event is over --> Insert Ratings Button, depending on EventOwner or Attende */ 
+                   if ($event['event_id_userCreator'] == $_SESSION['user']['id_user']){
+                        echo "<button type='button' class='btn btn-secondary'>Teilnehmer Bewerten</button>";
+                        /* ToDo Modal for Rating Attendes*/
+                    } else {
+                    echo "<button type='button' class='btn btn-secondary'>Host Bewerten</button>";
+                        /* ToDO Modal for Rating EventHost */
+                }
+                   echo "Das Event " . $event['event_name'] . " ist vorbei<br>";
+                } else {
+                    echo "Das Event " . $event['event_name'] . " startet am " . $event['event_time'] . "<br>";
+                }
                 echo "<input type='hidden' name='id_user' value= '" . $event['event_id_user'] . "'>"; 
                 echo "<button type='button' class='btn float-left' onclick='openEventDetails(" . $event['event_id'] . ")'>Event</button>";
                 echo "Sie wurden dem Event hinzugefügt: " . $event['event_name'] . "<br>";
@@ -165,9 +207,8 @@ function EventSignOff() {
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Visitenkarte</h3>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
+                <!-- TODO Report for User Anpassen -->
+                <button type="button" id_user="" id="report-event-button" class="report-event-button btn btn-outline-danger" onclick="reportUser()">Melden</button>
             </div>
             <div class="modal-body">
                 <div id="visitenkarte">
@@ -206,8 +247,10 @@ function EventSignOff() {
             </div>
 
             <div class="modal-footer">
-                <!-- sign on button -->
+                <!-- sign off button -->
                 <button type="button" class="btn btn-primary event-sign-on-button" id="event-sign-on-button" data-eid="" onclick="EventSignOff()">Abmelden</button>
+                <!-- set rating button -->
+                <button type="button" class="btn btn-primary event-set-rating-button" id="event-set-rating-button" data-eid="" onclick="EventSetRating()">Bewerten</button>
             </div>
         </div>
     </div>
