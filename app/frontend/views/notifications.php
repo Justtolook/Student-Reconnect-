@@ -1,5 +1,6 @@
 <script>
 
+
 function openVisitenkarte(id_user) {
     //show modal
     $('.visitenkartenModal').modal('show');
@@ -15,12 +16,12 @@ function openVisitenkarte(id_user) {
             
             var data = JSON.parse(data);
             console.log(data);
-            $('#visitenkarte_name').text(data.firstname + ' ' + data.lastname);
-            $('#visitenkarte_description').text(data.description);
+            $('#visitenkarte_name').text('Name: ' + data.firstname + ' ' + data.lastname);
+            $('#visitenkarte_description').text('Beschreibung: ' + data.description  );
             //$('#visitenkarte_image').attr('src', data.image);
-            $('#visitenkarte_contactinformation').text(data.contactInformation);
+            $('#visitenkarte_contactinformation').text('Kontaktinformationen: '  +data.contactInformation);
             //loop through all data.interestsWithNames and create a span for each one with the name as text
-            $('#visitenkarte_interests').empty();
+            $('#visitenkarte_interests').text('Interessen:');
             for (const [key, value] of Object.entries(data.interestsWithNames)) {
                 console.log(`${key}: ${value}`);
                 //TODO: USE PILLS INSTEAD OF BADGES
@@ -28,7 +29,7 @@ function openVisitenkarte(id_user) {
             }
         }
     });
-}
+};
 
  function openEventDetails(event_id) {
 
@@ -49,12 +50,12 @@ function openVisitenkarte(id_user) {
                 console.log(eventDetails);
                 //fill the modal with the event details
                 //$('#event-details-id').val(eventDetails.id_event);
-                $('#event-details-name').text(eventDetails.name);
-                $('#event-details-description').text(eventDetails.description);
-                $('#event-details-location_rough').text(eventDetails.location_rough);
-                $('#event-details-eventDate').text(eventDetails.eventDate);
+                $('#event-details-name').text('Name: '+eventDetails.name);
+                $('#event-details-description').text('Beschreibung: '+eventDetails.description);
+                $('#event-details-location_rough').text('Gegend: '+eventDetails.location_rough);
+                $('#event-details-eventDate').text('Zeit: '+eventDetails.eventDate);
                 $('#event-details-signons').text(eventDetails.numberSignOns);
-                $('#event-details-maxAttendees').text(eventDetails.numberAttendees);
+                $('#event-details-maxAttendees').text('Max. Teilnehmerzahl: '+eventDetails.numberAttendees);
                 //set the data-eid attribute of the sign-on button to the event id
                 $('#event-sign-on-button').attr('data-eid', event_id);
                 //set the data-eid attribute of the report button to the event id
@@ -63,7 +64,7 @@ function openVisitenkarte(id_user) {
             } 
         });
 
-    }; 
+}; 
 
 //handle event sign on button click
 function EventSignOff() {
@@ -97,30 +98,33 @@ function EventSignOff() {
     }
 
 //handle rating button click
-function rateUser(id_user) {
-    //show modal
-    $('.ratingModal').modal('show');
-    $.ajax({
-        type: "GET",
-        url: "index.php",
-        data: {
-            't': 'frontend',
-            'request': 'API_getRating',
-            'id_user': id_user
-        },
-        success: function(data) {
-            var data = JSON.parse(data);
-            console.log(data);
-            $('#rating_name').text(data.firstname + ' ' + data.lastname);
-            /* ToDo Scale for rating */
-        }
-    });
-}   
-
-
-
-
-
+function RatingHost(event_id_userCreator, event_id ) {
+        //var eventId = $('#event-set-rating-button').attr('data-eid');
+        //show modal
+        $('#ratingModal').modal('show');
+        console.log(event_id);
+        console.log(event_id_userCreator);
+        $.ajax({
+            url: 'index.php',
+            type: 'GET',
+            data: {
+                't': 'frontend',
+                'request': 'API_handleHostRating',
+                'event_id' : event_id,
+                'event_id_userCreator': event_id_userCreator,
+            },
+            success: function(data) {
+                /* Kein SQL Select Statement --> also keine Daten anzuzeigen */
+                $('#rating-host-id').text(data.event_id_userCreator);
+                $('#event-set-rating-button').text('Bewertung abgegeben');
+                /* ToDo Scale for Rating */
+                
+                //reload page
+                //location.reload();
+            }
+        });
+    };
+    
 </script>
 
 <!-- Match Notification -->
@@ -179,7 +183,8 @@ function rateUser(id_user) {
                         echo "<button type='button' class='btn btn-secondary'>Teilnehmer Bewerten</button>";
                         /* ToDo Modal for Rating Attendes*/
                     } else {
-                    echo "<button type='button' class='btn btn-secondary'>Host Bewerten</button>";
+                        /* insert button onclick RatingHost */
+                        echo "<button type='button' class='btn btn-secondary' onclick='RatingHost(" . $event['event_id_userCreator'] . "," . $event['event_id'] . ")'>Host bewerten</button>";
                         /* ToDO Modal for Rating EventHost */
                 }
                    echo "Das Event " . $event['event_name'] . " ist vorbei<br>";
@@ -249,14 +254,12 @@ function rateUser(id_user) {
             <div class="modal-footer">
                 <!-- sign off button -->
                 <button type="button" class="btn btn-primary event-sign-on-button" id="event-sign-on-button" data-eid="" onclick="EventSignOff()">Abmelden</button>
-                <!-- set rating button -->
-                <button type="button" class="btn btn-primary event-set-rating-button" id="event-set-rating-button" data-eid="" onclick="EventSetRating()">Bewerten</button>
             </div>
         </div>
     </div>
 </div>
 
-
+<!-- 
 <div class="eventcard modal" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -279,8 +282,32 @@ function rateUser(id_user) {
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
+<!-- insert modal for rating -->
+<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Bewertung</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="rating">
+                    <b-form-rating v-model="value" show-value></b-form-rating>
+                    <p class=mt-2> Value: {{ value }} </p>
+                    <div id="rating-host-id"></div>
+                </div>
+            
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                </div>
+            </div>
+        </div
+    </div>
+</div>
 
 
 

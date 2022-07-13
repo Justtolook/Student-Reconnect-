@@ -43,20 +43,20 @@ class NotificationsController extends Controller {
     }
 
     
-    public function handleHostRating(Request $request) {
+    public function API_handleHostRating(Request $request) {
         $eventModel = new EventSignOnModel();
-        $eventModel->id_Event = $request->getBody()['ratingForm-eid'];
-        $eventModel->id_User = $request->getBody()['ratingForm-uid'];
-        $eventModel->ratingHost = $request->getBody()['ratingForm-rating'];
-        if($eventModel->updateHostScore()) {
+        $eventModel->id_Event = $request->getBody()['event_id'];
+        //$eventModel->id_User = $request->getBody()['event_id_user'];
+        $eventModel->ratingHost = $request->getBody()['event_id_userCreator'];
+        /* if($eventModel->updateHostScore()) {
             Application::$app->response->redirect("?t=frontend&request=notifications");
             return;
-        }
+        } */
         return $this->render("notifications");
     }
 
 
-    public function handleAttendeeRating($id_user, $rating, $eventid) {
+    public function API_handleAttendeeRating($id_user, $rating, $eventid) {
         $eventModel = new EventSignOnModel();
         $eventModel->id_User = $id_user;
         $eventModel->id_Event = $eventid;
