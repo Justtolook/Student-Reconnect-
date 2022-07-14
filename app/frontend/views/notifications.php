@@ -130,8 +130,12 @@ function RatingHost(event_id_userCreator, event_id ) {
 <!-- Match Notification -->
 <h1>Benachrichtigungen</h1>
 <h5>Matches</h5>
+<div class="card pastelgruen border-success m-3">
+    <div class="p-3">
 <div class= "notificationCard">
     <div class = "matchingNotification">
+    </div>
+</div>
     <?php
         //ignore warning if no matches are found
         error_reporting(E_ERROR | E_PARSE);
@@ -164,7 +168,6 @@ function RatingHost(event_id_userCreator, event_id ) {
     ?>    
     </div>
 </div>
-
 <!-- Event Notifications -->
 <h5>Events</h5>
 <div class= "eventCard">

@@ -3,7 +3,7 @@
     if(isset($model->success)) {
         if ($model->success) {
             echo '<div class="alert alert-success" role="alert">
-            <strong>Success!</strong> Dein  Passwort wurde erfolgreich zurückgesetzt.
+            <strong>Success!</strong> Dein Passwort wurde erfolgreich zurückgesetzt.
             <a href="?t=frontend&request=login">Zum Login</a>
             </div>';
         } else {
@@ -13,28 +13,46 @@
         }
     }
     ?>
-    <br><h1>Passwort vergessen?</h1><br><br>
-<h2>Gib deine Uni-E-Mail Adresse ein, um dein Passwort zurückzusetzen. Möglicherweise musst du deinen Spamordner prüfen.</h2><br>
-<form method="POST" action="index.php?t=frontend&request=pwresetemail">
-    <div class="form-group">
-        <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail">
+    <br><h1>Passwort vergessen?</h1>
+    <div style = "padding: 100px 100px 10px;" class="row justify-content-center">
+    <div class="card float-none" style="width: 25rem;">
+        <h2>Gib deine Uni-E-Mail Adresse ein, um dein Passwort zurückzusetzen. Möglicherweise musst du deinen Spamordner prüfen.</h2><br>
+        <div style = "padding: 100px 100px 10px;">
+        </div>
+        <form method="POST" action="index.php?t=frontend&request=pwresetemail">
+            <div class="form-group row justify-content-center">
+                <input type="email" class="form-control w-75 border border-dark" id="email" name="email" placeholder="E-Mail">
+            </div>
+            <div class="row justify-content-center">
+                <button type="submit"  class="btn btn-primary">Senden</button>
+            </div>
     </div>
-    <button type="submit"  class="btn btn-primary">Senden</button><br><br><br>
-</form>
-    <?php if(isset($_SESSION['verifcode'])) { ?>
-<form method="POST" action="?t=frontend&request=pwreset">
-    <!-- TODO display errors if there are any -->
-    <div class="form-group">
-        <input type="number" class="form-control" id="enteredcode" name="enteredcode" placeholder="Verifizierungscode">
-    </div><br>
-    <div class="form-group">
-        <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="Passwort setzen">
-    </div><br>
-    <div class="form-group">
-        <input type="password" class="form-control" id="passwordrepeat" name="passwordrepeat" placeholder="Passwort wiederholen">
-    </div><br>
-    <button type="submit" class="btn btn-primary">Passwort zurücksetzen</button><br><br>
-</form>
-    <a href="?t=frontend&request=login" class="login">Zurück zum Login</a><br>
+    </div>
+    </form>
+
+    <div style = "padding: 150px 100px 10px;" class="row justify-content-center">
+        <div class="card float-none" style="width: 25rem;">
+        <div method="POST" action="?t=frontend&request=pwreset">
+        <!-- TODO display errors if there are any -->
+        <div class="form-group row justify-content-center">
+            <input type="text" class="form-control w-75 border border-dark" id="enteredcode" name="enteredcode" placeholder="Verifizierungscode">
+        </div><br>
+        <div class="form-group row justify-content-center">
+            <input type="password" class="form-control w-75 border border-dark" id="newpassword" name="newpassword" placeholder="Passwort setzen">
+        </div><br>
+        <div class="form-group row justify-content-center">
+            <input type="password" class="form-control w-75 border border-dark" id="passwordrepeat" name="passwordrepeat" placeholder="Passwort wiederholen">
+        </div><br>
+        <div class="row justify-content-center">
+            <button type="submit" class="btn btn-primary">Passwort zurücksetzen</button>
+        </div><br><br>
+        </div>
+        </div>
+    </div> <br>
+    <a href="?t=frontend&request=login" class="link-primary float-right">Zurück zum Login</a><br>
+    </form>
 </div>
-<?php } ?>
+
+<?php
+if(isset($_SESSION['verifcode'])) { ?>
+    <?php } ?>
