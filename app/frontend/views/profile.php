@@ -3,18 +3,23 @@
 </h1>
 <br>
 <br>
+<div class="container-fluid">
 <div class="row text-center">
 
     <!--Grid column-->
-    <div class="col-md-6 mb-4">
+    <div class="col-md-8 mb-4">
 
-        <img class="rounded-circle" alt="100x100" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"
+        <img class="rounded-circle w-50 mt-2 mb-2" alt="Profile Image" src="<?php echo ($profilepicmodel->getProfileImagePath())?>"
              data-holder-rendered="true">
-    </div>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    </div>
+    <div class="col-md-4 mb-4">
+
+    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
         Profilbild bearbeiten
     </button>
+</div>
+</div>
 </div>
 
 
@@ -68,23 +73,31 @@
             </div>
         </td>
     </tr>
-<tr>
-    <td scope="row">
-        <div class="card">
-            <div class="card-body">
-                Interessen
+    </tbody>
+</table>
+
+<table class="table table-borderless">
+    <thead>
+    <tr>
+        <th scope="col">Interessen</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td scope="row">
+            <div class="card">
+                <div class="card-body">
+                    <?php
+                    echo "<ul>";
+                    foreach ($profile->interests as $interest) {
+                        echo "<li>" . $interestModel->getInterestName($interest) . "</li>";
+                    }
+                    echo "</ul>";
+                    ?>
+                </div>
             </div>
-        </div>
-    </td>
-    <td>
-        <div class="card">
-            <div class="card-body">
-                Eigenschaften
-            </div>
-        </div>
-        </div>
-    </td>
-</tr>
+        </td>
+    </tr>
     </tbody>
 </table>
 
@@ -115,7 +128,7 @@
 
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">
+<button type="button" class="btn float-right" data-toggle="modal" data-target="#exampleModalCenter">
     Visitenkarte
 </button>
 
@@ -142,5 +155,7 @@
 </div>
 
 <div>
-    <a href="?t=frontend&request=profileedit" class="btn btn-primary">Profil bearbeiten</a><br>
+    <a href="?t=frontend&request=profileedit" class="btn text-center">Profil bearbeiten</a><br>
 </div>
+
+

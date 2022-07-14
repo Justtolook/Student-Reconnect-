@@ -27,6 +27,8 @@ class ProfileController extends Controller {
         $this->hasInterestModel = new HasInterestModel();
         $this->hasInterestModel->fetchInterestsForUserID($this->id_user);
         $this->ShowProfileModel->interests = $this->hasInterestModel->getInterestsForUserID($this->id_user);
+        $this->EditProfilePicModel = new EditProfilePicModel();
+        $this->EditProfilePicModel->id_user = $this->id_user;
     }
     /**
      * @return string
@@ -34,7 +36,7 @@ class ProfileController extends Controller {
      */
     public function profile() {
         $this->interestModel->fetchAllInterests();
-        return $this->render("profile", ["visitenkarte" => $this->visitenkartenModel, "interestModel" => $this->interestModel, "profile" => $this->ShowProfileModel]);
+        return $this->render("profile", ["visitenkarte" => $this->visitenkartenModel, "interestModel" => $this->interestModel, "profile" => $this->ShowProfileModel, "profilepicmodel" => $this->EditProfilePicModel]);
     }
 
     public function profileedit() {

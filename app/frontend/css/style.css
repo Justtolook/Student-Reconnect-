@@ -44,7 +44,7 @@ h2 {
     color: white;
     padding: 20px;
     min-width: 180px;
-    max-width: 200px;
+    max-width: auto;
     margin: 20px;
     border-radius: 10px;
 }
@@ -69,3 +69,6 @@ input {
     margin: 0px;
 }
 
+.option-button {
+    height:100%;
+}

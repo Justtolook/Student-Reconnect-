@@ -86,9 +86,7 @@ class EditProfilePicModel extends Model {
         $row = $statement1->fetch();
         if(!empty($row['image'])) {
             $oldimageref = $row['image'];
-            if($oldimageref == "placeholder.jpg") {
-                continue;
-            }else{
+            if($oldimageref !== "placeholder.jpg") {
                 $targetdir = "res/imgprofile/" . $oldimageref;
                 echo (unlink($targetdir));
             }
