@@ -95,5 +95,32 @@ class EditProfilePicModel extends Model {
         
         return $statement2->execute();
     }
+
+    public function getProfileImagePathByUserID($userID) {
+        $statement1 = $this->db->prepare('SELECT image FROM user WHERE id_user = :id_user');
+        $statement1->bindValue(':id_user', $userID);
+        $statement1->execute();
+        $row = $statement1->fetch();
+        $placeholder = "placeholder.jpg"
+        if(!empty($row['image'])) {
+            $imageRef = $row['image'];
+            $imagePath = "res/imgprofile/" . $imageRef;
+            return $imagePath;
+        }else{
+            $statement2 = $this->db->prepare('UPDATE user SET image = :image WHERE id_user = :id_user');
+            $statement2->bindValue(':id_user', $userID);
+            $statement2->bindValue(':image', $placeholder);
+            $statement2->execute();
+            $placeholderPath = "res/imgprofile/" . $placeholder;
+            return $placeholderPath;
+        }
+    }
+
+    public function removeProfileImageByUserID($userID) {
+        $statement = $this->db->prepare('UPDATE user SET image = :image WHERE id_user = :id_user');
+        $statement->bindValue(':id_user', $userID);
+        $statement->bindValue(':image', $placeholder);
+        $statement->execute();
+    }
 }
 ?>
