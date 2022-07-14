@@ -71,7 +71,7 @@ class ProfileController extends Controller {
 
     public function removeProfilePic(Request $request) {
         if($this->EditProfilePicModel->removeProfileImage()) {
-            Application::$app->respones->redirect("?t=frontend&request=profile");
+            Application::$app->response->redirect("?t=frontend&request=profile");
             return;
         }
 
