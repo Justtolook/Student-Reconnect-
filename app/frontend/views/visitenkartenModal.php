@@ -4,6 +4,8 @@
              src="<?php echo($profilepicmodel->getProfileImagePath()) ?>"
              data-holder-rendered="true">
     </div>
+
+
     <?php
     if ($visitenkarte->id_user != $_SESSION['user']['id_user']) {
         echo '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visitenkartenModal">
