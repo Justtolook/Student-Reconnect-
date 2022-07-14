@@ -49,6 +49,7 @@ $app->router->setRoute("post","frontend", "logout", [AuthController::class, 'log
 $app->router->setRoute("get","frontend", "settings", [SettingsController::class, 'settings'], 1);
 $app->router->setRoute("get","frontend", "settings", [SettingsController::class, 'settings'], 1);
 $app->router->setRoute("post","frontend", "settings", [SettingsController::class, 'settings'], 1);
+$app->router->setRoute("get","frontend", "impressum", [SettingsController::class, 'impressum'], 1);
 
 $app->router->setRoute("get","frontend", "events", [EventsController::class, 'events'], 1);
 $app->router->setRoute("post","frontend", "events", [EventsController::class, 'events'], 1);
