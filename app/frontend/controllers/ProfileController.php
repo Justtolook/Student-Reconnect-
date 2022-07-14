@@ -56,7 +56,7 @@ class ProfileController extends Controller {
 
     public function profilepicedit() {
         $EditProfilePicModel = new EditProfilePicModel();
-        return $this->render('profilepicedit', ['model' => $EditProfilePicModel]);
+        return $this->render('profile', ['model' => $EditProfilePicModel]);
     }    
 
     public function handleProfilePicEditing(Request $request) {
@@ -66,7 +66,16 @@ class ProfileController extends Controller {
             return;
         }
 
-        return $this->render('profilepicedit', ['model' => $EditProfilePicModel]);
+        return $this->render('profile', ["visitenkarte" => $this->visitenkartenModel, "interestModel" => $this->interestModel, "profile" => $this->ShowProfileModel, "profilepicmodel" => $this->EditProfilePicModel]);
+    }
+
+    public function removeProfilePic(Request $request) {
+        if($this->EditProfilePicModel->removeProfileImage()) {
+            Application::$app->respones->redirect("?t=frontend&request=profile");
+            return;
+        }
+
+        return $this->render('profile', ["visitenkarte" => $this->visitenkartenModel, "interestModel" => $this->interestModel, "profile" => $this->ShowProfileModel, "profilepicmodel" => $this->EditProfilePicModel]);
     }
 }
 ?>

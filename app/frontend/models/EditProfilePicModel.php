@@ -126,7 +126,7 @@ class EditProfilePicModel extends Model {
         $placeholder = "placeholder.jpg";
         $statement->bindValue(':id_user', $this->id_user);
         $statement->bindValue(':image', $placeholder);
-        $statement->execute();
+        return $statement->execute();
     }
 }
 ?>

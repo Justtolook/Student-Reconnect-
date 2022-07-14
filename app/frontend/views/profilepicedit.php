@@ -1,6 +1,6 @@
 <div class="container-fluid">
 <br><h1>Profilbild bearbeiten</h1><br><br>
-<form action="?t=frontend&request=profilepicedit" method="post" enctype="multipart/form-data">
+<form action="?t=frontend&request=profile" method="post" enctype="multipart/form-data">
     Profilbild bearbeiten:
     <input type="file" name="fileToUpload" id="fileToUpload" onchange="loadFile(event)">
     <img id="output"/>
@@ -16,5 +16,8 @@
     <input type="submit" class="btn" value="Bild speichern" name="submit">
     <br><br><br>
     <a href="?t=frontend&request=profile" class="btn">Zurück zum Profil</a>
+</form>
+<form action="?t_frontend&request=profile/rmvprofilepic" method="post">
+    <input type="submit" class="btn" value="Profilbild entfernen" name="submit">
 </form>
 </div>

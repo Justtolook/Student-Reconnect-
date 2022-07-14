@@ -33,6 +33,8 @@ $app->router->setRoute("get", "frontend", "landingpage", [SiteController::class,
 $app->router->setRoute("get", "frontend", "notifications", [NotificationsController::class, 'notifications'], 1);
 $app->router->setRoute("post", "frontend", "notifications", [NotificationsController::class, 'notifications'], 1);
 $app->router->setRoute("get","frontend", "profile", [ProfileController::class, 'profile'], 1);
+$app->router->setRoute("post","frontend", "profile", [ProfileController::class, 'handleProfilePicEditing'], 1);
+$app->router->setRoute("post","frontend", "profile/rmvprofilepic", [ProfileController::class, 'removeProfilePic'], 1);
 $app->router->setRoute("get","frontend", "login", [AuthController::class, 'login'], 0);
 $app->router->setRoute("post","frontend", "login", [AuthController::class, 'handleLogin'], 0);
 $app->router->setRoute("get","frontend", "logout", [AuthController::class, 'logout'], 0);
@@ -46,8 +48,6 @@ $app->router->setRoute("post","frontend", "events", [EventsController::class, 'e
 
 $app->router->setRoute("get","frontend", "profileedit", [ProfileController::class, 'profileedit'], 1);
 $app->router->setRoute("post","frontend", "profileedit", [ProfileController::class, 'handleProfileEditing'], 1);
-$app->router->setRoute("get","frontend", "profilepicedit", [ProfileController::class, 'profilepicedit'], 1);
-$app->router->setRoute("post","frontend", "profilepicedit", [ProfileController::class, 'handleProfilePicEditing'], 1);
 
 $app->router->setRoute("get","frontend", "matching", [MatchingController::class, 'matching'], 1);
 $app->router->setRoute("post","frontend", "matching", [MatchingController::class, 'matching'], 1);
