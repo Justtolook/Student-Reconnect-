@@ -86,8 +86,12 @@ class EditProfilePicModel extends Model {
         $row = $statement1->fetch();
         if(!empty($row['image'])) {
             $oldimageref = $row['image'];
-            $targetdir = "res/imgprofile/" . $oldimageref;
-            echo (unlink($targetdir));
+            if($oldimageref == "placeholder.jpg") {
+                continue;
+            }else{
+                $targetdir = "res/imgprofile/" . $oldimageref;
+                echo (unlink($targetdir));
+            }
         }
         $statement2 = $this->db->prepare('UPDATE user SET image = :imageref WHERE id_user = :id_user');
         $statement2->bindValue(':imageref', $imageref);
@@ -101,7 +105,7 @@ class EditProfilePicModel extends Model {
         $statement1->bindValue(':id_user', $userID);
         $statement1->execute();
         $row = $statement1->fetch();
-        $placeholder = "placeholder.jpg"
+        $placeholder = "placeholder.jpg";
         if(!empty($row['image'])) {
             $imageRef = $row['image'];
             $imagePath = "res/imgprofile/" . $imageRef;
