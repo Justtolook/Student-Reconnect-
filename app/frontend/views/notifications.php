@@ -142,6 +142,7 @@ function RatingAttendees(event_id_userCreator, event_id ) {
             },
             success: function(data) {
                 /* Kein SQL Select Statement --> also keine Daten anzuzeigen */
+                $('#event-id').text(data.event_id);
                 $('#rating-host-id').text(data.event_id_userCreator);
                 $('#event-set-rating-button').text('Bewertung abgegeben');
             }
@@ -203,11 +204,15 @@ function RatingAttendees(event_id_userCreator, event_id ) {
                    echo "Session User ID: " . $_SESSION['user']['id_user'] . "<br>";
                    /* If Event is over --> Insert Ratings Button, depending on EventOwner or Attende */ 
                    if ($event['event_id_userCreator'] == $_SESSION['user']['id_user']){
+                        echo "event ID" . $event['event_id'] . "<br>";
+
                         echo "<button type='button' class='btn btn-secondary' onclick='RatingAttendees(" . $event['event_id_userCreator'] . "," . $event['event_id'] . ")'>Teilnehmer Bewerten</button>";
                     } else {
+                        
                         echo "<button type='button' class='btn btn-secondary' onclick='RatingHost(" . $event['event_id_userCreator'] . "," . $event['event_id'] . ")'>Host bewerten</button>";
-                }
-                   echo "Das Event " . $event['event_name'] . " ist vorbei<br>";
+
+                    }
+                   echo "Das Event " . $event['event_name'] . " vom ". $event['event_time'] . " ist vorbei.<br>";
                 }else{
                 echo "<input type='hidden' name='id_user' value= '" . $event['event_id_user'] . "'>"; 
                 echo "<button type='button' class='btn float-left' onclick='openEventDetails(" . $event['event_id'] . ")'>Event</button>";
@@ -330,7 +335,7 @@ function RatingAttendees(event_id_userCreator, event_id ) {
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
                 </div>
             </div>
-        </div
+        </div>
     </div>
 </div>
 
@@ -357,10 +362,12 @@ function RatingAttendees(event_id_userCreator, event_id ) {
                             if ($attendee == $_SESSION['user']['id_user']) {
                                 continue;
                             }else{
+                                echo "EventID: " . $event['event_id'] . "<br>";
                                 echo "<form action='?t=frontend&request=notifications/rateAttendees'  method='POST'>";
+                                echo ("Name:" . $userModel->getUserNameByID($attendee['id_User'])) . "<br>";
                                 echo "<input id='attendeeRating' type='range' min='0' max='5' step='1.0' name='attendeeRating' value='3'></input><br>";
                                 echo "<input id='ratingForm-eid'  type='hidden' name='id_event' value='" . $event['event_id'] . "'>";
-                                echo "<input id='ratingForm-uid'  type='hidden' name='id_User' value='" . $attendee . "'>";
+                                echo "<input id='ratingForm-uid'  type='hidden' name='id_User' value='" . $attendee['id_User'] . "'>";
                                 echo "<input type='submit' name='rateEvent' value='Bewerten'>";
                                 // TO DO: submit ohne reload!
                                 echo "</form>";
@@ -376,6 +383,6 @@ function RatingAttendees(event_id_userCreator, event_id ) {
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
                 </div>
             </div>
-        </div
+        </div>
     </div>
 </div>
