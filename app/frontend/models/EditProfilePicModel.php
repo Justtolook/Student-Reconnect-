@@ -118,6 +118,7 @@ class EditProfilePicModel extends Model {
 
     public function removeProfileImageByUserID($userID) {
         $statement = $this->db->prepare('UPDATE user SET image = :image WHERE id_user = :id_user');
+        $placeholder = "placeholder.jpg";
         $statement->bindValue(':id_user', $userID);
         $statement->bindValue(':image', $placeholder);
         $statement->execute();
