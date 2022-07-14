@@ -100,9 +100,9 @@ class EditProfilePicModel extends Model {
         return $statement2->execute();
     }
 
-    public function getProfileImagePathByUserID($userID) {
+    public function getProfileImagePath() {
         $statement1 = $this->db->prepare('SELECT image FROM user WHERE id_user = :id_user');
-        $statement1->bindValue(':id_user', $userID);
+        $statement1->bindValue(':id_user', $this->id_user);
         $statement1->execute();
         $row = $statement1->fetch();
         $placeholder = "placeholder.jpg";
@@ -112,7 +112,7 @@ class EditProfilePicModel extends Model {
             return $imagePath;
         }else{
             $statement2 = $this->db->prepare('UPDATE user SET image = :image WHERE id_user = :id_user');
-            $statement2->bindValue(':id_user', $userID);
+            $statement2->bindValue(':id_user', $this->id_user);
             $statement2->bindValue(':image', $placeholder);
             $statement2->execute();
             $placeholderPath = "res/imgprofile/" . $placeholder;
@@ -120,10 +120,10 @@ class EditProfilePicModel extends Model {
         }
     }
 
-    public function removeProfileImageByUserID($userID) {
+    public function removeProfileImage() {
         $statement = $this->db->prepare('UPDATE user SET image = :image WHERE id_user = :id_user');
         $placeholder = "placeholder.jpg";
-        $statement->bindValue(':id_user', $userID);
+        $statement->bindValue(':id_user', $this->id_user);
         $statement->bindValue(':image', $placeholder);
         $statement->execute();
     }
