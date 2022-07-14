@@ -126,6 +126,17 @@ class EditProfilePicModel extends Model {
         $placeholder = "placeholder.jpg";
         $statement->bindValue(':id_user', $this->id_user);
         $statement->bindValue(':image', $placeholder);
+        $statement1 = $this->db->prepare('SELECT image FROM user WHERE id_user = :id_user');
+        $statement1->bindValue(':id_user', $this->id_user);
+        $statement1->execute();
+        $row = $statement1->fetch();
+        if(!empty($row['image'])) {
+            $oldimageref = $row['image'];
+            if($oldimageref !== "placeholder.jpg") {
+                $targetdir = "res/imgprofile/" . $oldimageref;
+                echo (unlink($targetdir));
+            }
+        }
         return $statement->execute();
     }
 }
