@@ -26,7 +26,7 @@ class NotificationsController extends Controller {
         
     
     public function notifications() {
-        return $this->render("notifications", ["notifications" => $this->NotificationModel, "eventNotification" => $this->NotificationModel]);
+        return $this->render("notifications", ["notifications" => $this->NotificationModel, "eventNotification" => $this->NotificationModel, "eventSignOn" => $this->EventSignOnModel]);
     }
 
     public function markAsReadNotification(Request $request){
@@ -45,22 +45,22 @@ class NotificationsController extends Controller {
     
     public function API_handleHostRating(Request $request) {
         $eventModel = new EventSignOnModel();
-        $eventModel->id_Event = $request->getBody()['event_id'];
-        //$eventModel->id_User = $request->getBody()['event_id_user'];
-        $eventModel->ratingHost = $request->getBody()['event_id_userCreator'];
-        /* if($eventModel->updateHostScore()) {
-            Application::$app->response->redirect("?t=frontend&request=notifications");
+        $eventModel->id_Event = $request->getBody()['id_event'];
+        $eventModel->id_User = $request->getBody()['id_userRated'];
+        $eventModel->ratingHost = $request->getBody()['rating'];
+        if($eventModel->updateHostScore()) {
+            //Application::$app->response->redirect("?t=frontend&request=notifications");
             return;
-        } */
+        }
         return $this->render("notifications");
     }
 
 
-    public function API_handleAttendeeRating($id_user, $rating, $eventid) {
+    public function API_handleAttendeeRating(Request $request) {
         $eventModel = new EventSignOnModel();
-        $eventModel->id_User = $id_user;
-        $eventModel->id_Event = $eventid;
-        $eventModel->ratingAttendee = $rating;
+        $eventModel->id_Event = $request->getBody()['id_event'];
+        $eventModel->id_User = $request->getBody()['id_userRated'];
+        $eventModel->ratingAttendee = $request->getBody()['rating'];
         $eventModel->updateAttendeeScore();
     }
 

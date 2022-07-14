@@ -86,7 +86,7 @@ function EventSignOff() {
                 location.reload();
             }
         });
-    }
+}
 
  //handle event report button click
  //TODO Report für User ermöglichen
@@ -95,13 +95,13 @@ function EventSignOff() {
         console.log (userID);
         //redirect to the report event page
         window.location.href = 'index.php?t=frontend&request=reportEvent&id_event=' + userID;
-    }
+}
 
-//handle rating button click
+//handle host-rating button click
 function RatingHost(event_id_userCreator, event_id ) {
         //var eventId = $('#event-set-rating-button').attr('data-eid');
         //show modal
-        $('#ratingModal').modal('show');
+        $('#hostRatingModal').modal('show');
         console.log(event_id);
         console.log(event_id_userCreator);
         $.ajax({
@@ -117,13 +117,36 @@ function RatingHost(event_id_userCreator, event_id ) {
                 /* Kein SQL Select Statement --> also keine Daten anzuzeigen */
                 $('#rating-host-id').text(data.event_id_userCreator);
                 $('#event-set-rating-button').text('Bewertung abgegeben');
-                /* ToDo Scale for Rating */
                 
                 //reload page
                 //location.reload();
             }
         });
-    };
+}
+
+//handle attendee-rating button click
+function RatingAttendees(event_id_userCreator, event_id ) {
+        //var eventId = $('#event-set-rating-button').attr('data-eid');
+        //show modal
+        $('#attendeeRatingModal').modal('show');
+        console.log(event_id);
+        console.log(event_id_userCreator);
+        $.ajax({
+            url: 'index.php',
+            type: 'GET',
+            data: {
+                't': 'frontend',
+                'request': 'API_handleAttendeeRating',
+                'event_id' : event_id,
+                'event_id_userCreator': event_id_userCreator,
+            },
+            success: function(data) {
+                /* Kein SQL Select Statement --> also keine Daten anzuzeigen */
+                $('#rating-host-id').text(data.event_id_userCreator);
+                $('#event-set-rating-button').text('Bewertung abgegeben');
+            }
+        });
+}
     
 </script>
 
@@ -180,23 +203,19 @@ function RatingHost(event_id_userCreator, event_id ) {
                    echo "Session User ID: " . $_SESSION['user']['id_user'] . "<br>";
                    /* If Event is over --> Insert Ratings Button, depending on EventOwner or Attende */ 
                    if ($event['event_id_userCreator'] == $_SESSION['user']['id_user']){
-                        echo "<button type='button' class='btn btn-secondary'>Teilnehmer Bewerten</button>";
-                        /* ToDo Modal for Rating Attendes*/
+                        echo "<button type='button' class='btn btn-secondary' onclick='RatingAttendees(" . $event['event_id_userCreator'] . "," . $event['event_id'] . ")'>Teilnehmer Bewerten</button>";
                     } else {
-                        /* insert button onclick RatingHost */
                         echo "<button type='button' class='btn btn-secondary' onclick='RatingHost(" . $event['event_id_userCreator'] . "," . $event['event_id'] . ")'>Host bewerten</button>";
-                        /* ToDO Modal for Rating EventHost */
                 }
                    echo "Das Event " . $event['event_name'] . " ist vorbei<br>";
-                } else {
-                    echo "Das Event " . $event['event_name'] . " startet am " . $event['event_time'] . "<br>";
-                }
+                }else{
                 echo "<input type='hidden' name='id_user' value= '" . $event['event_id_user'] . "'>"; 
                 echo "<button type='button' class='btn float-left' onclick='openEventDetails(" . $event['event_id'] . ")'>Event</button>";
                 echo "Sie wurden dem Event hinzugefügt: " . $event['event_name'] . "<br>";
                 echo "Das Event findet am: " . $event['event_time'] ." statt." ."<br>";
                 echo "Die Event Location wird in der Gegend: " . $event['event_location_rough'] ." sein." ."<br>";
                 echo "<hr>";
+                }
             }
         } else {
             echo "Sie sind zu keinem Event angemeldet.";
@@ -284,8 +303,8 @@ function RatingHost(event_id_userCreator, event_id ) {
     </div>
 </div> -->
 
-<!-- insert modal for rating -->
-<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
+<!-- insert modal for host rating -->
+<div class="modal fade" id="hostRatingModal" tabindex="-1" role="dialog" aria-labelledby="hostRatingModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -295,10 +314,16 @@ function RatingHost(event_id_userCreator, event_id ) {
                 </button>
             </div>
             <div class="modal-body">
-                <div id="rating">
-                    <b-form-rating v-model="value" show-value></b-form-rating>
-                    <p class=mt-2> Value: {{ value }} </p>
-                    <div id="rating-host-id"></div>
+                <div id="eventRating">
+                    <div id="event_name"><?php echo ($event['event_name']) ?></div><br>
+                </div>
+                <div id="ratingForms">
+                    <form action="?t=frontend&request=notifications"  method="POST">
+                        <input id="ratingForm-eid"  type="hidden" name="id_event" <?php echo "value='" . $event['event_id'] . "'" ?>>
+                        <input id="ratingForm-uid"  type="hidden" name="id_userRated" <?php echo "value='" . $event['event_id_userCreator'] . "'" ?>>
+                        <input id="ratingForm-rating" type="range" min="0" max="5" step="1.0" name="rating" value="3"></input><br><br>
+                        <input type="submit" name="rateEvent" value="Bewerten">
+                    </form>
                 </div>
             
                 <div class="modal-footer">
@@ -310,6 +335,47 @@ function RatingHost(event_id_userCreator, event_id ) {
 </div>
 
 
-
-
-
+<!-- insert modal for attendee rating -->
+<div class="modal fade" id="attendeeRatingModal" tabindex="-1" role="dialog" aria-labelledby="attendeeRatingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Bewertung der Teilnehmer</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="eventRating">
+                    <div id="event_name"><?php echo ($event['event_name']) ?></div><br>
+                </div>
+                <div id="ratingForms">
+                    <?php 
+                    $attendees = $eventSignOn->getSignOnIdsByEventId($event['event_id']);
+                    if (!empty($attendees)) {
+                        foreach ($attendees as $attendee) {
+                            if ($attendee == $_SESSION['user']['id_user']) {
+                                continue;
+                            }else{
+                                echo "<form action='?t=frontend&request=notifications'  method='POST'>";
+                                echo "<input id='attendeeRating' type='range' min='0' max='5' step='1.0' name='attendeeRating' value='3'></input><br>";
+                                echo "<input id='ratingForm-eid'  type='hidden' name='id_event' value='" . $event['event_id'] . "'>";
+                                echo "<input id='ratingForm-uid'  type='hidden' name='id_User' value='" . $attendee . "'>";
+                                echo "<input type='submit' name='rateEvent' value='Bewerten'>";
+                                // TO DO: submit ohne reload!
+                                echo "</form>";
+                            }
+                        }
+                    }else{
+                        echo "Bei diesem Event gab es keine Teilnehmer.";
+                    }
+                    ?>
+                </div>
+            
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                </div>
+            </div>
+        </div
+    </div>
+</div>
