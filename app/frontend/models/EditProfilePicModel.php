@@ -22,6 +22,9 @@ class EditProfilePicModel extends Model {
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
         // Check if image file is an actual image or fake image
         if(isset($_POST["submit"])) {
+            if(empty($_FILES["fileToUpload"]["tmp_name"])) {
+                return false;
+            }
             $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
             if($check !== false) {
                 $uploadOk = 1;
@@ -47,7 +50,7 @@ class EditProfilePicModel extends Model {
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
             echo "Beim Hochladen Ihrer Datei ist ein Fehler aufgetreten.";
-            return;
+            return false;
         // if everything is ok, try to upload file
         } else {
             $filename = $this->renameFile($target_dir, $imageFileType);
@@ -59,7 +62,7 @@ class EditProfilePicModel extends Model {
                 return $filename;
             } else {
                 echo "Beim Hochladen Ihrer Datei ist ein Fehler aufgetreten.";
-                return;
+                return false;
             }
         }
         
@@ -77,8 +80,8 @@ class EditProfilePicModel extends Model {
 
     public function saveNewImageRef() {
         $imageref = $this->uploadProfileImg();
-        if(empty($imageref)) {
-            return;
+        if($imageref == false) {
+            return false;
         }
         $statement1 = $this->db->prepare('SELECT image FROM user WHERE id_user = :id_user');
         $statement1->bindValue(':id_user', $this->id_user);
