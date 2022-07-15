@@ -2,11 +2,15 @@
 <html>
 <head>
     <title>Frontend Main</title>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
     <script src="app/frontend/js/bootstrap.bundle.js"></script>
     <link rel="stylesheet" href="app/frontend/css/bootstrap.css">
     <link rel="stylesheet" href="app/frontend/css/colours.css">
     <link rel="stylesheet" href="app/frontend/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- define navbar -->
@@ -30,10 +34,10 @@
         {{content}}
     </div>
     <!-- define footer -->
-    <footer id="sticky-footer" class="page-footer purple fixed-bottom container-fluid">
+    <footer class="fixed-bottom container-fluid">
         <div class="row">
                 <a href="?t=frontend&request=matching" class="p-2 col footer-item">Matching</a>
-                <a href="?t=frontend&request=events" class="p-2 col footer-item footer-item">Events</a>
+                <a href="?t=frontend&request=events" class="p-2 col footer-item">Events</a>
                 <a href="?t=frontend&request=profile" class="p-2 col footer-item">Profil</a>
         </div>
     </footer>

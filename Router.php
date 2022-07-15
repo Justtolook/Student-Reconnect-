@@ -66,4 +66,8 @@ class Router {
     public function renderView($view, $params = []) {
         return Application::$app->view->renderView($view, Application::$systemType, $params);
     }
+
+    public function renderViewContent($view, $params = []) {
+        return Application::$app->view->renderViewContent($view, Application::$systemType, $params);
+    }
 }

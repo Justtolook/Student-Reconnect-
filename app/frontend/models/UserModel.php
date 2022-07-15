@@ -18,4 +18,14 @@ class UserModel extends Model {
     public function __construct() {
         $this->description = "";
     }
+
+    public function getUserById($id_user) : UserModel {
+        $db = new Database();
+        $statement = $db->prepare('SELECT * FROM user WHERE id_user = :id_user');
+        $statement->bindValue(':id_user', $id_user);
+        $statement->execute();
+        $user = $statement->fetch();
+        $this->loadData($user);
+        return $this;
+    }
 }
