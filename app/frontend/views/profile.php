@@ -1,33 +1,30 @@
-<h1>
-    Profile
-</h1>
-<br>
-<br>
-<div class="container-fluid">
-<div class="row text-center">
+<div class="container-fluid mt-5">
+    <div class="row text-center">
 
-    <!--Grid column-->
-    <div class="col-md-8 mb-4">
+        <!--Grid column-->
+        <div class="col-md-8 mb-4">
 
-        <img class="rounded-circle w-50 mt-2 mb-2" alt="Profile Image" src="<?php echo ($profilepicmodel->getProfileImagePath())?>"
-             data-holder-rendered="true">
+            <img class="rounded-circle w-50 mt-2 mb-2" alt="Profile Image"
+                 src="<?php echo($profilepicmodel->getProfileImagePath()) ?>"
+                 data-holder-rendered="true">
 
+        </div>
+        <div class="col-md-4 mb-4">
+
+            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+                Profilbild bearbeiten
+            </button>
+        </div>
     </div>
-    <div class="col-md-4 mb-4">
-
-    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-        Profilbild bearbeiten
-    </button>
-</div>
-</div>
 </div>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalTitle" >Profil</h5>
+                <h5 class="modal-title" id="exampleModalTitle">Profil</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -36,9 +33,6 @@
                 <?php
                 include 'profilepicedit.php';
                 ?>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
             </div>
         </div>
     </div>
@@ -54,16 +48,16 @@
     <tbody>
     <tr>
         <td scope="row">
-            <div class="card">
-            <div class="card-body">
-                <?php
-                echo $profile->firstname;
-                ?>
-            </div>
+            <div class="card border-dark">
+                <div class="card-body">
+                    <?php
+                    echo $profile->firstname;
+                    ?>
+                </div>
             </div>
         </td>
         <td>
-            <div class="card">
+            <div class="card border-dark">
                 <div class="card-body">
                     <?php
                     echo $profile->lastname;
@@ -85,7 +79,7 @@
     <tbody>
     <tr>
         <td scope="row">
-            <div class="card">
+            <div class="card border-dark">
                 <div class="card-body">
                     <?php
                     echo "<ul>";
@@ -110,7 +104,7 @@
     <tbody>
     <tr>
         <td scope="row">
-            <div class="card">
+            <div class="card border-dark">
                 <div class="card-body">
                     <?php
                     echo $profile->description;
@@ -122,19 +116,20 @@
     </tbody>
 </table>
 
-
-
-
-
-
+<style>
+    .modal-content{
+        background-color: #DFF2E9;
+    }
+</style>
 <!-- Button trigger modal -->
 <button type="button" class="btn float-right" data-toggle="modal" data-target="#exampleModalCenter">
     Visitenkarte
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Visitenkarte</h5>
