@@ -17,6 +17,7 @@ class ProfileController extends Controller {
     public EditProfileModel $EditProfileModel;
     public EditProfilePicModel $EditProfilePicModel;
     public int $id_user;
+    public array $interestArray = [];
 
     public function __construct() {
         $this->id_user = $_SESSION['user']['id_user'];
@@ -46,7 +47,17 @@ class ProfileController extends Controller {
 
     public function handleProfileEditing(Request $request) {
         $EditProfileModel = new EditProfileModel();
-        $EditProfileModel->loadData($request->getBody());
+        $EditProfileModel->firstname = $request->getBody()['firstname'];
+        $EditProfileModel->lastname = $request->getBody()['lastname'];
+        $EditProfileModel->description = $request->getBody()['description'];
+        $EditProfileModel->contactInformation = $request->getBody()['contactInformation'];
+        $this->interestArray = [];
+        if(!empty($_POST['interests'])) {
+            foreach($_POST['interests'] as $interest) {
+                array_push($this->interestArray, $this->interestModel->getInterestID($interest));
+            }
+        }
+        $EditProfileModel->interests = $this->interestArray;
         if($EditProfileModel->validate() && $EditProfileModel->saveChanges()) {
             Application::$app->response->redirect("?t=frontend&request=profile");
             return;
