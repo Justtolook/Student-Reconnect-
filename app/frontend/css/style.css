@@ -75,8 +75,6 @@ h2 {
     height: auto;
 }
 
-
-
 input {
     background: #FFFFFF;
     border: 1px solid #595959;
@@ -87,6 +85,10 @@ input {
 
 .container-fluid {
     margin: 0px;
+}
+
+.option-button {
+    height:100%;
 }
 
 .PillList-item {
