@@ -20,10 +20,13 @@ it should contain the following information:
                 </div>
             </div>
             <div class="row">
-                <div class=""
+                <div class="col-md-8">
             <div id="event-description"><?php echo $event->description ?></div>
+                </div>
+                <div class="col-md-4">
             <div id="event-location_rough"><?php echo $event->location_rough ?></div>
             <div id="event-eventDate"><?php echo $event->eventDate ?></div>
+                </div>
             </div>
             <div class="text-center">
                 <button id="event-details-button" data-details-eid="<?php echo $event->id_event ?>"
