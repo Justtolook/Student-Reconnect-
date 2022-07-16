@@ -25,6 +25,14 @@ class EventSignOnModel extends Model {
         return $statement->fetchAll();
     }
 
+    public function getSignOnIdsByEventId($id_event): array {
+        $db = new Database();
+        $statement = $db->prepare('SELECT id_User FROM eventSignOn WHERE id_Event = :id_event');
+        $statement->bindValue(':id_event', $id_event);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
     public function setSignOnsByEventId($id_event) : void {
         $this->loadData($this->getSignOnsByEventId($id_event));
     }
@@ -65,7 +73,7 @@ class EventSignOnModel extends Model {
         $statement = $db->prepare('UPDATE eventSignOn SET ratingHost = :ratingHost WHERE id_Event = :id_Event AND id_User = :id_User');
         $statement->bindValue(':ratingHost', $this->ratingHost);
         $statement->bindValue(':id_Event', $this->id_Event);
-        //$statement->bindValue(':id_User', $this->id_User);
+        $statement->bindValue(':id_User', $this->id_User);
         return $statement->execute();
     }
 
