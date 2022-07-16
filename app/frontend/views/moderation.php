@@ -1,6 +1,8 @@
 <?php
 ?>
-<h1>Moderation</h1>
+<div class="mt-2 mb-3">
+<h1>Meldevorgänge</h1>
+</div>
 <?php
 foreach($reports as $report) {
 
