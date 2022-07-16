@@ -320,7 +320,7 @@ function RatingAttendees(event_id_userCreator, event_id ) {
                     <div id="event_name"><?php echo ($event['event_name']) ?></div><br>
                 </div>
                 <div id="ratingForms">
-                    <form action="?t=frontend&request=notifications"  method="POST">
+                    <form action="?t=frontend&request=notifications/rateHost"  method="POST">
                         <input id="ratingForm-eid"  type="hidden" name="id_event" <?php echo "value='" . $event['event_id'] . "'" ?>>
                         <input id="ratingForm-uid"  type="hidden" name="id_userRated" <?php echo "value='" . $event['event_id_userCreator'] . "'" ?>>
                         <input id="ratingForm-rating" type="range" min="0" max="5" step="1.0" name="rating" value="3"></input><br><br>
@@ -359,7 +359,7 @@ function RatingAttendees(event_id_userCreator, event_id ) {
                             if ($attendee == $_SESSION['user']['id_user']) {
                                 continue;
                             }else{
-                                echo "<form action='?t=frontend&request=notifications'  method='POST'>";
+                                echo "<form action='?t=frontend&request=notifications/rateAttendees'  method='POST'>";
                                 echo "<input id='attendeeRating' type='range' min='0' max='5' step='1.0' name='attendeeRating' value='3'></input><br>";
                                 echo "<input id='ratingForm-eid'  type='hidden' name='id_event' value='" . $event['event_id'] . "'>";
                                 echo "<input id='ratingForm-uid'  type='hidden' name='id_User' value='" . $attendee . "'>";
