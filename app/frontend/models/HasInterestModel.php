@@ -48,4 +48,23 @@ class HasInterestModel extends Model {
         return $interests;
     }
 
+    /**
+     * @param int $UserID
+     * @param array $interests
+     */
+    public function setInterestsForUserID(int $UserID, $interests) {
+        if(is_null($interests)) return;
+        $sql = "DELETE FROM hasInterest WHERE id_user = :user_id";
+        $statement = $this->db->prepare($sql);
+        $statement->bindValue(':user_id', $UserID);
+        $statement->execute();
+        foreach ($interests as $interest) {
+            $sql = "INSERT INTO hasInterest (id_user, id_interest) VALUES (:user_id, :interest_id)";
+            $statement = $this->db->prepare($sql);
+            $statement->bindValue(':user_id', $UserID);
+            $statement->bindValue(':interest_id', $interest);
+            $statement->execute();
+        }
+    }
+
 }
