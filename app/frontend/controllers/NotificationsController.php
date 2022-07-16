@@ -6,6 +6,7 @@ require_once 'app/frontend/models/VisitenkartenModel.php';
 require_once 'app/frontend/models/EventModel.php';
 require_once 'app/frontend/models/EventsignonModel.php';
 require_once 'app/frontend/models/UserModel.php';
+require_once 'app/frontend/models/ShowProfileModel.php';
 
 class NotificationsController extends Controller {
     public int $id_myself;
@@ -14,6 +15,7 @@ class NotificationsController extends Controller {
     public EventModel $EventModel;
     public EventSignOnModel $EventSignOnModel;
     public UserModel $UserModel;
+    public ShowProfileModel $ShowProfileModel;
 
 
     public function __construct(){
@@ -51,9 +53,14 @@ class NotificationsController extends Controller {
         $eventModel->id_Event = $request->getBody()['id_event'];
         $eventModel->id_User = $request->getBody()['id_userRated'];
         $eventModel->ratingHost = $request->getBody()['rating'];
-        if($eventModel->updateHostScore()) {
-            Application::$app->response->redirect("?t=frontend&request=notifications");
-            return;
+        if($eventModel->updateHostRating()) {
+            $score = $eventModel->ratingHost - 2;
+            $ShowProfileModel = new ShowProfileModel($eventModel->id_User);
+            $ShowProfileModel->scoreHost = $score;
+            if($ShowProfileModel->updateScoreHost()) {
+                Application::$app->response->redirect("?t=frontend&request=notifications");
+                return;
+            }
         }
         return $this->render("notifications");
     }
@@ -62,13 +69,14 @@ class NotificationsController extends Controller {
     public function API_handleAttendeeRating(Request $request) {
         $eventModel = new EventSignOnModel();
         $eventModel->id_Event = $request->getBody()['id_event'];
-        $eventModel->id_User = $request->getBody()['id_User'];
-        $eventModel->ratingAttendee = $request->getBody()['attendeeRating'];
-        if($eventModel->updateAttendeeScore()) {
-            Application::$app->response->redirect("?t=frontend&request=notifications");
-            return;
+        $eventModel->id_User = $request->getBody()['id_userRated'];
+        $eventModel->ratingAttendee = $request->getBody()['rating'];
+        if($eventModel->updateAttendeeRating()) {
+            $score = $eventModel->ratingAttendee - 2;
+            $ShowProfileModel = new ShowProfileModel($eventModel->id_User);
+            $ShowProfileModel->scoreAttendee = $score;
+            $ShowProfileModel->updateScoreAttendee();
         }
-        return $this->render("notifications");
     }
 
  /*   public function showEvent (Request $request){

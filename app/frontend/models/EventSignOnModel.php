@@ -68,7 +68,7 @@ class EventSignOnModel extends Model {
         return $statement->execute();
     }
 
-    public function updateHostScore() {
+    public function updateHostRating() {
         $db = new Database();
         $statement = $db->prepare('UPDATE eventSignOn SET ratingHost = :ratingHost WHERE id_Event = :id_Event AND id_User = :id_User');
         $statement->bindValue(':ratingHost', $this->ratingHost);
@@ -78,7 +78,7 @@ class EventSignOnModel extends Model {
     }
 
 
-    public function updateAttendeeScore() {
+    public function updateAttendeeRating() {
         $db = new Database();
         $statement = $db->prepare('UPDATE eventSignOn SET ratingAttendee = :ratingAttendee WHERE id_Event = :id_Event AND id_User = :id_User');
         $statement->bindValue(':ratingAttendee', $this->ratingAttendee);
