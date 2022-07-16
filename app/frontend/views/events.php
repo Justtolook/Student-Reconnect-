@@ -44,29 +44,49 @@
     </div>
     <div class="modal fade" id="EventDetailsModal" tabindex="-1" role="dialog" aria-labelledby="EventDetailsModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content pastelgruen">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="event-details-name"></h5>
-                    <button type="button" data-eid="" id="report-event-button"
-                            class="report-event-button btn btn-outline-danger" onclick="report()">Melden
-                    </button>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h5 class="modal-title" id="event-details-name"></h5>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" data-eid="" id="report-event-button"
+                                        class="report-event-button btn btn-outline-danger" onclick="report()">
+                                    Melden
+                                </button>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <div id="event-details-description"></div>
-                    <div id="event-details-location_rough"></div>
-                    <div id="event-details-eventDate"></div>
-                    <div id="event-details-attendees">Teilnehmende:
+                    <br>
+                    <div>
+                        <i class="fa fa-clock-four"> </i>
+                        <span id="event-details-eventDate"></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-map-marker-alt"> </i>
+                        <span id="event-details-location_rough"></span>
+                    </div>
+                    <div id="event-details-attendees">
+                        <i class="fas fa-user-alt"> </i>
+                        Teilnehmende:
                         <span id="event-details-signons"></span>/<span id="event-details-maxAttendees"></span>
                     </div>
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer align-self-center">
                     <!-- sign on button -->
-                    <button type="button" class="btn btn-primary event-sign-on-button" id="event-sign-on-button"
+                    <button type="button" class="btn event-sign-on-button" id="event-sign-on-button"
                             data-eid=""
                             onclick="toggleSignOn()">Anmelden
                     </button>
@@ -78,20 +98,36 @@
     <div class="modal fade" id="MyEventDetailsModal" tabindex="-1" role="dialog"
          aria-labelledby="MyEventDetailsModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content pastelgruen">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="my-event-details-name"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-11 mr-3">
+                                <h5 class="modal-title" id="my-event-details-name"></h5>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <div id="alert-container-details"></div>
                     <div id="my-event-details-description"></div>
-                    <div id="my-event-details-location_rough"></div>
-                    <div id="my-event-details-eventDate"></div>
-                    <div id="my-event-details-attendees">Akzeptierte Teilnehmende:
+                    <br>
+                    <div><i class="fa fa-clock-four"> </i>
+                        <span id="my-event-details-eventDate"></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-map-marker-alt"> </i>
+                        <span id="my-event-details-location_rough"></span>
+                    </div>
+                    <div id="my-event-details-attendees">
+                        <i class="fas fa-user-alt"> </i>
+                        Akzeptierte Teilnehmende:
                         <span id="my-event-details-signons"></span>/<span id="my-event-details-maxAttendees"></span>
                     </div>
                     <br>
@@ -108,7 +144,7 @@
                     </table>
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer align-self-center">
                     <!-- sign on button -->
                     <button type="button" class="btn btn-danger my-event-delete-button" id="my-event-delete-button"
                             data-eid="" onclick="deleteEvent()">Löschen
