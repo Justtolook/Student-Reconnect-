@@ -1,13 +1,7 @@
 <div class="visitenkartenModal">
-    <div class="text-center">
-        <img class="rounded-circle w-50 mt-2 mb-2" alt="Profile Image"
-             src="<?php echo($profilepicmodel->getProfileImagePath()) ?>"
-             data-holder-rendered="true">
-    </div>
-
-
+    <h3>Visitenkarten Modal</h3>
     <?php
-    if ($visitenkarte->id_user != $_SESSION['user']['id_user']) {
+    if($visitenkarte->id_user != $_SESSION['user']['id_user']) {
         echo '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visitenkartenModal">
             User melden
         </button>';

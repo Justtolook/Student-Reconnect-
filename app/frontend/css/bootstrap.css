@@ -1662,7 +1662,6 @@ pre code {
   width: 100%;
   margin-bottom: 1rem;
   color: #212529;
-  font-size: inherit;
 }
 
 .table th,
@@ -2566,7 +2565,6 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #007bff;
   border-color: #007bff;
-  width: 100%;
 }
 
 .btn-primary:hover {
@@ -10314,5 +10312,4 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
-
 /*# sourceMappingURL=bootstrap.css.map */

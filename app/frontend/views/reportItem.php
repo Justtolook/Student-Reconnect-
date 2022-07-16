@@ -1,29 +1,28 @@
-<div class="reportItem card pastelgruen border-success ml-3 mr-3">
-    <div class="card-body">
-        <?php
-        echo '<div class="reportItem_id"><span>Vorgangsnummer : ' . $report->id_report . '</span></div>';
-        if ($report->status == 0) {
-            echo '<div class="reportItem_status">Status : Offen</div>';
-        } else if ($report->status == 1) {
-            echo '<div class="reportItem_status">Status : Akzeptiert</div>';
-        } else if ($report->status == 2) {
-            echo '<div class="reportItem_status">Status : Abgelehnt</div>';
-        }
-        if ($report->type == 'e') {
-            echo '<div class="reportItem_type">Gemeldetes Objekt : Event</div>';
-        } else if ($report->type == 'u') {
-            echo '<div class="reportItem_type">Gemeldetes Objekt : User</div>';
-        }
-        echo '<div class="reportItem_description"><span>Beschreibung : ' . $report->description . '</span></div>';
-        echo '<div class="reportItem_userReporter"><span>Melder:in : ' . $report->id_userReporter . '</span></div>';
-        if ($report->id_objectReported != null) {
-            echo '<div class="reportItem_userReported"> Gemeldete:r : ' . $report->id_objectReported . '</div>';
-        } else {
-            echo '<div class="reportItem_userReported">-</div>';
-        }
+<div class="reportItem">
+    <?php
+    echo '<div class="reportItem_id">' . $report->id_report . '</div>';
+    if ($report->status == 0) {
+        echo '<div class="reportItem_status">Offen</div>';
+    } else if ($report->status == 1) {
+        echo '<div class="reportItem_status">Akzeptiert</div>';
+    }
+    else if ($report->status == 2) {
+        echo '<div class="reportItem_status">Abgelehnt</div>';
+    }
+    if($report->type == 'e') {
+        echo '<div class="reportItem_type">Event</div>';
+    } else if ($report->type == 'u') {
+        echo '<div class="reportItem_type">User</div>';
+    }
+    echo '<div class="reportItem_description">' . $report->description . '</div>';
+    echo '<div class="reportItem_userReporter">' . $report->id_userReporter . '</div>';
+    if($report->id_objectReported != null) {
+        echo '<div class="reportItem_userReported"> Reported: ' . $report->id_objectReported . '</div>';
+    } else {
+        echo '<div class="reportItem_userReported">-</div>';
+    }
 
 
-        ?>
-    </div>
+    ?>
+    <hr>
 </div>
-<br>

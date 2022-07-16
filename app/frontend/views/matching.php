@@ -1,34 +1,35 @@
-<div class="matchCard mt-2">
+<div class="matchCard">
     <div class="text-center">
-        <button class="btn text-center" onclick="showFilter()">Interessenfilter</button>
+        <button class="btn text-center" onclick="showFilter()">Filter deiner Suche</button>
     </div>
-    <div class="container-fluid matchingFilter">
+    <div class="matchingFilter">
         <div class="row d-flex justify-content-center">
             <span class="mb-3 mt-2">Interessen</span>
-        </div>
-        <!-- checkboxes with interest to filter the user list -->
-        <form action="?t=frontend&request=matching/filter" method="post">
-            <div class="row d-flex ml-2 mr-2">
-                <?php
-                foreach ($interestModel->interests as $interest) {
-                    echo '<label class="PillList-item"><input type="checkbox" name="interests[]" value="' .
-                        $interest . '"><span class="PillList-label">' . $interest .
-                        '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span></span></label>';
-                }
-                ?>
+            <div class="col-md-11">
+                <!-- checkboxes with interest to filter the user list -->
+                <form action="?t=frontend&request=matching/filter" method="post">
+                    <?php
+                    foreach ($interestModel->interests as $interest) {
+                        echo '<label class="PillList-item"><input type="checkbox" name="interests[]" value="' .
+                            $interest . '"><span class="PillList-label">' . $interest .
+                            '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span></span></label>';
+                    }
+                    ?>
+                    <br class="spacer">
+                        <input class="btn" type="submit" name="filter" value="Filter setzen">
+                </form>
+                <!-- reset filter button -->
+                <form action="?t=frontend&request=matching/resetfilter" method="post">
+                    <input class="btn float-left" type="submit" name="reset" value="Filter zurücksetzen">
+                </form>
+                <!-- clear filter button -->
+                <form action="?t=frontend&request=matching/clearfilter" method="post">
+                    <input class="btn" type="submit" name="clear" value="Filter löschen">
+                </form>
             </div>
-            <input class="btn" type="submit" name="filter" value="Filter setzen">
-        </form>
-        <!-- reset filter button -->
-        <form action="?t=frontend&request=matching/resetfilter" method="post">
-            <input class="btn float-left" type="submit" name="reset" value="Filter zurücksetzen">
-        </form>
-        <!-- clear filter button -->
-        <form action="?t=frontend&request=matching/clearfilter" method="post">
-            <input class="btn" type="submit" name="clear" value="Filter löschen">
-        </form>
+        </div>
     </div>
-    <div class="card pastelgruen border-success m-3">
+    <div class="card pastelgruen m-3">
         <div class="p-3">
             <h2>
                 <?php echo $model->firstname . " " . $model->lastname; ?>
