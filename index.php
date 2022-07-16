@@ -38,10 +38,10 @@ $app->router->setRoute("get", "frontend", "notifications", [NotificationsControl
 $app->router->setRoute("post", "frontend", "notifications", [NotificationsController::class, 'notifications'], 1);
 $app->router->setRoute("post","frontend", "notifications/markAsReadNotification", [NotificationsController::class, 'markAsReadNotification'], 1);
 $app->router->setRoute("post","frontend", "notifications/showVisitenkarte", [NotificationsController::class, 'showVisitenkarte'], 1);
-$app->router->setRoute("get","frontend", "API_handleHostRating", [NotificationsController::class, 'API_handleHostRating'], 1);
-$app->router->setRoute("post","frontend", "notifications/rateHost", [NotificationsController::class, 'API_handleHostRating'], 1);
-$app->router->setRoute("get","frontend", "API_handleAttendeeRating", [NotificationsController::class, 'API_handleAttendeeRating'], 1);
-$app->router->setRoute("post","frontend", "notifications/rateAttendees", [NotificationsController::class, 'API_handleAttendeeRating'], 1);
+$app->router->setRoute("get","frontend", "handleHostRating", [NotificationsController::class, 'handleHostRating'], 1);
+$app->router->setRoute("post","frontend", "notifications/rateHost", [NotificationsController::class, 'handleHostRating'], 1);
+$app->router->setRoute("get","frontend", "handleAttendeeRating", [NotificationsController::class, 'handleAttendeeRating'], 1);
+$app->router->setRoute("post","frontend", "notifications/rateAttendees", [NotificationsController::class, 'handleAttendeeRating'], 1);
 $app->router->setRoute("get", "frontend", "API_getVisitenkarte", [VisitenkartenController::class, 'API_getVisitenkarte'], 1);
 $app->router->setRoute("get","frontend", "profile", [ProfileController::class, 'profile'], 1);
 $app->router->setRoute("get","frontend", "login", [AuthController::class, 'login'], 0);

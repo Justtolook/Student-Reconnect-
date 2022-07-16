@@ -37,7 +37,7 @@ class UserModel extends Model {
         $array = $statement->fetch();
         $firstname = $array['firstname'];
         $lastname = $array['lastname'];
-        return $firstname . $lastname;
+        return $firstname . " " . $lastname;
     }
 
 

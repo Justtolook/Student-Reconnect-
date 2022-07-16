@@ -48,7 +48,7 @@ class NotificationsController extends Controller {
     }
 
     
-    public function API_handleHostRating(Request $request) {
+    public function handleHostRating(Request $request) {
         $eventModel = new EventSignOnModel();
         $eventModel->id_Event = $request->getBody()['id_event'];
         $eventModel->id_User = $request->getBody()['id_userRated'];
@@ -66,17 +66,23 @@ class NotificationsController extends Controller {
     }
 
 
-    public function API_handleAttendeeRating(Request $request) {
-        $eventModel = new EventSignOnModel();
-        $eventModel->id_Event = $request->getBody()['id_event'];
-        $eventModel->id_User = $request->getBody()['id_userRated'];
-        $eventModel->ratingAttendee = $request->getBody()['rating'];
-        if($eventModel->updateAttendeeRating()) {
-            $score = $eventModel->ratingAttendee - 2;
-            $ShowProfileModel = new ShowProfileModel($eventModel->id_User);
-            $ShowProfileModel->scoreAttendee = $score;
-            $ShowProfileModel->updateScoreAttendee();
+    public function handleAttendeeRating(Request $request) {
+        $numberAttendees = $request->getBody()['numberAttendees'];
+        $counter = 1;
+        while($counter <= $numberAttendees) {
+            $eventModel = new EventSignOnModel();
+            $eventModel->id_Event = $request->getBody()['id_event'];
+            $eventModel->id_User = $request->getBody()['id_User' . $counter];
+            $eventModel->ratingAttendee = $request->getBody()['rating' . $counter];
+            if($eventModel->updateAttendeeRating()) {
+                $score = $eventModel->ratingAttendee - 2;
+                $ShowProfileModel = new ShowProfileModel($eventModel->id_User);
+                $ShowProfileModel->scoreAttendee = $score;
+                $ShowProfileModel->updateScoreAttendee();
+            }
+            $counter ++;
         }
+        return $this->render("notifications");
     }
 
  /*   public function showEvent (Request $request){
