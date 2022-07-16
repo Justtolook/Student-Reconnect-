@@ -52,6 +52,8 @@ $app->router->setRoute("post","frontend", "settings", [SettingsController::class
 
 $app->router->setRoute("get","frontend", "events", [EventsController::class, 'events'], 1);
 $app->router->setRoute("post","frontend", "events", [EventsController::class, 'events'], 1);
+$app->router->setRoute("get","frontend", "eventcreation", [EventsController::class, 'eventcreation'], 1);
+$app->router->setRoute("post","frontend", "eventcreation", [EventsController::class, 'handleEventCreation'], 1);
 $app->router->setRoute("get","frontend", "API_getAllEvents", [EventsController::class, 'API_getAllEvents'], 1);
 $app->router->setRoute("get","frontend", "API_getEventDetails", [EventsController::class, 'API_getEventDetails'], 1);
 $app->router->setRoute("get","frontend", "API_toggleSignOnForEvent", [EventsController::class, 'API_toggleSignOnForEvent'], 1);

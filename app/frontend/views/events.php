@@ -1,7 +1,7 @@
 <script src="app/frontend/js/events.js"></script>
 <div id="alert-container"></div>
 <h1>Events</h1>
-<button class="btn btn-outline-primary" data-toggle="modal" data-target="#EventCreationModal">Event erstellen</button>
+<a href="?t=frontend&request=eventcreation" class="btn">Event erstellen</a>
 <button class="btn search-my-events-button" onclick="getMyEvents()">Meine Events</button>
 <button class="search-all-events-button btn" onclick="getAllEvents()">Alle</button>
 <form>
