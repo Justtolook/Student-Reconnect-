@@ -49,7 +49,7 @@ class NotificationsController extends Controller {
         $eventModel->id_User = $request->getBody()['id_userRated'];
         $eventModel->ratingHost = $request->getBody()['rating'];
         if($eventModel->updateHostScore()) {
-            Application::$app->response->redirect("?t=frontend&request=notifications");
+            //Application::$app->response->redirect("?t=frontend&request=notifications");
             return;
         }
         return $this->render("notifications");
