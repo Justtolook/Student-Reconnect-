@@ -88,6 +88,7 @@ $app->router->setRoute("post","frontend", "pwresetemail", [AuthController::class
 $app->router->setRoute("get","frontend", "moderation", [ModerationController::class, 'moderation'], 2);
 $app->router->setRoute("post","frontend", "moderation", [ModerationController::class, 'moderation'], 2);
 $app->router->setRoute("get","frontend", "reportEvent", [ModerationController::class, 'reportEvent'], 1);
+$app->router->setRoute("get","frontend", "reportUser", [ModerationController::class, 'reportUser'], 1);
 $app->router->setRoute("post","frontend", "handleReport", [ModerationController::class, 'handleReport'], 1);
 
 
