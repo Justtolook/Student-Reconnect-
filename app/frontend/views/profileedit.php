@@ -1,12 +1,12 @@
 <form method="POST" action="?t=frontend&request=profileedit">
     <div class="col-md-11">
     <div class="form-row">
-        <div class="col-md-6 mt-2">
+        <div class="col-md-6 mt-3">
             <label for="firstname"><p class="font-weight-bold">Vorname</p></label>
             <input type="text" class="form-control border-dark shadow-none <?php echo $model->hasError('firstname') ? 'is-invalid' : '' ?>"
                    value="<?php echo $profile->firstname ?>" id="firstname" name="firstname">
         </div>
-        <div class="col-md-6 mt-2">
+        <div class="col-md-6 mt-3">
             <label for="lastname"><p class="font-weight-bold">Nachname</p></label>
             <input type="text" class="form-control border-dark shadow-none <?php echo $model->hasError('lastname') ? 'is-invalid' : '' ?>"
                    value="<?php echo $profile->lastname ?>" id="lastname" name="lastname">

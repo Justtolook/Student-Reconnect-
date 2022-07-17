@@ -105,9 +105,9 @@
     <tr>
         <td scope="row">
             <div class="card border-dark">
-                <div class="card-body">
+                <div class="card-body text-break">
                     <?php
-                    echo $profile->description;
+                    echo '<div class="textwrap">' . $profile->description . '</div>';
                     ?>
                 </div>
             </div>
