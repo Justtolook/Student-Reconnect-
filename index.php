@@ -39,9 +39,13 @@ $app->router->setRoute("post", "frontend", "notifications", [NotificationsContro
 $app->router->setRoute("post","frontend", "notifications/markAsReadNotification", [NotificationsController::class, 'markAsReadNotification'], 1);
 $app->router->setRoute("post","frontend", "notifications/showVisitenkarte", [NotificationsController::class, 'showVisitenkarte'], 1);
 $app->router->setRoute("get","frontend", "API_handleHostRating", [NotificationsController::class, 'API_handleHostRating'], 1);
+$app->router->setRoute("post","frontend", "notifications/rateHost", [NotificationsController::class, 'API_handleHostRating'], 1);
 $app->router->setRoute("get","frontend", "API_handleAttendeeRating", [NotificationsController::class, 'API_handleAttendeeRating'], 1);
+$app->router->setRoute("post","frontend", "notifications/rateAttendees", [NotificationsController::class, 'API_handleAttendeeRating'], 1);
 $app->router->setRoute("get", "frontend", "API_getVisitenkarte", [VisitenkartenController::class, 'API_getVisitenkarte'], 1);
 $app->router->setRoute("get","frontend", "profile", [ProfileController::class, 'profile'], 1);
+$app->router->setRoute("post","frontend", "profile", [ProfileController::class, 'handleProfilePicEditing'], 1);
+$app->router->setRoute("post","frontend", "profile/rmvprofilepic", [ProfileController::class, 'removeProfilePic'], 1);
 $app->router->setRoute("get","frontend", "login", [AuthController::class, 'login'], 0);
 $app->router->setRoute("post","frontend", "login", [AuthController::class, 'handleLogin'], 0);
 $app->router->setRoute("get","frontend", "logout", [AuthController::class, 'logout'], 0);
@@ -63,6 +67,8 @@ $app->router->setRoute("get","frontend", "API_getAttendees", [EventsController::
 $app->router->setRoute("get","frontend", "API_toggleAcceptance", [EventsController::class, 'API_toggleAcceptance'], 1);
 $app->router->setRoute("get","frontend", "API_searchEvents", [EventsController::class, 'API_searchEvents'], 1);
 
+$app->router->setRoute("get","frontend", "profileedit", [ProfileController::class, 'profileedit'], 1);
+$app->router->setRoute("post","frontend", "profileedit", [ProfileController::class, 'handleProfileEditing'], 1);
 
 $app->router->setRoute("get","frontend", "matching", [MatchingController::class, 'matching'], 1);
 $app->router->setRoute("post","frontend", "matching", [MatchingController::class, 'matching'], 1);
@@ -83,6 +89,7 @@ $app->router->setRoute("post","frontend", "pwresetemail", [AuthController::class
 $app->router->setRoute("get","frontend", "moderation", [ModerationController::class, 'moderation'], 2);
 $app->router->setRoute("post","frontend", "moderation", [ModerationController::class, 'moderation'], 2);
 $app->router->setRoute("get","frontend", "reportEvent", [ModerationController::class, 'reportEvent'], 1);
+$app->router->setRoute("get","frontend", "reportUser", [ModerationController::class, 'reportUser'], 1);
 $app->router->setRoute("post","frontend", "handleReport", [ModerationController::class, 'handleReport'], 1);
 
 

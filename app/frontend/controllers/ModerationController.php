@@ -28,6 +28,13 @@ class ModerationController extends Controller {
         return $this->render('reportformular', ['report' => $model]);
     }
 
+    public function reportUser(Request $request) {
+        $model = new ModerationModel();
+        $model->type = 'u';
+        $model->id_objectReported = $request->getBody()['id_user'];
+        return $this->render('reportformular', ['report' => $model]);
+    }
+
     public function handleReport(Request $request) {
         $model = new ReportModel();
         $model->type = $request->getBody()['type'];
