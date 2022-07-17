@@ -67,13 +67,14 @@ class NotificationsController extends Controller {
 
 
     public function handleAttendeeRating(Request $request) {
-        $numberAttendees = $request->getBody()['numberAttendees'];
+        $numberAttendees = $request->getBody()['counter'];
+        var_dump($numberAttendees);
         $counter = 1;
-        while($counter <= $numberAttendees) {
+        while($counter < $numberAttendees) {
             $eventModel = new EventSignOnModel();
             $eventModel->id_Event = $request->getBody()['id_event'];
             $eventModel->id_User = $request->getBody()['id_User' . $counter];
-            $eventModel->ratingAttendee = $request->getBody()['rating' . $counter];
+            $eventModel->ratingAttendee = $request->getBody()['attendeeRating' . $counter];
             if($eventModel->updateAttendeeRating()) {
                 $score = $eventModel->ratingAttendee - 2;
                 $ShowProfileModel = new ShowProfileModel($eventModel->id_User);
@@ -82,7 +83,8 @@ class NotificationsController extends Controller {
             }
             $counter ++;
         }
-        return $this->render("notifications");
+        Application::$app->response->redirect("?t=frontend&request=notifications");
+        return;
     }
 
  /*   public function showEvent (Request $request){

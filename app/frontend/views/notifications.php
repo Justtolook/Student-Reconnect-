@@ -142,26 +142,63 @@ function RatingAttendees(event_id) {
                 $('#attendeerating-ename').text(eventDetails.name);
                 $('#attendeeRatingForm-eid').val(event_id);
 
-                var submitButton = document.getElementbyId("submit-ratings-button");
-
                 if(eventDetails.attendees.length !== 0) {
                     var counter = 1;
+                    var linebreak = document.createElement("br");
                     for (var i = 0; i < eventDetails.attendees.length; i++) {
-                        if(eventDetails.attendees[i].id_User == eventDetails.id_userCreator) {
+                        if(eventDetails.attendees[i].id_user == eventDetails.id_userCreator) {
                             continue;
                         }else{
                             var name = document.createElement("div");
-                            var nameContent = document.createTextNode(eventDetails.attendees[i].firstname . " " . eventDetails.attendees[i].lastname);
+                            var nameContent = document.createTextNode(eventDetails.attendees[i].firstname + " " + eventDetails.attendees[i].lastname);
+                            name.appendChild(nameContent);
+                            document.getElementById("rateAttendees").appendChild(name);
                             var input1 = document.createElement("input");
+                            input1.setAttribute('type', 'hidden');
+                            input1.setAttribute('id', 'id_User' + counter);
+                            input1.setAttribute('name', 'id_User' + counter);
+                            input1.setAttribute('value', eventDetails.attendees[i].id_user);
+                            document.getElementById("rateAttendees").appendChild(input1);
+                            var input2 = document.createElement("input");
+                            input2.setAttribute('type', 'range');
+                            input2.setAttribute('id', 'attendeeRating' + counter);
+                            input2.setAttribute('name', 'attendeeRating' + counter);
+                            input2.setAttribute('value', '3');
+                            input2.setAttribute('min', '0');
+                            input2.setAttribute('max', '5');
+                            input2.setAttribute('step', '1.0');
+                            document.getElementById("rateAttendees").appendChild(input2);
+
                             counter ++;
                         }
                     }
+                    var inputCounter = document.createElement("input");
+                    inputCounter.setAttribute('type', 'hidden');
+                    inputCounter.setAttribute('id', 'counter');
+                    inputCounter.setAttribute('name', 'counter');
+                    inputCounter.setAttribute('value', counter);
+                    document.getElementById("rateAttendees").appendChild(inputCounter);
+                    var inputEvent = document.createElement("input");
+                    inputEvent.setAttribute('type', 'hidden');
+                    inputEvent.setAttribute('id', 'id_event');
+                    inputEvent.setAttribute('name', 'id_event');
+                    inputEvent.setAttribute('value', event_id);
+                    document.getElementById("rateAttendees").appendChild(inputEvent);
+                    document.getElementById("rateAttendees").appendChild(linebreak);
+                    document.getElementById("rateAttendees").appendChild(linebreak);
+                    var submitButton = document.createElement("button");
+                    var buttonText = document.createTextNode("Bewertungen abgeben");
+                    submitButton.appendChild(buttonText);
+                    submitButton.setAttribute('type', 'submit');
+                    submitButton.setAttribute('id', 'submit-ratings-button');
+                    submitButton.setAttribute('name', 'submit-ratings-button');
+                    submitButton.setAttribute('class', 'btn btn-secondary');
+                    document.getElementById("rateAttendees").appendChild(submitButton);
                 }else{
-                    $('#submit-ratings-button').setAttribute("type", "hidden");
                     var nADiv = document.createElement("div");
                     var noAttendees = document.createTextNode("Bei diesem Event gab es keine Teilnehmer.");
                     nADiv.appendChild(noAttendees);
-                    document.body.insertBefore(nADiv, submitButton);
+                    document.getElementById("rateAttendees").appendChild(naDiv);
                 }
             }
         });
@@ -218,11 +255,8 @@ function RatingAttendees(event_id) {
             foreach($eventNotification->eventsSignedIn as $event) {
                 /* Check if Event is over --> due to Rating Option */
                 if (strtotime("now") > strtotime($event['event_time'])) {
-                   echo "User Creator ID: " . $event['event_id_userCreator'] . "<br>";
-                   echo "Session User ID: " . $_SESSION['user']['id_user'] . "<br>";
                    /* If Event is over --> Insert Ratings Button, depending on EventOwner or Attende */ 
                    if ($event['event_id_userCreator'] == $_SESSION['user']['id_user']){
-                        echo "event ID" . $event['event_id'] . "<br>";
 
                         echo "<button type='button' class='btn btn-secondary' onclick='RatingAttendees(" . $event['event_id'] . ")'>Teilnehmer Bewerten</button>";
                     } else {
@@ -365,7 +399,7 @@ function RatingAttendees(event_id) {
             <div class="modal-header">
                 <h3 class="modal-title">Bewertung der Teilnehmer</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <!--<span aria-hidden="true">&times;</span> -->
                 </button>
             </div>
             <div class="modal-body">
@@ -374,7 +408,6 @@ function RatingAttendees(event_id) {
                 </div>
                 <div id="ratingForms">
                     <form action='?t=frontend&request=notifications/rateAttendees' id='rateAttendees' method='POST'>
-                       <button type='submit' id='submit-ratings-button' name='rateEvent'>Bewertungen abgeben</button> 
                     </form>
                 </div>
             
@@ -385,26 +418,3 @@ function RatingAttendees(event_id) {
         </div>
     </div>
 </div>
-
-
-<?php 
-                        $attendees = $eventSignOn->getSignOnIdsByEventId($event['event_id']);
-                        $counter = 1;
-                        if (!empty($attendees)) {
-                            foreach ($attendees as $attendee) {
-                                if ($attendee['id_User'] == $_SESSION['user']['id_user']) {
-                                    continue;
-                                }else{
-                                    echo ("Name:" . $userModel->getUserNameByID($attendee['id_User'])) . "<br>";
-                                    echo "<input id='attendeeRating' type='range' min='0' max='5' step='1.0' name='attendeeRating" . $counter . "' value='3'></input><br>";
-                                    echo "<input id='attendeeRatingForm-uid'  type='hidden' name='id_User" . $counter . "' value='" . $attendee['id_User'] . "'>";
-                                    $counter ++;
-                                }
-                            }
-                            echo "<input id='numberAttendees' type='hidden' name='numberAttendees' value'" . $counter . "'>";
-                            echo "<input id='attendeeRatingForm-eid'  type='hidden' name='id_event' value=''>";
-                            echo "<button type='submit' name='rateEvent'>Bewertungen abgeben</button>";
-                        }else{
-                            echo "Bei diesem Event gab es keine Teilnehmer.";
-                        }
-                        ?>
