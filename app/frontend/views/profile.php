@@ -105,9 +105,9 @@
     <tr>
         <td scope="row">
             <div class="card border-dark">
-                <div class="card-body">
+                <div class="card-body text-break">
                     <?php
-                    echo $profile->description;
+                    echo '<div class="textwrap">' . $profile->description . '</div>';
                     ?>
                 </div>
             </div>
@@ -153,4 +153,9 @@
     <a href="?t=frontend&request=profileedit" class="btn text-center">Profil bearbeiten</a><br>
 </div>
 
+<style>
+    .textwrap{
+        white-space: pre-line;
+    }
+</style>
 
