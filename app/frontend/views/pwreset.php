@@ -13,9 +13,9 @@
         }
     }
     ?>
-    <br><h1>Passwort vergessen?</h1>
-    <div style = "padding: 100px 100px 10px;" class="row justify-content-center">
-    <div class="card float-none" style="width: 25rem;">
+    <br><strong><h1>Passwort vergessen?</strong></h1>
+    <div style = "padding: 80px 80px 10px;" class="row justify-content-center">
+    <div class="card pastelgruen border-success m-3" style="width: 25rem;">
         <h2>Gib deine Uni-E-Mail Adresse ein, um dein Passwort zurückzusetzen. Möglicherweise musst du deinen Spamordner prüfen.</h2><br>
         <div style = "padding: 100px 100px 10px;">
         </div>
@@ -30,8 +30,9 @@
     </div>
     </form>
 
-    <div style = "padding: 150px 100px 10px;" class="row justify-content-center">
-        <div class="card float-none" style="width: 25rem;">
+    <div style ="padding: 50px 80px 10px;" class="row justify-content-center">
+        <div class="card pastelgruen border-success m-3" style="width: 25rem;">
+            <div style = "padding: 40px 20px 10px;"></div>
         <div method="POST" action="?t=frontend&request=pwreset">
         <!-- TODO display errors if there are any -->
         <div class="form-group row justify-content-center">
@@ -45,7 +46,7 @@
         </div><br>
         <div class="row justify-content-center">
             <button type="submit" class="btn btn-primary">Passwort zurücksetzen</button>
-        </div><br><br>
+        </div>
         </div>
         </div>
     </div> <br>

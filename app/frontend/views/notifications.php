@@ -128,10 +128,10 @@ function RatingHost(event_id_userCreator, event_id ) {
 </script>
 
 <!-- Match Notification -->
-<h1>Benachrichtigungen</h1>
-<h5>Matches</h5>
-<div class="card pastelgruen border-success m-3">
-    <div class="p-3">
+<h1><strong>Benachrichtigungen</strong></h1>
+<div style = "padding: 10px 50px 1px;" class="row justify-content-start">
+<h5><strong>Matches</strong></h5>
+</div>
 <div class= "notificationCard">
     <div class = "matchingNotification">
     </div>
@@ -142,12 +142,20 @@ function RatingHost(event_id_userCreator, event_id ) {
         if ($notifications->matches != null){
             foreach ($notifications->matches as $match) {
                 //if ($match['notificationRead'] != 1){
+                ?>
+                <div class="card pastelgruen border-success m-3">
+                    <div class="p-3">
+                        <?php
                     if(!$match['notificationRead']) {
-                        echo "<div class='newNotification'>Neu!</div>";
                         echo "<form action='?t=frontend&request=notifications/markAsReadNotification'  method='POST'>";
                         echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>"; 
                         echo "<input class='btn float-left' type='submit' name='markAsReadNotification' value='Gelesen'>";
+                        ?>
+                        <div style = "padding: 40px 10px 10px;"></div>
+                        <?php
+                        echo "<div class='newNotification'>Neu!</div>";
                         echo "</form>";
+
                     }
                     echo "<button type='button' class='btn float-left' onclick='openVisitenkarte(" . $match['id_user'] . ")'>Visitenkarte</button>";
                     /*
@@ -155,21 +163,28 @@ function RatingHost(event_id_userCreator, event_id ) {
                     echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>"; 
                     echo "<input class='btn float-left' type='submit' name='showVisitenkarte' value='Visitenkarte anzeigen'>";
                     echo "</form>";*/
-                    
-                    echo "Sie wurde gematched mit der UserID: " . $match['id_user'] . "<br>";
+
+                    echo "Sie wurden gematched mit: " . $match['id_user'] . "<br>";
                     echo "Der Timestamp des Matches ist: " . $match['timestamp'] . "<br>";
                     //echo "Gelesen? " . $match['notificationRead'] . "<br>";
-                    echo "<hr>";
+                ?>
+            </div>
+        </div>
+            <?php
+                echo "<hr>";
                 //} 
             }
         } else {
             echo "Keine Matches gefunden";
         }
-    ?>    
+    ?>
+
     </div>
 </div>
 <!-- Event Notifications -->
-<h5>Events</h5>
+<div style = "padding: 10px 50px 1px;" class="row justify-content-start">
+<h5><strong>Events</strong></h5>
+</div>
 <div class= "eventCard">
     <div class= "eventNotification">
         <?php
@@ -178,33 +193,64 @@ function RatingHost(event_id_userCreator, event_id ) {
         if ($eventNotification->eventsSignedIn != null){
             foreach($eventNotification->eventsSignedIn as $event) {
                 /* Check if Event is over --> due to Rating Option */
+        ?>
+                 <div class="card pastelgruen border-success m-3">
+                     <div class="p-1">
+                       <div class="card-body float-left">
+                <?php
                 if (strtotime("now") > strtotime($event['event_time'])) {
-                   echo "User Creator ID: " . $event['event_id_userCreator'] . "<br>";
-                   echo "Session User ID: " . $_SESSION['user']['id_user'] . "<br>";
-                   /* If Event is over --> Insert Ratings Button, depending on EventOwner or Attende */ 
+                   // echo "User Creator ID: " . $event['event_id_userCreator'] . "<br>";
+                   // echo "Session User ID: " . $_SESSION['user']['id_user'] . "<br>";
+                   /* If Event is over --> Insert Ratings Button, depending on EventOwner or Attende */
                    if ($event['event_id_userCreator'] == $_SESSION['user']['id_user']){
-                        echo "<button type='button' class='btn btn-secondary'>Teilnehmer Bewerten</button>";
+                        echo "<button type='button' class='btn float-left'>Teilnehmer Bewerten</button>";
                         /* ToDo Modal for Rating Attendes*/
                     } else {
                         /* insert button onclick RatingHost */
-                        echo "<button type='button' class='btn btn-secondary' onclick='RatingHost(" . $event['event_id_userCreator'] . "," . $event['event_id'] . ")'>Host bewerten</button>";
+                        echo "<button type='button' class='btn float-left' onclick='RatingHost(" . $event['event_id_userCreator'] . "," . $event['event_id'] . ")'>Host bewerten</button>";
                         /* ToDO Modal for Rating EventHost */
                 }
+                    ?>
+                    <div style = "padding: 25px 10px 10px;"></div>
+                    <?php
                    echo "Das Event " . $event['event_name'] . " ist vorbei<br>";
-                } else {
-                    echo "Das Event " . $event['event_name'] . " startet am " . $event['event_time'] . "<br>";
+                    ?>
+                    <div style = "padding: 45px 10px 10px;"></div>
+                    <?php
                 }
+
+               // else {
+                  //  echo "Das Event " . $event['event_name'] . " startet am " . $event['event_time'] . "<br>";
+               // }
                 echo "<input type='hidden' name='id_user' value= '" . $event['event_id_user'] . "'>"; 
                 echo "<button type='button' class='btn float-left' onclick='openEventDetails(" . $event['event_id'] . ")'>Event</button>";
+                           ?>
+                           <div style = "padding: 7px 10px 10px;"></div>
+                           <?php
                 echo "Sie wurden dem Event hinzugefügt: " . $event['event_name'] . "<br>";
-                echo "Das Event findet am: " . $event['event_time'] ." statt." ."<br>";
+                ?>
+                           <div style = "padding: 20px 10px 10px;"></div>
+                           <img src="res/clock.png" alt="Logo" class="float left"  width="50" height="50">
+                           <?php
+               echo "Das Event findet am: " . $event['event_time'] ." statt." ."<br>";
+                ?>
+                           <div style = "padding: 10px 10px 10px;"></div>
+                           <img src="res/index.png" alt="Logo" class="float left"  width="50" height="50">
+                           <?php
+
                 echo "Die Event Location wird in der Gegend: " . $event['event_location_rough'] ." sein." ."<br>";
+                ?>
+                </div>
+            </div>
+        </div>
+                <?php
                 echo "<hr>";
             }
         } else {
             echo "Sie sind zu keinem Event angemeldet.";
         }
         ?>
+        <div style = "padding: 70px 10px 10px;"></div>
     </div>
 </div>
 
