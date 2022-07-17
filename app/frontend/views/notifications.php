@@ -141,6 +141,28 @@ function RatingAttendees(event_id) {
 
                 $('#attendeerating-ename').text(eventDetails.name);
                 $('#attendeeRatingForm-eid').val(event_id);
+
+                var submitButton = document.getElementbyId("submit-ratings-button");
+
+                if(eventDetails.attendees.length !== 0) {
+                    var counter = 1;
+                    for (var i = 0; i < eventDetails.attendees.length; i++) {
+                        if(eventDetails.attendees[i].id_User == eventDetails.id_userCreator) {
+                            continue;
+                        }else{
+                            var name = document.createElement("div");
+                            var nameContent = document.createTextNode(eventDetails.attendees[i].firstname . " " . eventDetails.attendees[i].lastname);
+                            var input1 = document.createElement("input");
+                            counter ++;
+                        }
+                    }
+                }else{
+                    $('#submit-ratings-button').setAttribute("type", "hidden");
+                    var nADiv = document.createElement("div");
+                    var noAttendees = document.createTextNode("Bei diesem Event gab es keine Teilnehmer.");
+                    nADiv.appendChild(noAttendees);
+                    document.body.insertBefore(nADiv, submitButton);
+                }
             }
         });
 }
@@ -352,7 +374,20 @@ function RatingAttendees(event_id) {
                 </div>
                 <div id="ratingForms">
                     <form action='?t=frontend&request=notifications/rateAttendees' id='rateAttendees' method='POST'>
-                        <?php 
+                       <button type='submit' id='submit-ratings-button' name='rateEvent'>Bewertungen abgeben</button> 
+                    </form>
+                </div>
+            
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?php 
                         $attendees = $eventSignOn->getSignOnIdsByEventId($event['event_id']);
                         $counter = 1;
                         if (!empty($attendees)) {
@@ -373,13 +408,3 @@ function RatingAttendees(event_id) {
                             echo "Bei diesem Event gab es keine Teilnehmer.";
                         }
                         ?>
-                    </form>
-                </div>
-            
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

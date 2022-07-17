@@ -37,6 +37,13 @@ class EventsController extends Controller {
     public function API_getEventDetails(Request $request) {
         $eid = $request->getBody()['eid'];
         $event = $this->eventFeedModel->getEventById($eid);
+        $attendees = $this->eventFeedModel->getEventById($eid)->signOns;
+        $attendeeArray = [];
+        foreach ($attendees as $attendee) {
+            $user = new UserModel();
+            $user = $user->getUserById($attendee->id_User);
+            array_push($attendeeArray, $user);
+        }
         $event = array (
             'id_event' => $event->id_event,
             'name' => $event->name,
@@ -47,7 +54,8 @@ class EventsController extends Controller {
             'createdTimestamp' => $event->createdTimestamp,
             'numberAttendees' => $event->numberAttendees,
             'numberSignOns' => $event->countSignOnsAccepted(),
-            'signOnStatus' => $event->getSignOnStatus($this->getIDUser())
+            'signOnStatus' => $event->getSignOnStatus($this->getIDUser()),
+            'attendees' => $attendeeArray
         );
         echo json_encode($event);
     }
