@@ -1,29 +1,36 @@
+<div class="container-fluid ml-3">
 <form method="POST" action="?t=frontend&request=profileedit">
     <div class="col-md-11">
-    <div class="form-row">
-        <div class="col-md-6 mt-3">
-            <label for="firstname"><p class="font-weight-bold">Vorname</p></label>
-            <input type="text" class="form-control border-dark shadow-none <?php echo $model->hasError('firstname') ? 'is-invalid' : '' ?>"
-                   value="<?php echo $profile->firstname ?>" id="firstname" name="firstname">
+        <div class="form-row">
+            <div class="col-md-6 mt-3">
+                <label for="firstname"><p class="font-weight-bold">Vorname</p></label>
+                <input type="text"
+                       class="form-control border-dark shadow-none <?php echo $model->hasError('firstname') ? 'is-invalid' : '' ?>"
+                       value="<?php echo $profile->firstname ?>" id="firstname" name="firstname">
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="lastname"><p class="font-weight-bold">Nachname</p></label>
+                <input type="text"
+                       class="form-control border-dark shadow-none <?php echo $model->hasError('lastname') ? 'is-invalid' : '' ?>"
+                       value="<?php echo $profile->lastname ?>" id="lastname" name="lastname">
+            </div>
         </div>
-        <div class="col-md-6 mt-3">
-            <label for="lastname"><p class="font-weight-bold">Nachname</p></label>
-            <input type="text" class="form-control border-dark shadow-none <?php echo $model->hasError('lastname') ? 'is-invalid' : '' ?>"
-                   value="<?php echo $profile->lastname ?>" id="lastname" name="lastname">
+        <br>
+        <div class="form-group">
+            <label for="description"><p class="font-weight-bold">Kurzbeschreibung</p></label>
+            <textarea
+                    class="form-control border-dark <?php echo $model->hasError('description') ? 'is-invalid' : '' ?>"
+                    value="<?php echo $profile->description ?>" id="description" name="description"
+                    rows="3"></textarea>
         </div>
-    </div>
-    <br>
-    <div class="form-group">
-        <label for="description"><p class="font-weight-bold">Kurzbeschreibung</p></label>
-        <textarea class="form-control border-dark <?php echo $model->hasError('description') ? 'is-invalid' : '' ?>"
-                  value="<?php echo $profile->description ?>" id="description" name="description" rows="3"></textarea>
-    </div>
-    <br>
-    <div class="form-group">
-        <label for="contactInformation"><p class="font-weight-bold">Kontaktinformationen</p></label>
-        <textarea class="form-control border-dark <?php echo $model->hasError('contactInformation') ? 'is-invalid' : '' ?>"
-                  value="<?php echo $profile->contactInformation ?>" id="contactInformation" name="contactInformation" rows="3"></textarea>
-    </div>
+        <br>
+        <div class="form-group">
+            <label for="contactInformation"><p class="font-weight-bold">Kontaktinformationen</p></label>
+            <textarea
+                    class="form-control border-dark <?php echo $model->hasError('contactInformation') ? 'is-invalid' : '' ?>"
+                    value="<?php echo $profile->contactInformation ?>" id="contactInformation"
+                    name="contactInformation" rows="3"></textarea>
+        </div>
     </div>
     <br>
     <div class="col-md-11">
@@ -38,7 +45,8 @@
             }
             ?>
         </div>
-    </div><br><br>
+    </div>
+    <br><br>
     <div class="container">
         <div class="row">
             <div class="col text-center">
@@ -49,3 +57,4 @@
         </div>
     </div>
 </form>
+</div>
