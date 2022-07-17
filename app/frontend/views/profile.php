@@ -153,4 +153,9 @@
     <a href="?t=frontend&request=profileedit" class="btn text-center">Profil bearbeiten</a><br>
 </div>
 
+<style>
+    .textwrap{
+        white-space: pre-line;
+    }
+</style>
 
