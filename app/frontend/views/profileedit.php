@@ -16,13 +16,13 @@
     <div class="form-group">
         <label for="description"><p class="font-weight-bold">Kurzbeschreibung</p></label>
         <textarea class="form-control border-dark <?php echo $model->hasError('description') ? 'is-invalid' : '' ?>"
-                  value="<?php echo $profile->description ?>" id="description" name="description" rows="3"></textarea>
+                  id="description" name="description" rows="3"><?php echo $profile->description ?></textarea>
     </div>
     <br>
     <div class="form-group">
         <label for="contactInformation"><p class="font-weight-bold">Kontaktinformationen</p></label>
         <textarea class="form-control border-dark <?php echo $model->hasError('contactInformation') ? 'is-invalid' : '' ?>"
-                  value="<?php echo $profile->contactInformation ?>" id="contactInformation" name="contactInformation" rows="3"></textarea>
+                  id="contactInformation" name="contactInformation" rows="3"><?php echo $profile->contactInformation ?></textarea>
     </div>
     </div>
     <br>
