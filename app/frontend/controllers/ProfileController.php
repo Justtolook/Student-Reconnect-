@@ -30,6 +30,7 @@ class ProfileController extends Controller {
         $this->ShowProfileModel->interests = $this->hasInterestModel->getInterestsForUserID($this->id_user);
         $this->EditProfilePicModel = new EditProfilePicModel();
         $this->EditProfilePicModel->id_user = $this->id_user;
+        $this->EditProfileModel = new EditProfileModel();
     }
     /**
      * @return string
@@ -41,8 +42,7 @@ class ProfileController extends Controller {
     }
 
     public function profileedit() {
-        $EditProfileModel = new EditProfileModel();
-        return $this->render("profileedit", ["model" => $EditProfileModel, "profile" => $this->ShowProfileModel, "interestModel" => $this->interestModel, "hasInterestModel" => $this->hasInterestModel]);
+        return $this->render("profileedit", ["model" => $this->EditProfileModel, "profile" => $this->ShowProfileModel, "interestModel" => $this->interestModel, "hasInterestModel" => $this->hasInterestModel]);
     }
 
     public function handleProfileEditing(Request $request) {

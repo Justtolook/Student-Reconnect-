@@ -33,6 +33,19 @@
         </div>
     </div>
     <br>
+    <div class="form-group">
+        <label for="description"><p class="font-weight-bold">Kurzbeschreibung</p></label>
+        <textarea class="form-control border-dark <?php echo $model->hasError('description') ? 'is-invalid' : '' ?>"
+                  id="description" name="description" rows="3"><?php echo $profile->description ?></textarea>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="contactInformation"><p class="font-weight-bold">Kontaktinformationen</p></label>
+        <textarea class="form-control border-dark <?php echo $model->hasError('contactInformation') ? 'is-invalid' : '' ?>"
+                  id="contactInformation" name="contactInformation" rows="3"><?php echo $profile->contactInformation ?></textarea>
+    </div>
+    </div>
+    <br>
     <div class="col-md-11">
         <div class="row d-flex ml-2 mr-2">
             <?php
