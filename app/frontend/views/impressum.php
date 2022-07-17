@@ -9,7 +9,7 @@
     <div style = "padding: 200px 200px 10px;"></div>
     <p><strong>Gesellschafter</strong></p>
     <div style = "padding: 10px 200px 10px;"></div>
-    <p>Henrick Lammert<br>David Cloos<br>Lorenz Michael Simon Metzner<br>Anastasiya Samarchuk<br>Kai Leon Marquardt<br>Riley Donald Lorenz Lew</p><br>
+    <p>Henrik Lammert<br>David Cloos<br>Lorenz Michael Simon Metzner<br>Anastasiya Samarchuk<br>Kai Leon Marquardt<br>Riley Donald Lorenz Lew</p><br>
     <div style = "padding: 80px 300px 10px;"></div>
     <p><strong>Haftungsausschluss</strong></p>
     <p>Die Informationen und sonstigen Angaben auf den Student Reconnect Webseiten sind unverbindlich und unterliegen dem Vorbehalt der jederzeitigen Änderung.</p>
