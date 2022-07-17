@@ -27,6 +27,8 @@ function openVisitenkarte(id_user) {
                 //TODO: USE PILLS INSTEAD OF BADGES
                 $('#visitenkarte_interests').append('<span class="badge badge-primary">' + value + '</span>');
             }
+            //for reporting purpose:
+            $('#report-user-button').attr('data-userid', id_user);
         }
     });
 };
@@ -90,10 +92,10 @@ function EventSignOff() {
  //handle event report button click
  //TODO Report für User ermöglichen
  function reportUser() {
-        var userID = $('#report-user-button').attr('id_user');
+        var userID = $('#report-user-button').attr('data-userid');
         console.log (userID);
         //redirect to the report event page
-        window.location.href = 'index.php?t=frontend&request=reportEvent&id_event=' + userID;
+        window.location.href = 'index.php?t=frontend&request=reportUser&id_user=' + userID;
 }
 
 //handle host-rating button click
@@ -231,7 +233,7 @@ function RatingAttendees(event_id) {
             <div class="modal-header">
                 <h3 class="modal-title">Visitenkarte</h3>
                 <!-- TODO Report for User Anpassen -->
-                <button type="button" id_user="" id="report-event-button" class="report-event-button btn btn-outline-danger" onclick="reportUser()">Melden</button>
+                <button type="button" data-userid="" id="report-user-button" class="report-user-button btn btn-outline-danger" onclick="reportUser()">Melden</button>
             </div>
             <div class="modal-body">
                 <div id="visitenkarte">
