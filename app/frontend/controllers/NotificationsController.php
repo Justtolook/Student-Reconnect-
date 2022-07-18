@@ -4,7 +4,7 @@ require_once 'app/frontend/models/NotificationModel.php';
 require_once 'app/frontend/models/MatchModel.php'; 
 require_once 'app/frontend/models/VisitenkartenModel.php';
 require_once 'app/frontend/models/EventModel.php';
-require_once 'app/frontend/models/EventsignonModel.php';
+require_once 'app/frontend/models/EventSignOnModel.php';
 
 
 class NotificationsController extends Controller {
