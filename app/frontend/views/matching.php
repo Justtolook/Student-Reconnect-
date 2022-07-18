@@ -53,12 +53,16 @@
             <p>
                 <?php echo $model->description; ?>
             </p>
-            <p>Interessen:
+            <p>Interessen:</p>
                 <!-- print the interests of the user in plain text-->
+            <div class="row d-flex ml-2 mr-2">
                 <?php foreach ($model->interests as $interest) {
-                    echo "<li>" . $interestModel->getInterestName($interest) . "</li>";
+                    echo '<label class="PillList-item"><input disabled checked type="checkbox" name="interests[]" value="' . $interestModel->getInterestName($interest) . '">';
+                    echo '<span class="PillList-label">' . $interestModel->getInterestName($interest) .
+                        '</span></label>';
+                    //echo "<li>" . $interestModel->getInterestName($interest) . "</li>";
                 } ?>
-            </p>
+            </div>
         </div>
         <div class="row justify-content-md-center">
             <div class="col col-lg-2 text-center">
