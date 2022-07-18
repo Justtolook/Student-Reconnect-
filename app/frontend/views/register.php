@@ -1,5 +1,4 @@
 <div class="container-fluid">
-<<<<<<< app/frontend/views/register.php
     <br><h1>Registrierung</h1><br><br>
     <form method="POST" action="?t=frontend&request=register">
         <div class="form-group row justify-content-center">
@@ -43,7 +42,7 @@
         ?>
         </div><br>
         <div class="form-group row justify-content-center">
-            <select class="form-control w-75 row border border-dark">
+            <select class="form-control w-75 row border border-dark" id="gender" name="gender[]">
                 <option selected>Geschlecht</option>
                 <option value=>Männlich</option>
                 <option value=>Weiblich</option>
@@ -63,5 +62,4 @@
             <button type="submit" class="btn btn-success mx-auto">Account anlegen</button><br>
         </div>
     </form>
->>>>>>> app/frontend/views/register.php
 </div>
