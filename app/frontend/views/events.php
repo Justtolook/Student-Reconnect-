@@ -9,6 +9,7 @@
             <input type="text" class="form-control border-dark" id="search-events-input" name="searchTerm"
                    placeholder="Suche">
             <button type="button" class="btn" onclick="searchEvents()">Suchen</button>
+        </div>
     </form>
 
     <div class="eventFeed" id="eventFeed">
