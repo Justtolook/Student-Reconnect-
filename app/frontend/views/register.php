@@ -3,23 +3,43 @@
 <form method="POST" action="?t=frontend&request=register">
     <div class="form-group">
         <input type="text" class="form-control <?php echo $model->hasError('firstname') ? 'is-invalid' : ''?>" id="firstname" name="firstname" placeholder="Vorname">
+        <?php
+        if($model->hasError('firstname')) {
+            echo "<div class='invalid-feedback'> " . $model->getError('firstname') . "</div>";
+        }
+        ?>
     </div><br>
     <div class="form-group">
         <input type="text" class="form-control <?php echo $model->hasError('lastname') ? 'is-invalid' : ''?>" id="lastname" name="lastname" placeholder="Nachname">
+        <?php
+        if($model->hasError('lastname')) {
+            echo "<div class='invalid-feedback'> " . $model->getError('lastname') . "</div>";
+        }
+        ?>
     </div><br>
     <div class="form-group">
         <input type="email" class="form-control <?php echo $model->hasError('email') ? 'is-invalid' : ''?>" id="email" name="email" placeholder="E-Mail">
         <?php
         if($model->hasError('email')) {
-            echo "<div>" . $model->getError('email') . "</div>";
+            echo "<div class='invalid-feedback'>" . $model->getError('email') . "</div>";
         }
         ?>
     </div><br>
     <div class="form-group">
         <input type="password" class="form-control <?php echo $model->hasError('password') ? 'is-invalid' : ''?>" id="password" name="password" placeholder="Passwort">
+        <?php
+        if($model->hasError('password')) {
+            echo "<div class='invalid-feedback'> " . $model->getError('password') . "</div>";
+        }
+        ?>
     </div><br>
     <div class="form-group">
         <input type="password" class="form-control <?php echo $model->hasError('passwordrepeat') ? 'is-invalid' : ''?>" id="passwordrepeat" name="passwordrepeat" placeholder="Passwort wiederholen">
+        <?php
+        if($model->hasError('passwordrepeat')) {
+            echo "<div class='invalid-feedback'> " . $model->getError('passwordrepeat') . "</div>";
+        }
+        ?>
     </div><br>
     <div class="form-groups">
         <select name="gender" id="gender" placeholder="Geschlecht">
@@ -29,10 +49,10 @@
         </select>
     </div><br>
     <div class="form-group">
-        <input type="date" class="form-control" id="birthdate" name="birthdate" placeholder="Geburtsdatum">
+        <input type="date" class="form-control <?php echo $model->hasError('birthdate') ? 'is-invalid' : ''?>" id="birthdate" name="birthdate" placeholder="Geburtsdatum">
         <?php
         if($model->hasError('birthdate')) {
-            echo "<div>Bitte gib dein Geburtsdatum an!<div>";
+            echo "<div class='invalid-feedback'> " . $model->getError('birthdate') . "</div>";
         }
         ?>
     </div><br>

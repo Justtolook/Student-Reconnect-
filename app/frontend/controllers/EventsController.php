@@ -37,12 +37,16 @@ class EventsController extends Controller {
      */
     public function handleEventCreation(Request $request) {
         $eventModel = new EventModel();
-        $eventModel->loadData($request->getBody());
+        $temp = $request->getBody();
+        $temp['numberAttendees'] = intval($temp['numberAttendees']);
+        $eventModel->loadData($temp);
         $eventModel->id_userCreator = $_SESSION['user']['id_user'];
         $eventModel->createdTimestamp = date('Y-m-d',time());
-        if($eventModel->createEvent()) {
-            Application::$app->response->redirect("?t=frontend&request=events");
-            return;
+        if($eventModel->validate()) {
+            if($eventModel->createEvent()) {
+                Application::$app->response->redirect("?t=frontend&request=events");
+                return;
+            }
         }
         return $this->render('eventcreation', ['model' => $eventModel]);
     }
