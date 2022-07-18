@@ -1,55 +1,19 @@
 <script src="app/frontend/js/events.js"></script>
 <div id="alert-container"></div>
-<h1>Events</h1>
-<a href="?t=frontend&request=eventcreation" class="btn">Event erstellen</a>
-<button class="btn search-my-events-button" onclick="getMyEvents()">Meine Events</button>
-<button class="search-all-events-button btn" onclick="getAllEvents()">Alle</button>
-<form>
-    <div class="form-group">
-        <label for="search-events-input">Suche</label>
-        <input type="text" class="form-control" id="search-events-input" name="searchTerm" placeholder="Suche">
-<div id="eventPage" class="mt-2">
-    <button class="btn text-center" onclick="showFilter()">Interessenfilter</button>
-    <div class="container-fluid matchingFilter">
-        <div class="row d-flex justify-content-center">
-            <span class="mb-3 mt-2">Interessen</span>
-        </div>
-        <!-- checkboxes with interest to filter the user list -->
-        <form action="?t=frontend&request=matching/filter" method="post">
-            <div class="row d-flex ml-2 mr-2">
-                <?php
-                foreach ($interestModel->interests as $interest) {
-                    echo '<label class="PillList-item"><input type="checkbox" name="interests[]" value="' .
-                        $interest . '"><span class="PillList-label">' . $interest .
-                        '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span></span></label>';
-                }
-                ?>
-            </div>
-            <input class="btn" type="submit" name="filter" value="Filter setzen">
-        </form>
-        <!-- reset filter button -->
-        <form action="?t=frontend&request=matching/resetfilter" method="post">
-            <input class="btn float-left" type="submit" name="reset" value="Filter zurücksetzen">
-        </form>
-        <!-- clear filter button -->
-        <form action="?t=frontend&request=matching/clearfilter" method="post">
-            <input class="btn" type="submit" name="clear" value="Filter löschen">
-        </form>
-    </div>
-    <button class="btn" data-toggle="modal" data-target="#EventCreationModal">Event erstellen</button>
+<div class="event-page mt-2">
+    <a href="?t=frontend&request=eventcreation" class="btn">Event erstellen</a>
     <button class="btn search-my-events-button" onclick="getMyEvents()">Meine Events</button>
     <button class="search-all-events-button btn" onclick="getAllEvents()">Alle</button>
     <form>
-        <div class="container-fluid mt-2 ml-1"
-        <div class="row">
+        <div class="form-group">
             <input type="text" class="form-control border-dark" id="search-events-input" name="searchTerm"
                    placeholder="Suche">
-        </div>
-        <button type="button" class="btn" onclick="searchEvents()">Suchen</button>
+            <button type="button" class="btn" onclick="searchEvents()">Suchen</button>
     </form>
 
     <div class="eventFeed" id="eventFeed">
     </div>
+
     <div class="modal fade" id="EventDetailsModal" tabindex="-1" role="dialog" aria-labelledby="EventDetailsModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
@@ -162,4 +126,9 @@
         </div>
     </div>
 </div>
-<script src="app/frontend/js/matching.js"></script>
+
+<style>
+    input {
+        margin: 0.375rem 0.75rem;
+    }
+</style>
