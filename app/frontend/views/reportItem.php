@@ -24,6 +24,14 @@
 
 
         ?>
+        <div class="row justify-content-md-center mt-3">
+            <div class="col-md-5 text-center">
+        <button class="btn" onclick="">Annehmen</button>
+            </div>
+            <div class="col-md-5 text-center">
+        <button class="btn" onclick="">Ablehnen</button>
+            </div>
+        </div>
     </div>
 </div>
 <br>
