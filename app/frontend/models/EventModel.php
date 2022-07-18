@@ -26,6 +26,21 @@ class EventModel extends Model {
         ];
     }
 
+    public function createEvent() {
+        $db = new Database();
+        $statement = $db->prepare("INSERT INTO event (name, description, eventDate, location_rough, location, createdTimestamp, id_userCreator, numberAttendees) VALUES (:name, :description, :eventDate, :location_rough, :location, :createdTimestamp, :id_userCreator, :numberAttendees)");
+        $statement->bindValue(':name', $this->name);
+        $statement->bindValue(':description', $this->description);
+        $statement->bindValue(':eventDate', $this->eventDate);
+        $statement->bindValue(':location_rough', $this->location_rough);
+        $statement->bindValue(':location', $this->location);
+        $statement->bindValue(':createdTimestamp', $this->createdTimestamp);
+        $statement->bindValue(':id_userCreator', $this->id_userCreator);
+        $statement->bindValue(':numberAttendees', $this->numberAttendees);
+
+        return $statement->execute();
+    }
+
     public function save() : bool {
         $db = new Database();
         $statement = $db->prepare('UPDATE event SET name = :name, description = :description, location = :location, location_rough = :location_rough, eventDate = :eventDate, id_userCreator = :id_userCreator, createdTimestamp = :createdTimestamp, numberAttendees = :numberAttendees WHERE id_event = :id_event');

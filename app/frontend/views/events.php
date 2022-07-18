@@ -1,5 +1,13 @@
 <script src="app/frontend/js/events.js"></script>
 <div id="alert-container"></div>
+<h1>Events</h1>
+<a href="?t=frontend&request=eventcreation" class="btn">Event erstellen</a>
+<button class="btn search-my-events-button" onclick="getMyEvents()">Meine Events</button>
+<button class="search-all-events-button btn" onclick="getAllEvents()">Alle</button>
+<form>
+    <div class="form-group">
+        <label for="search-events-input">Suche</label>
+        <input type="text" class="form-control" id="search-events-input" name="searchTerm" placeholder="Suche">
 <div id="eventPage" class="mt-2">
     <button class="btn text-center" onclick="showFilter()">Interessenfilter</button>
     <div class="container-fluid matchingFilter">
