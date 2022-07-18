@@ -20,6 +20,8 @@ function openVisitenkarte(id_user) {
             $('#visitenkarte_description').text('Beschreibung: ' + data.description  );
             //$('#visitenkarte_image').attr('src', data.image);
             $('#visitenkarte_contactinformation').text('Kontaktinformationen: '  +data.contactInformation);
+            $('#visitenkarte_scorehost').text('Host Score: ' + data.scoreHost);
+            $('#visitenkarte_scoreattendee').text('Teilnehmer Score: ' + data.scoreAttendee);
             //loop through all data.interestsWithNames and create a span for each one with the name as text
             $('#visitenkarte_interests').text('Interessen:');
             for (const [key, value] of Object.entries(data.interestsWithNames)) {
@@ -27,6 +29,7 @@ function openVisitenkarte(id_user) {
                 //TODO: USE PILLS INSTEAD OF BADGES
                 $('#visitenkarte_interests').append('<span class="badge badge-primary">' + value + '</span>');
             }
+           
             //for reporting purpose:
             $('#report-user-button').attr('data-userid', id_user);
         }
@@ -347,6 +350,8 @@ function RatingAttendees(event_id) {
                     <div id="visitenkarte_description"></div>
                     <div id="visitenkarte_contactinformation"></div>
                     <div id="visitenkarte_interests"></div>
+                    <div id="visitenkarte_scorehost"></div>
+                    <div id="visitenkarte_scoreattendee"></div>
                 </div>
             
                 <div class="modal-footer">

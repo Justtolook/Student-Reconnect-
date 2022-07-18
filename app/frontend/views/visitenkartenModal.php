@@ -21,6 +21,8 @@
     }
     echo "</ul>";
     echo "Kontaktinformationen: <br>" . $visitenkarte->contactInformation;
-
+    echo "Host Score: " . $visitenkarte->scoreHost;
+    echo "<br>";
+    echo "Teilnehmer Score: " . $visitenkarte->scoreAttendee;
     ?>
 </div>
