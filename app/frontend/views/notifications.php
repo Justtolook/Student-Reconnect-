@@ -36,7 +36,7 @@ function openVisitenkarte(id_user) {
     });
 };
 
- function openEventDetails(event_id) {
+    function openEventDetails(event_id) {
 
         //$('#eventFeed').on('click', '.event-details-button', function() {
         //var eventId = $(this).attr('data-details-eid');
@@ -65,14 +65,14 @@ function openVisitenkarte(id_user) {
                 $('#event-sign-on-button').attr('data-eid', event_id);
                 //set the data-eid attribute of the report button to the event id
                 //$('#report-event-button').attr('data-eid', event_id);
-                
-            } 
+
+            }
         });
 
-}; 
+    };
 
-//handle event sign on button click
-function EventSignOff() {
+    //handle event sign on button click
+    function EventSignOff() {
         var eventId = $('#event-sign-on-button').attr('data-eid');
         console.log(eventId);
         $.ajax({
@@ -90,22 +90,22 @@ function EventSignOff() {
                 location.reload();
             }
         });
-}
+    }
 
- //handle event report button click
- //TODO Report für User ermöglichen
- function reportUser() {
-        var userID = $('#report-user-button').attr('data-userid');
+    //handle event report button click
+    //TODO Report für User ermöglichen
+    function reportUser() {
+        var userID = $('#report-user-button').attr('id_user');
         console.log (userID);
         //redirect to the report event page
-        window.location.href = 'index.php?t=frontend&request=reportUser&id_user=' + userID;
-}
+        window.location.href = 'index.php?t=frontend&request=reportEvent&id_event=' + userID;
+    }
 
 //handle host-rating button click
 function RatingHost(event_id) {
         //var eventId = $('#event-set-rating-button').attr('data-eid');
         //show modal
-        $('#hostRatingModal').modal('show');
+        $('#ratingModal').modal('show');
         console.log(event_id);
         $.ajax({
             url: 'index.php',
@@ -166,7 +166,7 @@ function RatingHost(event_id) {
                 }
             }
         });
-}
+    };
 
 //handle attendee-rating button click
 function RatingAttendees(event_id) {
@@ -259,80 +259,144 @@ function RatingAttendees(event_id) {
 </script>
 
 <!-- Match Notification -->
-<h1>Benachrichtigungen</h1>
-<h5>Matches</h5>
+<h1><strong>Benachrichtigungen</strong></h1>
+<div style = "padding: 10px 50px 1px;" class="row justify-content-start">
+    <h5><strong>Matches</strong></h5>
+</div>
 <div class= "notificationCard">
     <div class = "matchingNotification">
-    <?php
-        //ignore warning if no matches are found
-        error_reporting(E_ERROR | E_PARSE);
-        if ($notifications->matches != null){
-            foreach ($notifications->matches as $match) {
-                //if ($match['notificationRead'] != 1){
-                    if(!$match['notificationRead']) {
-                        echo "<div class='newNotification'>Neu!</div>";
-                        echo "<form action='?t=frontend&request=notifications/markAsReadNotification'  method='POST'>";
-                        echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>"; 
-                        echo "<input class='btn float-left' type='submit' name='markAsReadNotification' value='Gelesen'>";
-                        echo "</form>";
-                    }
-                    echo "<button type='button' class='btn float-left' onclick='openVisitenkarte(" . $match['id_user'] . ")'>Visitenkarte</button>";
-                    /*
-                    echo "<form action='?t=frontend&request=notifications/showVisitenkarte'  method='POST'>";
-                    echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>"; 
-                    echo "<input class='btn float-left' type='submit' name='showVisitenkarte' value='Visitenkarte anzeigen'>";
-                    echo "</form>";*/
-                    
-                    echo "Sie wurde gematched mit der UserID: " . $match['id_user'] . "<br>";
-                    echo "Der Timestamp des Matches ist: " . $match['timestamp'] . "<br>";
-                    //echo "Gelesen? " . $match['notificationRead'] . "<br>";
-                    echo "<hr>";
-                //} 
-            }
-        } else {
-            echo "Keine Matches gefunden";
-        }
-    ?>    
     </div>
 </div>
+<?php
+//ignore warning if no matches are found
+error_reporting(E_ERROR | E_PARSE);
+if ($notifications->matches != null){
+    foreach ($notifications->matches as $match) {
+        //if ($match['notificationRead'] != 1){
+        ?>
+        <div class="card pastelgruen border-success m-3">
+            <div class="p-3">
+                <?php
+                if(!$match['notificationRead']) {
+                    echo "<form action='?t=frontend&request=notifications/markAsReadNotification'  method='POST'>";
+                    echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>";
+                    echo "<input class='btn float-left' type='submit' name='markAsReadNotification' value='Gelesen'>";
+                    ?>
+                    <div style = "padding: 40px 10px 10px;"></div>
+                    <?php
+                    echo "<div class='newNotification'>Neu!</div>";
+                    echo "</form>";
 
+                }
+                echo "<button type='button' class='btn float-left' onclick='openVisitenkarte(" . $match['id_user'] . ")'>Visitenkarte</button>";
+                /*
+                echo "<form action='?t=frontend&request=notifications/showVisitenkarte'  method='POST'>";
+                echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>";
+                echo "<input class='btn float-left' type='submit' name='showVisitenkarte' value='Visitenkarte anzeigen'>";
+                echo "</form>";*/
+
+                echo "Sie wurden gematched mit: " . $match['id_user'] . "<br>";
+                echo "Der Timestamp des Matches ist: " . $match['timestamp'] . "<br>";
+                //echo "Gelesen? " . $match['notificationRead'] . "<br>";
+                ?>
+            </div>
+        </div>
+        <?php
+        echo "<hr>";
+        //}
+    }
+} else {
+    echo "Keine Matches gefunden";
+}
+?>
+
+</div>
+</div>
 <!-- Event Notifications -->
-<h5>Events</h5>
+<div style = "padding: 10px 50px 1px;" class="row justify-content-start">
+    <h5><strong>Events</strong></h5>
+</div>
 <div class= "eventCard">
-    <div class= "eventNotification">
+                <div class= "eventNotification">
         <?php
         //ignore warning if no events are found
         error_reporting(E_ERROR | E_PARSE);
         if ($eventNotification->eventsSignedIn != null){
             foreach($eventNotification->eventsSignedIn as $event) {
                 /* Check if Event is over --> due to Rating Option */
-                if (strtotime("now") > strtotime($event['event_time'])) {
-                   /* If Event is over --> Insert Ratings Button, depending on EventOwner or Attende */ 
-                   if ($event['event_id_userCreator'] == $_SESSION['user']['id_user']){
+                ?>
+                <div class="card pastelgruen border-success ml-3 mr-3">
+                    <div class="card-body float-left">
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-md-12">
+                                <h3>
+                            <?php
+                            echo $event['event_name'];
+                            ?>
+                                </h3>
+                            </div>
+                          </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                </div>
+                            <div class="col-md-4 border-left border-success p-0">
+                                <div class="pl-2" id="event-eventDate">
+                            <i class="fa fa-clock-four"> </i>
+                            <?php
+                            echo $event['event_time'];
+                            ?>
+                                </div>
+                                <hr class="border-success" />
+                                <div class="pl-2" id="event-location_rough">
+                            <i class="fas fa-map-marker-alt"> </i>
+                            <?php
+                            echo $event['event_location_rough'];
+                            ?>
+                                </div>
+                            </div>
+                            </div>
+                            <?php
+                            if (strtotime("now") > strtotime($event['event_time'])) {
+                                echo "Das Event " . $event['event_name'] . " ist vorbei<br>";
+                                // echo "User Creator ID: " . $event['event_id_userCreator'] . "<br>";
+                                // echo "Session User ID: " . $_SESSION['user']['id_user'] . "<br>";
+                                /* If Event is over --> Insert Ratings Button, depending on EventOwner or Attende */
+                                if ($event['event_id_userCreator'] == $_SESSION['user']['id_user']) {
+                                    echo "<button type='button' class='btn float-left'>Teilnehmer Bewerten</button>";
+                                    /* ToDo Modal for Rating Attendes*/
+                                } else {
+                                    /* insert button onclick RatingHost */
+                                    echo "<button type='button' class='btn float-left' onclick='RatingHost(" . $event['event_id_userCreator'] . "," . $event['event_id'] . ")'>Host bewerten</button>";
+                                    /* ToDO Modal for Rating EventHost */
+                                }
+                            }
+                                echo "<input type='hidden' name='id_user' value= '" . $event['event_id_user'] . "'>";
+                                echo "<button type='button' class='btn float-left' onclick='openEventDetails(" . $event['event_id'] . ")'>Details</button>";
+                                ?>
+                                <div style = "padding: 25px 10px 10px;"></div>
+                                <div style = "padding: 45px 10px 10px;"></div>
+                                <?php
 
-                        echo "<button type='button' class='btn btn-secondary' onclick='RatingAttendees(" . $event['event_id'] . ")'>Teilnehmer Bewerten</button>";
-                    } else {
-                        
-                        echo "<button type='button' class='btn btn-secondary' onclick='RatingHost(" . $event['event_id'] . ")'>Host bewerten</button>";
 
-                    }
-                   echo "Das Event " . $event['event_name'] . " vom ". $event['event_time'] . " ist vorbei.<br>";
-                }else{
-                echo "<input type='hidden' name='id_user' value= '" . $event['event_id_user'] . "'>"; 
-                echo "<button type='button' class='btn float-left' onclick='openEventDetails(" . $event['event_id'] . ")'>Event</button>";
-                echo "Sie wurden dem Event hinzugefügt: " . $event['event_name'] . "<br>";
-                echo "Das Event findet am: " . $event['event_time'] ." statt." ."<br>";
-                echo "Die Event Location wird in der Gegend: " . $event['event_location_rough'] ." sein." ."<br>";
-                echo "<hr>";
-                }
+                            // else {
+                            //  echo "Das Event " . $event['event_name'] . " startet am " . $event['event_time'] . "<br>";
+                            // }
+
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                echo "<br>";
             }
         } else {
             echo "Sie sind zu keinem Event angemeldet.";
         }
         ?>
+        <div style = "padding: 70px 10px 10px;"></div>
     </div>
 </div>
-
 
 
 <div class="visitenkartenModal modal" role="dialog">
@@ -341,7 +405,7 @@ function RatingAttendees(event_id) {
             <div class="modal-header">
                 <h3 class="modal-title">Visitenkarte</h3>
                 <!-- TODO Report for User Anpassen -->
-                <button type="button" data-userid="" id="report-user-button" class="report-user-button btn btn-outline-danger" onclick="reportUser()">Melden</button>
+                <button type="button" id_user="" id="report-event-button" class="report-event-button btn btn-outline-danger" onclick="reportUser()">Melden</button>
             </div>
             <div class="modal-body">
                 <div id="visitenkarte">
@@ -353,7 +417,7 @@ function RatingAttendees(event_id) {
                     <div id="visitenkarte_scorehost"></div>
                     <div id="visitenkarte_scoreattendee"></div>
                 </div>
-            
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
                 </div>
@@ -389,7 +453,7 @@ function RatingAttendees(event_id) {
     </div>
 </div>
 
-<!-- 
+<!--
 <div class="eventcard modal" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -405,7 +469,7 @@ function RatingAttendees(event_id) {
                     <div id="eventcard_location_rough"></div>
                     <div id="eventcard_eventDate"></div>
                 </div>
-            
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
                 </div>
@@ -414,8 +478,8 @@ function RatingAttendees(event_id) {
     </div>
 </div> -->
 
-<!-- insert modal for host rating -->
-<div class="modal fade" id="hostRatingModal" tabindex="-1" role="dialog" aria-labelledby="hostRatingModalLabel" aria-hidden="true">
+<!-- insert modal for rating -->
+<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
