@@ -5,8 +5,8 @@ class EventSignOnModel extends Model {
     public int $id_Event;
     public int $id_User;
     public string $signOnDate = "";
-    public int $ratingHost = 0;
-    public int $ratingAttendee = 0;
+    public int $ratingHost = -1;
+    public int $ratingAttendee = -1;
     public int $accepted = 0;
 
     public function __construct() {
@@ -68,7 +68,7 @@ class EventSignOnModel extends Model {
         return $statement->execute();
     }
 
-    public function updateHostScore() {
+    public function updateHostRating() {
         $db = new Database();
         $statement = $db->prepare('UPDATE eventSignOn SET ratingHost = :ratingHost WHERE id_Event = :id_Event AND id_User = :id_User');
         $statement->bindValue(':ratingHost', $this->ratingHost);
@@ -78,7 +78,7 @@ class EventSignOnModel extends Model {
     }
 
 
-    public function updateAttendeeScore() {
+    public function updateAttendeeRating() {
         $db = new Database();
         $statement = $db->prepare('UPDATE eventSignOn SET ratingAttendee = :ratingAttendee WHERE id_Event = :id_Event AND id_User = :id_User');
         $statement->bindValue(':ratingAttendee', $this->ratingAttendee);

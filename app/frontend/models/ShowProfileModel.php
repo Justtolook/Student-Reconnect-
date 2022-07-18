@@ -45,5 +45,19 @@ class ShowProfileModel extends Model {
         return $stmt->fetch();
         
     }
+
+    public function updateScoreHost() {
+        $statement = $this->db->prepare('UPDATE user SET scoreHost = scoreHost + :scoreHost WHERE id_user = :id_user');
+        $statement->bindValue(':scoreHost', $this->scoreHost);
+        $statement->bindValue(':id_user', $this->id_user);
+        return $statement->execute();
+    }
+
+    public function updateScoreAttendee() {
+        $statement = $this->db->prepare('UPDATE user SET scoreAttendee = scoreAttendee + :scoreAttendee WHERE id_user = :id_user');
+        $statement->bindValue(':scoreAttendee', $this->scoreAttendee);
+        $statement->bindValue(':id_user', $this->id_user);
+        return $statement->execute();
+    }
 }
 ?>

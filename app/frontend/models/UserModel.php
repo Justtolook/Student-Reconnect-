@@ -28,4 +28,17 @@ class UserModel extends Model {
         $this->loadData($user);
         return $this;
     }
+
+    public function getUserNameByID($id_user) : String {
+        $db = new Database();
+        $statement = $db->prepare('SELECT firstname, lastname FROM user WHERE id_user = :id_user');
+        $statement->bindValue(':id_user', $id_user);
+        $statement->execute();
+        $array = $statement->fetch();
+        $firstname = $array['firstname'];
+        $lastname = $array['lastname'];
+        return $firstname . " " . $lastname;
+    }
+
+
 }

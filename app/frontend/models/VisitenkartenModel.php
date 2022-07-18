@@ -9,6 +9,8 @@ class VisitenkartenModel extends Model{
     public $lastname;
     public $description;
     public $contactInformation;
+    public $scoreHost;
+    public $scoreAttendee;
     public array $interests;  // format id
     
     public array $interestsWithNames; // format [id => name]
@@ -40,7 +42,7 @@ class VisitenkartenModel extends Model{
      * get visitenkarten data for specific user by id
      */
     public function getVisitenkartenByUserID(int $userID) {
-        $sql = "SELECT id_user, firstname, lastname, description, contactInformation FROM user WHERE id_user = :user_id";
+        $sql = "SELECT id_user, firstname, lastname, description, scoreHost, scoreAttendee, contactInformation FROM user WHERE id_user = :user_id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':user_id', $userID);
         $stmt->execute();
