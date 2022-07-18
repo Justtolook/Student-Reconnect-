@@ -1,10 +1,4 @@
 <div class="visitenkartenModal">
-    <div class="text-center">
-        <img class="rounded-circle w-50 mt-2 mb-2" alt="Profile Image"
-             src="<?php echo($profilepicmodel->getProfileImagePath()) ?>"
-             data-holder-rendered="true">
-    </div>
-
 
     <?php
     if ($visitenkarte->id_user != $_SESSION['user']['id_user']) {
@@ -12,17 +6,68 @@
             User melden
         </button>';
     }
-    echo "Name: " . $visitenkarte->firstname . " " . $visitenkarte->lastname . "<br>";
-    echo "Beschreibung: " . $visitenkarte->description . "<br>";
-    echo "Interessen: <br>";
-    echo "<ul>";
-    foreach ($visitenkarte->interests as $interest) {
-        echo "<li>" . $interestModel->getInterestName($interest) . "</li>";
-    }
-    echo "</ul>";
-    echo "Kontaktinformationen: <br>" . $visitenkarte->contactInformation;
-    echo "Host Score: " . $visitenkarte->scoreHost;
-    echo "<br>";
-    echo "Teilnehmer Score: " . $visitenkarte->scoreAttendee;
     ?>
+
+    <div class="text-center">
+        <img class="rounded-circle w-50 mt-2 mb-2" alt="Profile Image"
+             src="<?php echo($profilepicmodel->getProfileImagePath()) ?>"
+             data-holder-rendered="true">
+    </div>
+    <h1 class="text-center font-weight-bold">
+        <?php
+        echo $visitenkarte->firstname . " " . $visitenkarte->lastname . "<br>";
+        ?>
+    </h1>
+
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+            <th scope="col">Beschreibung</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td scope="row">
+                <div class="card border-dark">
+                    <div class="card-body text-break">
+                        <?php
+                        echo '<div class="textwrap">' . $visitenkarte->description . '</div>';
+                        ?>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="col-md-11">
+        <div class="row d-flex ml-2 mr-2">
+            <?php
+            foreach ($visitenkarte->interests as $interest) {
+                echo '<label class="PillList-item"><input type="checkbox" name="interests[]" value="' . $interestModel->getInterestName($interest) . '" checked><span class="PillList-label">' . $interestModel->getInterestName($interest) . '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span></span></label>';
+            }
+            ?>
+        </div>
+    </div>
+
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+            <th scope="col">Kontaktinformationen</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td scope="row">
+                <div class="card border-dark">
+                    <div class="card-body text-break">
+                        <?php
+                        echo '<div class="textwrap">' . $visitenkarte->contactInformation . '</div>';
+                        ?>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>

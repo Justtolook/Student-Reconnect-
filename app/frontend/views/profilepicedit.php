@@ -1,7 +1,8 @@
 <div class="container-fluid">
+    <div class="row">
+        <div class="col text-center">
 <br><h1>Profilbild bearbeiten</h1><br><br>
 <form action="?t=frontend&request=profile" method="post" enctype="multipart/form-data">
-    Profilbild bearbeiten:
     <input type="file" name="fileToUpload" id="fileToUpload" onchange="loadFile(event)">
     <img id="output"/>
     <script>
@@ -21,3 +22,6 @@
     <input type="submit" class="btn" value="Profilbild entfernen" name="submit">
 </form>
 </div>
+</div>
+</div>
+
