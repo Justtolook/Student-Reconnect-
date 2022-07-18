@@ -5,8 +5,8 @@ class EventSignOnModel extends Model {
     public int $id_Event;
     public int $id_User;
     public string $signOnDate = "";
-    public int $ratingHost = 0;
-    public int $ratingAttendee = 0;
+    public int $ratingHost = -1;
+    public int $ratingAttendee = -1;
     public int $accepted = 0;
 
     public function __construct() {

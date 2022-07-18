@@ -110,15 +110,57 @@ function RatingHost(event_id) {
             data: {
                 't': 'frontend',
                 'request': 'API_getEventDetails',
-                'eid' : event_id,
+                'eid' : event_id
             },
             success: function(data) {
                 console.log(data);
                 var eventDetails = JSON.parse(data);
 
                 $('#hostrating-ename').text(eventDetails.name);
-                $('#ratingForm-eid').val(event_id);
-                $('#ratingForm-uid').val(eventDetails.id_userCreator);
+
+                document.getElementById("ratingHost").innerHTML = "";
+                if(eventDetails.hostRated == 1) {
+                    var hostRatedDiv = document.createElement("div");
+                    var hostRatedMessage = document.createTextNode("Du hast den Veranstalter bereits bewertet.");
+                    hostRatedDiv.appendChild(hostRatedMessage);
+                    document.getElementById("ratingHost").appendChild(hostRatedDiv);
+                }else{
+                    var linebreak = document.createElement("br");
+
+                    var inputEvent = document.createElement("input");
+                    inputEvent.setAttribute('type', 'hidden');
+                    inputEvent.setAttribute('id', 'id_event');
+                    inputEvent.setAttribute('name', 'id_event');
+                    inputEvent.setAttribute('value', event_id);
+                    document.getElementById("ratingHost").appendChild(inputEvent);
+                    var inputCreator = document.createElement("input");
+                    inputCreator.setAttribute('type', 'hidden');
+                    inputCreator.setAttribute('id', 'id_userRated');
+                    inputCreator.setAttribute('name', 'id_userRated');
+                    inputCreator.setAttribute('value', eventDetails.id_userCreator);
+                    document.getElementById("ratingHost").appendChild(inputCreator);
+                    var inputRating = document.createElement("input");
+                    inputRating.setAttribute('type', 'range');
+                    inputRating.setAttribute('id', 'rating');
+                    inputRating.setAttribute('name', 'rating');
+                    inputRating.setAttribute('value', '3');
+                    inputRating.setAttribute('min', '0');
+                    inputRating.setAttribute('max', '5');
+                    inputRating.setAttribute('step', '1.0');
+                    document.getElementById("ratingHost").appendChild(inputRating);
+
+                    document.getElementById("ratingHost").appendChild(linebreak);
+                    document.getElementById("ratingHost").appendChild(linebreak);
+
+                    var submitButton = document.createElement("button");
+                    var buttonText = document.createTextNode("Bewerten");
+                    submitButton.appendChild(buttonText);
+                    submitButton.setAttribute('type', 'submit');
+                    submitButton.setAttribute('id', 'submit-ratings-button');
+                    submitButton.setAttribute('name', 'submit-ratings-button');
+                    submitButton.setAttribute('class', 'btn btn-secondary');
+                    document.getElementById("ratingHost").appendChild(submitButton);
+                }
             }
         });
 }
@@ -138,67 +180,74 @@ function RatingAttendees(event_id) {
             },
             success: function(data) {
                 var eventDetails = JSON.parse(data);
+                document.getElementById("rateAttendees").innerHTML = "";
 
                 $('#attendeerating-ename').text(eventDetails.name);
                 $('#attendeeRatingForm-eid').val(event_id);
 
-                if(eventDetails.attendees.length !== 0) {
-                    var counter = 1;
-                    var linebreak = document.createElement("br");
-                    for (var i = 0; i < eventDetails.attendees.length; i++) {
-                        if(eventDetails.attendees[i].id_user == eventDetails.id_userCreator) {
-                            continue;
-                        }else{
-                            var name = document.createElement("div");
-                            var nameContent = document.createTextNode(eventDetails.attendees[i].firstname + " " + eventDetails.attendees[i].lastname);
-                            name.appendChild(nameContent);
-                            document.getElementById("rateAttendees").appendChild(name);
-                            var input1 = document.createElement("input");
-                            input1.setAttribute('type', 'hidden');
-                            input1.setAttribute('id', 'id_User' + counter);
-                            input1.setAttribute('name', 'id_User' + counter);
-                            input1.setAttribute('value', eventDetails.attendees[i].id_user);
-                            document.getElementById("rateAttendees").appendChild(input1);
-                            var input2 = document.createElement("input");
-                            input2.setAttribute('type', 'range');
-                            input2.setAttribute('id', 'attendeeRating' + counter);
-                            input2.setAttribute('name', 'attendeeRating' + counter);
-                            input2.setAttribute('value', '3');
-                            input2.setAttribute('min', '0');
-                            input2.setAttribute('max', '5');
-                            input2.setAttribute('step', '1.0');
-                            document.getElementById("rateAttendees").appendChild(input2);
+                if(eventDetails.attendeeRated == 0) {
+                    if(eventDetails.attendees.length !== 0) {
+                        var counter = 1;
+                        var linebreak = document.createElement("br");
+                        for (var i = 0; i < eventDetails.attendees.length; i++) {
+                            if(eventDetails.attendees[i].id_user == eventDetails.id_userCreator) {
+                                continue;
+                            }else{
+                                var name = document.createElement("div");
+                                var nameContent = document.createTextNode(eventDetails.attendees[i].firstname + " " + eventDetails.attendees[i].lastname);
+                                name.appendChild(nameContent);
+                                document.getElementById("rateAttendees").appendChild(name);
+                                var input1 = document.createElement("input");
+                                input1.setAttribute('type', 'hidden');
+                                input1.setAttribute('id', 'id_User' + counter);
+                                input1.setAttribute('name', 'id_User' + counter);
+                                input1.setAttribute('value', eventDetails.attendees[i].id_user);
+                                document.getElementById("rateAttendees").appendChild(input1);
+                                var input2 = document.createElement("input");
+                                input2.setAttribute('type', 'range');
+                                input2.setAttribute('id', 'attendeeRating' + counter);
+                                input2.setAttribute('name', 'attendeeRating' + counter);
+                                input2.setAttribute('value', '3');
+                                input2.setAttribute('min', '0');
+                                input2.setAttribute('max', '5');
+                                input2.setAttribute('step', '1.0');
+                                document.getElementById("rateAttendees").appendChild(input2);
 
-                            counter ++;
+                                counter ++;
+                            }
                         }
+                        var inputCounter = document.createElement("input");
+                        inputCounter.setAttribute('type', 'hidden');
+                        inputCounter.setAttribute('id', 'counter');
+                        inputCounter.setAttribute('name', 'counter');
+                        inputCounter.setAttribute('value', counter);
+                        document.getElementById("rateAttendees").appendChild(inputCounter);
+                        var inputEvent = document.createElement("input");
+                        inputEvent.setAttribute('type', 'hidden');
+                        inputEvent.setAttribute('id', 'id_event');
+                        inputEvent.setAttribute('name', 'id_event');
+                        inputEvent.setAttribute('value', event_id);
+                        document.getElementById("rateAttendees").appendChild(inputEvent);
+                        document.getElementById("rateAttendees").appendChild(linebreak);
+                        var submitButton = document.createElement("button");
+                        var buttonText = document.createTextNode("Bewertungen abgeben");
+                        submitButton.appendChild(buttonText);
+                        submitButton.setAttribute('type', 'submit');
+                        submitButton.setAttribute('id', 'submit-ratings-button');
+                        submitButton.setAttribute('name', 'submit-ratings-button');
+                        submitButton.setAttribute('class', 'btn btn-secondary');
+                        document.getElementById("rateAttendees").appendChild(submitButton);
+                    }else{
+                        var nADiv = document.createElement("div");
+                        var noAttendees = document.createTextNode("Bei diesem Event gab es keine Teilnehmer.");
+                        nADiv.appendChild(noAttendees);
+                        document.getElementById("rateAttendees").appendChild(naDiv);
                     }
-                    var inputCounter = document.createElement("input");
-                    inputCounter.setAttribute('type', 'hidden');
-                    inputCounter.setAttribute('id', 'counter');
-                    inputCounter.setAttribute('name', 'counter');
-                    inputCounter.setAttribute('value', counter);
-                    document.getElementById("rateAttendees").appendChild(inputCounter);
-                    var inputEvent = document.createElement("input");
-                    inputEvent.setAttribute('type', 'hidden');
-                    inputEvent.setAttribute('id', 'id_event');
-                    inputEvent.setAttribute('name', 'id_event');
-                    inputEvent.setAttribute('value', event_id);
-                    document.getElementById("rateAttendees").appendChild(inputEvent);
-                    document.getElementById("rateAttendees").appendChild(linebreak);
-                    document.getElementById("rateAttendees").appendChild(linebreak);
-                    var submitButton = document.createElement("button");
-                    var buttonText = document.createTextNode("Bewertungen abgeben");
-                    submitButton.appendChild(buttonText);
-                    submitButton.setAttribute('type', 'submit');
-                    submitButton.setAttribute('id', 'submit-ratings-button');
-                    submitButton.setAttribute('name', 'submit-ratings-button');
-                    submitButton.setAttribute('class', 'btn btn-secondary');
-                    document.getElementById("rateAttendees").appendChild(submitButton);
                 }else{
-                    var nADiv = document.createElement("div");
-                    var noAttendees = document.createTextNode("Bei diesem Event gab es keine Teilnehmer.");
-                    nADiv.appendChild(noAttendees);
-                    document.getElementById("rateAttendees").appendChild(naDiv);
+                    var attendeeRatedDiv = document.createElement("div");
+                    var attendeeRatedMessage = document.createTextNode("Du hast die Teilnehmer bereits bewertet.");
+                    attendeeRatedDiv.appendChild(attendeeRatedMessage);
+                    document.getElementById("rateAttendees").appendChild(attendeeRatedDiv);
                 }
             }
         });
@@ -376,10 +425,8 @@ function RatingAttendees(event_id) {
                 </div>
                 <div id="ratingForms">
                     <form action="?t=frontend&request=notifications/rateHost"  method="POST">
-                        <input id="ratingForm-eid"  type="hidden" name="id_event" value="">
-                        <input id="ratingForm-uid"  type="hidden" name="id_userRated" value="">
-                        <input id="ratingForm-rating" type="range" min="0" max="5" step="1.0" name="rating" value="3"></input><br><br>
-                        <button type="submit" name="rateEvent">Bewerten</button>
+                        <div id="ratingHost">
+                        </div>
                     </form>
                 </div>
             
@@ -399,7 +446,7 @@ function RatingAttendees(event_id) {
             <div class="modal-header">
                 <h3 class="modal-title">Bewertung der Teilnehmer</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <!--<span aria-hidden="true">&times;</span> -->
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -407,7 +454,9 @@ function RatingAttendees(event_id) {
                     <div id="attendeerating-ename"></div><br>
                 </div>
                 <div id="ratingForms">
-                    <form action='?t=frontend&request=notifications/rateAttendees' id='rateAttendees' method='POST'>
+                    <form action='?t=frontend&request=notifications/rateAttendees' method='POST'>
+                        <div id="rateAttendees">
+                        </div>
                     </form>
                 </div>
             

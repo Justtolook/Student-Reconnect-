@@ -36,13 +36,25 @@ class EventsController extends Controller {
      */
     public function API_getEventDetails(Request $request) {
         $eid = $request->getBody()['eid'];
+        $uid = $this->getIDUser();
         $event = $this->eventFeedModel->getEventById($eid);
         $attendees = $this->eventFeedModel->getEventById($eid)->signOns;
         $attendeeArray = [];
+        $attendeeRated = 0;
+        $hostRated = 0;
         foreach ($attendees as $attendee) {
             $user = new UserModel();
             $user = $user->getUserById($attendee->id_User);
             array_push($attendeeArray, $user);
+            if($attendee->id_User != $event->id_userCreator) {
+                if($attendee->ratingAttendee != -1) $attendeeRated = 1;
+            } 
+            if($attendee->id_User == $uid) {
+                if($attendee->ratingHost != -1) {
+                    $hostRated = 1;
+                }
+            } 
+            // array format ['id_user' => 'hostRated']
         }
         $event = array (
             'id_event' => $event->id_event,
@@ -55,7 +67,9 @@ class EventsController extends Controller {
             'numberAttendees' => $event->numberAttendees,
             'numberSignOns' => $event->countSignOnsAccepted(),
             'signOnStatus' => $event->getSignOnStatus($this->getIDUser()),
-            'attendees' => $attendeeArray
+            'attendees' => $attendeeArray,
+            'attendeeRated' => $attendeeRated,
+            'hostRated' => $hostRated
         );
         echo json_encode($event);
     }

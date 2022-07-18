@@ -51,11 +51,13 @@ class NotificationsController extends Controller {
     public function handleHostRating(Request $request) {
         $eventModel = new EventSignOnModel();
         $eventModel->id_Event = $request->getBody()['id_event'];
-        $eventModel->id_User = $request->getBody()['id_userRated'];
+        $eventModel->id_User = $this->getIDUser();
+        $id_creator = $request->getBody()['id_userRated'];
         $eventModel->ratingHost = $request->getBody()['rating'];
+        
         if($eventModel->updateHostRating()) {
             $score = $eventModel->ratingHost - 2;
-            $ShowProfileModel = new ShowProfileModel($eventModel->id_User);
+            $ShowProfileModel = new ShowProfileModel($id_creator);
             $ShowProfileModel->scoreHost = $score;
             if($ShowProfileModel->updateScoreHost()) {
                 Application::$app->response->redirect("?t=frontend&request=notifications");
