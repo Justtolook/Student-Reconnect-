@@ -4,13 +4,11 @@
     <a href="?t=frontend&request=eventcreation" class="btn">Event erstellen</a>
     <button class="btn search-my-events-button" onclick="getMyEvents()">Meine Events</button>
     <button class="search-all-events-button btn" onclick="getAllEvents()">Alle</button>
-    <form>
         <div class="form-group">
             <input type="text" class="form-control border-dark" id="search-events-input" name="searchTerm"
                    placeholder="Suche">
             <button type="button" class="btn" onclick="searchEvents()">Suchen</button>
         </div>
-    </form>
 
     <div class="eventFeed" id="eventFeed">
     </div>
