@@ -217,7 +217,9 @@ class MatchingController extends Controller {
     public function deleteOldMatchesFromUserList() {
         foreach($this->UserAll as $user) {
             if(isset($this->UserMyself->matchingInstancesOld[$user->id_user])) {
+                //echo "delete user from m: ".$user->id_user."<br>";
                 unset($this->UserAll[$user->id_user]);
+                unset($this->UserAllBase[$user->id_user]);
             }
         }
     }
