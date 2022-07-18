@@ -98,15 +98,14 @@ function toggleSignOn() {
             'eid': eventId
         },
         success: function (data) {
-            console.log(data);
-            console.log("toggled");
             //rename the button to "abmelden"
-            //$('#event-sign-on-button').text('Abmelden');
             if ($('#event-sign-on-button').text() == 'Abmelden') {
                 $('#event-sign-on-button').text('Anmelden');
             } else {
                 $('#event-sign-on-button').text('Abmelden');
             }
+            //close the modal after the sign on/off has been done
+            $('#EventDetailsModal').modal('hide');
         }
     });
 }
