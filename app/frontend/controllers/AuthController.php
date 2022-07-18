@@ -75,7 +75,7 @@ class AuthController extends Controller {
         $PWResetEmailModel = new PWResetEmailModel();
         $PWResetEmailModel->loadData($request->getBody());
         if($PWResetEmailModel->validate()) {
-            if($PWResetEmailModel->printVerifCode()) { //to be changed to sendMail() TODO if mail is working
+            if($PWResetEmailModel->printVerifCode() && $PWResetEmailModel->sendEmail()) { //to be changed to sendMail() TODO if mail is working
                 $PWResetEmailModel->saveVerificationCode(); //save verification code in session variable
                 return $this->render('pwreset', ['model' => $PWResetEmailModel]);
             }

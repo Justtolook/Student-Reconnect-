@@ -19,6 +19,7 @@ class MatchingController extends Controller {
     public InterestModel $interestModel;
     public MatchModel $matchModel;
     public array $interestFilter = []; //array with their id's
+    public bool $flag_noInterestOverlaps = false;
 
     public function __construct() {
         /**
@@ -286,6 +287,7 @@ class MatchingController extends Controller {
         }
         if(count($this->UserAll) == 0) {
             //echo "No users found";
+            $this->flag_noInterestOverlaps = true;
             $this->UserAll = $this->UserAllBase;
         }
     }
@@ -296,7 +298,7 @@ class MatchingController extends Controller {
      */
     public function renderRandomUser() {
         $randomUser = array_rand($this->UserAll);
-        return $this->render("matching", ["model" => $this->UserAll[$randomUser], "interestModel" => $this->interestModel]);
+        return $this->render("matching", ["model" => $this->UserAll[$randomUser], "interestModel" => $this->interestModel, "filter" => $this->interestFilter, "flag_noInterestOverlaps" => $this->flag_noInterestOverlaps]);
     }
 
     /**

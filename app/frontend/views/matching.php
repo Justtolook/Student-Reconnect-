@@ -4,7 +4,7 @@
     </div>
     <div class="container-fluid matchingFilter">
         <div class="row d-flex justify-content-center">
-            <span class="mb-3 mt-2">Interessen</span>
+            <span class="mb-3 mt-2">Nach welchen Interessen möchtest du Filtern?</span>
         </div>
         <!-- checkboxes with interest to filter the user list -->
         <form action="?t=frontend&request=matching/filter" method="post">
@@ -12,9 +12,11 @@
                 <?php
                 foreach ($interestModel->interests as $interest) {
                     echo '<label class="PillList-item"><input type="checkbox" name="interests[]" value="' .
-                        $interest . '"><span class="PillList-label">' . $interest .
-                        '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span></span></label>';
-                }
+                        $interest . '" ' ;
+                    if(in_array(($interestModel->getInterestID($interest)), $filter)) echo "checked";
+                    echo '><span class="PillList-label">' . $interest .
+                    '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span></span></label>';
+            }
                 ?>
             </div>
             <input class="btn" type="submit" name="filter" value="Filter setzen">
@@ -28,6 +30,16 @@
             <input class="btn" type="submit" name="clear" value="Filter löschen">
         </form>
     </div>
+    <?php
+    // check if the flag_noInterestOverlaps is set to true and if so, display an alert
+    if ($flag_noInterestOverlaps) {
+        echo '<div class="alert alert-warning" role="alert">
+            <strong>Vorsicht!</strong>
+            <p>Es wurden keine Personen diesen Interessen gefunden!</p>
+        </div>';
+    }
+
+    ?>
     <div class="card pastelgruen border-success m-3">
         <div class="p-3">
             <h2>
