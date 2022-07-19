@@ -30,7 +30,7 @@ class EventFeedModel extends Model{
             $eventModel->fetchAndSetSignOns();
             $this->events[] = $eventModel;
         }
-        $this->removePastEvents();
+        //$this->removePastEvents();
     }
 
     /**

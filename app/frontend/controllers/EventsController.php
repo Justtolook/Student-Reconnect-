@@ -57,6 +57,7 @@ class EventsController extends Controller {
      */
     public function API_getAllEvents() {
         //$this->eventFeedModel->initEvents($this->eventFeedModel->fetchAllEvents());
+        $this->eventFeedModel->removePastEvents();
         $this->renderEventCards($this->eventFeedModel->events);
     }
 
