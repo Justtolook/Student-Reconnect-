@@ -33,6 +33,9 @@
     <div class="content">
         {{content}}
     </div>
+    <div class="bottom-spacer">
+
+    </div>
     <!-- define footer -->
     <footer class="fixed-bottom container-fluid">
         <div class="row">

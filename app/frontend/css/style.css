@@ -166,3 +166,7 @@ input {
         margin:auto;
     }
 }
+
+.bottom-spacer {
+    height: 130px;
+}

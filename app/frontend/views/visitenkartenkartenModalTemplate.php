@@ -22,6 +22,12 @@
     }
 </script>
 
+<style>
+    .modal-content{
+        background-color: #DFF2E9;
+    }
+</style>
+
 <!-- Modal -->
 <div class="modal fade" id="visitenkartenModalTemplate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
