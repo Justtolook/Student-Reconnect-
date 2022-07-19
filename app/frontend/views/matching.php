@@ -33,9 +33,12 @@
     <?php
     // check if the flag_noInterestOverlaps is set to true and if so, display an alert
     if ($flag_noInterestOverlaps) {
-        echo '<div class="alert alert-warning" role="alert">
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>Vorsicht!</strong>
             <p>Es wurden keine Personen diesen Interessen gefunden!</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
         </div>';
     }
 
