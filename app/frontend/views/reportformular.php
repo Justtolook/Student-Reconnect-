@@ -17,5 +17,3 @@
         </div>
     </form>
 </div>
-<?php
-var_dump($report->errors);
