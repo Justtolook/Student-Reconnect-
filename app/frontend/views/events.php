@@ -124,6 +124,10 @@
             </div>
         </div>
     </div>
+    <?php
+    include 'app/frontend/views/visitenkartenkartenModalTemplate.php';
+    ?>
+
 </div>
 
 <style>

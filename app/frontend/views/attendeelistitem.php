@@ -4,7 +4,7 @@
         ?>
     </td>
     <td>
-        <button class="btn btn-outline-primary" data-uid="<?php echo $user->id_user; ?>" data-toggle="modal" data-target="#userDetailsModal">
+        <button class="btn btn-outline-primary" onclick="getVisitenkartenContent(<?php echo $user->id_user; ?>)" data-uid="<?php echo $user->id_user; ?>" data-toggle="modal" data-target="#userDetailsModal">
             Details
         </button>
         <button class="btn btn-outline-light toggle-acceptance-button" data-eid="<?php echo $attendee->id_Event; ?>"  data-uid="<?php echo $user->id_user; ?>" onclick="toggleAcceptance(this)">

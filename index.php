@@ -67,6 +67,9 @@ $app->router->setRoute("get","frontend", "API_deleteEvent", [EventsController::c
 $app->router->setRoute("get","frontend", "API_getAttendees", [EventsController::class, 'API_getAttendees'], 1);
 $app->router->setRoute("get","frontend", "API_toggleAcceptance", [EventsController::class, 'API_toggleAcceptance'], 1);
 $app->router->setRoute("get","frontend", "API_searchEvents", [EventsController::class, 'API_searchEvents'], 1);
+$app->router->setRoute("get","frontend", "API_getVisitenkartenContent", [VisitenkartenController::class, 'API_getVisitenkartenContent'], 1);
+
+
 
 $app->router->setRoute("get","frontend", "profileedit", [ProfileController::class, 'profileedit'], 1);
 $app->router->setRoute("post","frontend", "profileedit", [ProfileController::class, 'handleProfileEditing'], 1);
