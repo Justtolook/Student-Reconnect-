@@ -1,8 +1,15 @@
+<script>
+    //handle event report button click
+    function reportUser(uid) {
+        //redirect to the report event page
+        window.location.href = 'index.php?t=frontend&request=reportUser&id_user=' + uid;
+    }
+</script>
 <div class="visitenkartenModal">
 
     <?php
     if ($visitenkarte->id_user != $_SESSION['user']['id_user']) {
-        echo '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#visitenkartenModal">
+        echo '<button onclick="reportUser(' .  $visitenkarte->id_user . ')" type="button" class="btn btn-primary" data-toggle="modal" data-target="#visitenkartenModal">
             User melden
         </button>';
     }
@@ -86,7 +93,7 @@
         <div class="row d-flex ml-2 mr-2">
             <?php
             foreach ($visitenkarte->interests as $interest) {
-                echo '<label class="PillList-item"><input type="checkbox" name="interests[]" value="' . $interestModel->getInterestName($interest) . '" checked><span class="PillList-label">' . $interestModel->getInterestName($interest) . '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span></span></label>';
+                echo '<label class="PillList-item"><input disabled type="checkbox" name="interests[]" value="' . $interestModel->getInterestName($interest) . '" checked><span class="PillList-label">' . $interestModel->getInterestName($interest) . '</span></label>';
             }
             ?>
         </div>

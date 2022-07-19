@@ -15,7 +15,7 @@
                 'uid': uid
             },
             success: function(data) {
-                console.log(data);
+                
                 $("#visitenkarten-modal-body").html(data);
             }
         });

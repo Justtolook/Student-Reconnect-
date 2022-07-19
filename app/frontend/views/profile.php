@@ -115,7 +115,7 @@
     <div class="row d-flex ml-2 mr-2">
         <?php
         foreach ($visitenkarte->interests as $interest) {
-            echo '<label class="PillList-item"><input type="checkbox" name="interests[]" value="' . $interestModel->getInterestName($interest) . '" checked><span class="PillList-label">' . $interestModel->getInterestName($interest) . '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span></span></label>';
+            echo '<label class="PillList-item"><input disabled type="checkbox" name="interests[]" value="' . $interestModel->getInterestName($interest) . '" checked><span class="PillList-label">' . $interestModel->getInterestName($interest) . '</span></label>';
         }
         ?>
     </div>
