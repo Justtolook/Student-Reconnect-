@@ -1,3 +1,5 @@
+
+
 <div class="container-fluid">
 <br><h1>Registrierung</h1><br><br>
 <form method="POST" action="?t=frontend&request=register">
