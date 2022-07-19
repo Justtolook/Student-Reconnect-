@@ -271,7 +271,7 @@ function RatingAttendees(event_id) {
 
 <!-- Match Notification -->
 <h1><strong>Benachrichtigungen</strong></h1>
-<div style = "padding: 10px 50px 1px;" class="row justify-content-start">
+<div class="ml-3 mt-3">
     <h5><strong>Matches</strong></h5>
 </div>
 <div class= "notificationCard">
@@ -331,14 +331,14 @@ function RatingAttendees(event_id) {
                 //}
             }
         } else {
-            echo "Keine Matches gefunden";
+            echo "<div class='ml-3'>Leider noch keine Matches</div>";
         }
         ?>
     </div>
 </div>
 
 <!-- Event Notifications -->
-<div style = "padding: 10px 50px 1px;" class="row justify-content-start">
+<div class="ml-3 mt-3">
     <h5><strong>Events</strong></h5>
 </div>
 <div class= "eventCard">
@@ -421,7 +421,7 @@ function RatingAttendees(event_id) {
             echo "Sie sind zu keinem Event angemeldet.";
         }
         ?>
-        <div style = "padding: 70px 10px 10px;"></div>
+        <div style = "padding: 100px 10px 10px;"></div>
     </div>
 </div>
 
