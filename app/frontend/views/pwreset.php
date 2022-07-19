@@ -51,7 +51,7 @@
             </div>
         </div>
     </div> <br>
-    <a href="?t=frontend&request=login" class="link-primary float-right">Zurück zum Login</a><br>
+    <a href="?t=frontend&request=login" class="mr-5 link-primary float-right">Zurück zum Login</a><br>
     </form>
 </div>
 
