@@ -14,10 +14,10 @@
                 <?php echo $model->getError('password') ?>
             </div>
         </div>
-</div><br>
-<a href="?t=frontend&request=pwreset" class="link-primary float-right">Passwort vergessen?</a><br>
+<br>
+<a href="?t=frontend&request=pwreset" class="mr-5 link-primary float-right">Passwort vergessen?</a><br>
 <div style = "padding: 100px 100px 10px;" class="row justify-content-center">
-    <button type="submit" class="btn btn-success mx-auto">Einloggen</button><br><br>
+    <button type="submit" class="btn btn-success mx-auto">Einloggen</button>
 </div>
 <div style = "padding: 500px 100px 10px;">
     <br><h2>Du hast noch keinen Account?</h2><br>
