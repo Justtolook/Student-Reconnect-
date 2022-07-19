@@ -15,7 +15,7 @@
         <a href="?t=frontend&request=impressum" style = "padding: 50px 10px 10px;" class="link-primmary">Impressum</a><br>
     </div>
 </div>
-<div style = "padding: 100px 100px 10px;" class="row justify-content-center">
+<div style = "padding: 50px 100px 10px;" class="row justify-content-center">
     <div class="form-group">
         <form action="?t=frontend&request=logout" method="post">
             <input type="submit" value="Logout" class="btn text-center">
@@ -24,7 +24,7 @@
 </div>
 <?php
 if(Application::$app->controller->isModerator()) {
-    echo '<div style = "padding: 50px 100px 10px;" class="form-group">
+    echo '<div style = "padding: 20px 100px 10px;" class="form-group">
     <form action="?t=frontend&request=moderation" method="post">
         <button class="btn text-center">Moderationsbereich </button>
     </form>
@@ -32,7 +32,7 @@ if(Application::$app->controller->isModerator()) {
 if(Application::$app->controller->isAdmin()) {
     echo '<div class="form-group">
     <form action="?t=backend&request=user" method="post">
-        <input type="submit" value="Adminbereich" class="btn btn-primary">
+        <button class="btn text-center">Adminbereich </button>
     </form>
     </div>';}
 ?>
