@@ -20,8 +20,18 @@ function openVisitenkarte(id_user) {
             $('#visitenkarte_description').text('Beschreibung: ' + data.description  );
             //$('#visitenkarte_image').attr('src', data.image);
             $('#visitenkarte_contactinformation').text('Kontaktinformationen: '  +data.contactInformation);
-            $('#visitenkarte_scorehost').text('Host Score: ' + data.scoreHost);
-            $('#visitenkarte_scoreattendee').text('Teilnehmer Score: ' + data.scoreAttendee);
+            if (data.scoreHost == null){
+                $('#visitenkarte_scorehost').text('Host Score: ' + 0);
+            } else {
+                $('#visitenkarte_scorehost').text('Host Score: ' + data.scoreHost);
+            }
+            if(data.scoreAttendee == null){
+                $('#visitenkarte_scoreattendee').text('Teilnehmer Score: ' + 0);
+            } else {
+                $('#visitenkarte_scoreattendee').text('Teilnehmer Score: ' + data.scoreAttendee);
+            }
+            
+            
             //loop through all data.interestsWithNames and create a span for each one with the name as text
             $('#visitenkarte_interests').text('Interessen:');
             for (const [key, value] of Object.entries(data.interestsWithNames)) {
