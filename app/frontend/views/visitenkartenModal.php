@@ -19,6 +19,48 @@
         ?>
     </h1>
 
+    <h2 class="text-center">
+
+    <table class="table table-borderless ml-3">
+        <thead>
+        <tr>
+            <!-- Scores -->
+            <th scope="col">Host Score:
+                <?php
+                echo $visitenkarte->scoreHost . '</div>';
+                ?>
+            </th>
+            <th scope="col">Teilnehmer Score:
+                <?php
+                echo $visitenkarte->scoreAttendee . '</div>';
+                ?>
+            </th>
+        </tr>
+        </thead>
+    </table>
+</h2>
+
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+            <th scope="col">Geburtsdatum</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td scope="row">
+                <div class="card border-dark">
+                    <div class="card-body">
+                        <?php
+                        echo $profile->birthdate;
+                        ?>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
     <table class="table table-borderless">
         <thead>
         <tr>
@@ -68,18 +110,6 @@
                 </div>
             </td>
         </tr>
-        <tr>
-        <th scope="col">Host Score: 
-            <?php 
-                echo  $visitenkarte->scoreHost . '</div>';
-            ?>
-        </th>
-        <th scope="col">Teilnehmer Score: 
-            <?php 
-                echo  $visitenkarte->scoreAttendee . '</div>';
-            ?>
-        </th>
-        </tr>
-        </tbody>
     </table>
+
 </div>
