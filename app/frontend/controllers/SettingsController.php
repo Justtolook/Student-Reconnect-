@@ -7,8 +7,4 @@ class SettingsController extends Controller {
         return $this->render('settings');
     }
 
-    public function impressum() {
-        return $this->render('impressum');
-    }
-
 }

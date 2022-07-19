@@ -75,8 +75,6 @@ h2 {
     height: auto;
 }
 
-
-
 input {
     background: #FFFFFF;
     border: 1px solid #595959;
@@ -160,4 +158,11 @@ input {
 
 .pastelgruen {
     background-color: #DFF2E9;
+}
+
+@media (max-width: 1199px) {
+    .modal-xl {
+        max-width: 800px;
+        margin:auto;
+    }
 }
