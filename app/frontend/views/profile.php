@@ -1,4 +1,4 @@
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-4">
     <div class="row text-center">
 
         <!--Grid column-->
@@ -73,6 +73,47 @@
 <table class="table table-borderless">
     <thead>
     <tr>
+        <th scope="col">Geburtsdatum</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td scope="row">
+            <div class="card border-dark">
+                <div class="card-body">
+                    <?php
+                    echo $profile->birthdate;
+                    ?>
+                </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<table class="table table-borderless">
+    <thead>
+    <tr>
+        <!-- Scores -->
+        <th scope="col">Host Score:
+            <?php
+            echo $visitenkarte->scoreHost . '</div>';
+            ?>
+        </th>
+        <th scope="col">Teilnehmer Score:
+            <?php
+            echo $visitenkarte->scoreAttendee . '</div>';
+            ?>
+        </th>
+    </tr>
+    </thead>
+</table>
+
+
+<table class="table table-borderless">
+    <thead>
+    <tr>
         <th scope="col">Interessen</th>
     </tr>
     </thead>
@@ -113,22 +154,10 @@
             </div>
         </td>
     </tr>
-    <!-- Scores -->
-    <th scope="col">Host Score: 
-            <?php 
-                echo  $visitenkarte->scoreHost . '</div>';
-            ?>
-        </th>
-        <th scope="col">Teilnehmer Score: 
-            <?php 
-                echo  $visitenkarte->scoreAttendee . '</div>';
-            ?>
-        </th>
-    </tbody>
 </table>
 
 <style>
-    .modal-content{
+    .modal-content {
         background-color: #DFF2E9;
     }
 </style>
@@ -165,7 +194,7 @@
 </div>
 
 <style>
-    .textwrap{
+    .textwrap {
         white-space: pre-line;
     }
 </style>

@@ -1,17 +1,17 @@
 <div class="container-fluid">
     <form method="POST" action="?t=frontend&request=profileedit">
-        <div class="col-md-11">
+        <div class="col-md-12">
             <div class="form-row">
                 <div class="col-md-6 mt-3">
                     <label for="firstname"><p class="font-weight-bold">Vorname</p></label>
                     <input type="text"
-                           class="form-control border-dark shadow-none <?php echo $model->hasError('firstname') ? 'is-invalid' : '' ?>"
+                           class="form-control border-dark shadow <?php echo $model->hasError('firstname') ? 'is-invalid' : '' ?>"
                            value="<?php echo $profile->firstname ?>" id="firstname" name="firstname">
                 </div>
                 <div class="col-md-6 mt-3">
                     <label for="lastname"><p class="font-weight-bold">Nachname</p></label>
                     <input type="text"
-                           class="form-control border-dark shadow-none <?php echo $model->hasError('lastname') ? 'is-invalid' : '' ?>"
+                           class="form-control border-dark shadow <?php echo $model->hasError('lastname') ? 'is-invalid' : '' ?>"
                            value="<?php echo $profile->lastname ?>" id="lastname" name="lastname">
                 </div>
             </div>
@@ -19,14 +19,14 @@
             <div class="form-group">
                 <label for="description"><p class="font-weight-bold">Kurzbeschreibung</p></label>
                 <textarea
-                        class="form-control border-dark <?php echo $model->hasError('description') ? 'is-invalid' : '' ?>"
+                        class="form-control border-dark shadow <?php echo $model->hasError('description') ? 'is-invalid' : '' ?>"
                         id="description" name="description" rows="3"><?php echo $profile->description ?></textarea>
             </div>
             <br>
             <div class="form-group">
                 <label for="contactInformation"><p class="font-weight-bold">Kontaktinformationen</p></label>
                 <textarea
-                        class="form-control border-dark <?php echo $model->hasError('contactInformation') ? 'is-invalid' : '' ?>"
+                        class="form-control border-dark shadow <?php echo $model->hasError('contactInformation') ? 'is-invalid' : '' ?>"
                         id="contactInformation" name="contactInformation"
                         rows="3"><?php echo $profile->contactInformation ?></textarea>
             </div>
