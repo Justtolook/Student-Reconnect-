@@ -11,6 +11,7 @@ class ShowProfileModel extends Model {
     public $gender;
     public $scoreAttendee;
     public $scoreHost;
+    public $birthdate;
     public $contactInformation;
     public array $interests;  // format id der interessen oder array $id => $name
     public HasInterestModel $hasInterestModel;
@@ -37,7 +38,7 @@ class ShowProfileModel extends Model {
      */
     public function getProfileDataByUserId (int $userID){
         
-        $sql = "SELECT id_user, firstname, lastname, description, gender,scoreHost, scoreAttendee, contactInformation FROM user WHERE id_user = :user_id";
+        $sql = "SELECT id_user, firstname, lastname, description, gender,scoreHost, scoreAttendee, birthdate, contactInformation FROM user WHERE id_user = :user_id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':user_id', $userID);
         $stmt->execute();
