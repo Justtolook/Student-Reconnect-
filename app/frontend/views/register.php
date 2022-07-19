@@ -41,11 +41,11 @@
         }
         ?>
     </div><br>
-    <div class="form-groups">
-        <select name="gender" id="gender" placeholder="Geschlecht">
+    <div class="form-group">
+        <select class="form-control w-75 row border border-dark" name="gender">
+            <option value="d" selected>Divers</option>
             <option value="m">Männlich</option>
             <option value="f">Weiblich</option>
-            <option value="d">Divers</option>
         </select>
     </div><br>
     <div class="form-group">
