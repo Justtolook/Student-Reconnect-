@@ -68,6 +68,18 @@
                 </div>
             </td>
         </tr>
+        <tr>
+        <th scope="col">Host Score: 
+            <?php 
+                echo  $visitenkarte->scoreHost . '</div>';
+            ?>
+        </th>
+        <th scope="col">Teilnehmer Score: 
+            <?php 
+                echo  $visitenkarte->scoreAttendee . '</div>';
+            ?>
+        </th>
+        </tr>
         </tbody>
     </table>
 </div>
