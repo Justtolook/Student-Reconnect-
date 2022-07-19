@@ -315,7 +315,7 @@ function RatingAttendees(event_id) {
                                 echo "<button type='submit' class='btn btn-success' name='markAsReadNotification'>Gelesen</button";
                                 echo "</form>";
                             }
-                            echo "<button type='button' class='btn btn-success float-left' onclick='openVisitenkarte(" . $match['id_user'] . ")'>Visitenkarte</button>";
+                            echo "<button type='button' class='btn btn-success float-left' onclick='getVisitenkartenContent(" . $match['id_user'] . ")'>Visitenkarte</button>";
                             /*
                             echo "<form action='?t=frontend&request=notifications/showVisitenkarte'  method='POST'>";
                             echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>";
@@ -427,36 +427,9 @@ function RatingAttendees(event_id) {
 
 
 
-<div class="visitenkartenModal modal" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Visitenkarte</h3>
-                <!-- TODO Report for User Anpassen -->
-                <button type="button" data-userid="" id="report-user-button" class="report-user-button btn btn-outline-danger" onclick="reportUser()">Melden</button>
-            </div>
-            <div class="modal-body">
-                <div id="visitenkarte">
-                    <div id="visitenkarte_name"></div>
-                    <div id="visitenkarte_image"></div>
-                    <div id="visitenkarte_description"></div>
-                    <div id="visitenkarte_contactinformation"></div>
-                    <div id="visitenkarte_interests"></div>
-                    <div id="visitenkarte_scorehost"></div>
-                    <div id="visitenkarte_scoreattendee"></div>
-                </div>
-            
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <div class="modal fade" id="EventDetailsModal" tabindex="-1" role="dialog" aria-labelledby="EventDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="event-details-name"></h5>
@@ -481,30 +454,6 @@ function RatingAttendees(event_id) {
     </div>
 </div>
 
-<!-- 
-<div class="eventcard modal" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Event</h3>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="eventcard">
-                    <div id="eventcard_name"></div>
-                    <div id="eventcard_location_rough"></div>
-                    <div id="eventcard_eventDate"></div>
-                </div>
-            
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 
 <!-- insert modal for host rating -->
 <div class="modal fade" id="hostRatingModal" tabindex="-1" role="dialog" aria-labelledby="hostRatingModalLabel" aria-hidden="true">
@@ -564,3 +513,7 @@ function RatingAttendees(event_id) {
         </div>
     </div>
 </div>
+
+<?php
+require 'app/frontend/views/visitenkartenkartenModalTemplate.php';
+?>
