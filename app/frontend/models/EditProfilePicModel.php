@@ -6,9 +6,12 @@ class EditProfilePicModel extends Model {
     public Database $db;
     public int $id_user;
 
-    public function __construct() {
+    public function __construct($userID) {
+
         $this->db = new Database();
-        $this->id_user = $_SESSION['user']['id_user'];
+
+        $this->id_user = $userID;
+
     }
 
     public function rules(): array {

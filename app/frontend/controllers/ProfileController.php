@@ -28,8 +28,7 @@ class ProfileController extends Controller {
         $this->hasInterestModel = new HasInterestModel();
         $this->hasInterestModel->fetchInterestsForUserID($this->id_user);
         $this->ShowProfileModel->interests = $this->hasInterestModel->getInterestsForUserID($this->id_user);
-        $this->EditProfilePicModel = new EditProfilePicModel();
-        $this->EditProfilePicModel->id_user = $this->id_user;
+        $this->EditProfilePicModel = new EditProfilePicModel($this->id_user);
         $this->EditProfileModel = new EditProfileModel();
     }
     /**
@@ -66,13 +65,11 @@ class ProfileController extends Controller {
     }
 
     public function profilepicedit() {
-        $EditProfilePicModel = new EditProfilePicModel();
-        return $this->render('profile', ['model' => $EditProfilePicModel]);
-    }    
+        return $this->render('profile', ['model' => $this->EditProfilePicModel]);
+    }
 
     public function handleProfilePicEditing(Request $request) {
-        $EditProfilePicModel = new EditProfilePicModel();
-        if($EditProfilePicModel->saveNewImageRef()) {
+        if($this->EditProfilePicModel->saveNewImageRef()) {
             Application::$app->response->redirect("?t=frontend&request=profile");
             return;
         }

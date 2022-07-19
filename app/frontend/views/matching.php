@@ -46,7 +46,7 @@
                 <?php echo $model->firstname . " " . $model->lastname; ?>
             </h2>
             <div class="text-center">
-                <img class="card-img w-50 mt-2 mb-4" src="res/Marie Becker.png" alt="Profilbild">
+                <img class="rounded-circle w-50 mt-2" <?php echo'src="' . $imagemodel->getProfileImagePath() . '"' ?> alt="Profilbild">
             </div>
         </div>
         <div class="card-body">
