@@ -51,10 +51,7 @@ class AuthController extends Controller {
 
     public function handleRegistration(Request $request) {
         $registerModel = new RegisterModel();
-        $temp = $request->getBody();
-        $gender = $temp['gender'];
-        $temp['gender'] = $gender[0];
-        $registerModel->loadData($temp);
+        $registerModel->loadData($request->getBody());
         //check if registration data is valid and if the registration was successful s
         if($registerModel->validate() && $registerModel->register()) {
             Application::$app->response->redirect("?t=frontend&request=login"); //new (better?) option to redirect TODO
