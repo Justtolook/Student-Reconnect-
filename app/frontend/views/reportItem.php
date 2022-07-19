@@ -26,10 +26,10 @@
         ?>
         <div class="row justify-content-md-center mt-3">
             <div class="col-md-5 text-center">
-        <button class="btn" onclick="">Annehmen</button>
+        <button class="btn" onclick="accept(<?php echo $report->id_report; ?>)">Annehmen</button>
             </div>
             <div class="col-md-5 text-center">
-        <button class="btn" onclick="">Ablehnen</button>
+        <button class="btn" onclick="dismiss(<?php echo $report->id_report; ?>)">Ablehnen</button>
             </div>
         </div>
     </div>

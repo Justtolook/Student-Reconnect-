@@ -49,6 +49,16 @@ class ModerationController extends Controller {
         return $this->render('reportformular', ['report' => $model]);
     }
 
+    public function dismissReport(Request $request) {
+        $model = new ModerationModel();
+        $model->dismissReport($request->getBody()['id_report']);
+    }
+
+    public function acceptReport(Request $request) {
+        $model = new ModerationModel();
+        $model->acceptReport($request->getBody()['id_report']);
+    }
+
 
 
 }

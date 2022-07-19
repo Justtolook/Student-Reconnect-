@@ -31,4 +31,18 @@ class ReportModel extends Model {
         return $statement->execute();
     }
 
+    public function dismiss() {
+        $db = new Database();
+        $statement = $db->prepare('UPDATE report SET status = "2" WHERE id_report = :id_report');
+        $statement->bindValue(':id_report', $this->id_report);
+        $statement->execute();
+    }
+
+    public function accept() {
+        $db = new Database();
+        $statement = $db->prepare('UPDATE report SET status = "1" WHERE id_report = :id_report');
+        $statement->bindValue(':id_report', $this->id_report);
+        $statement->execute();
+    }
+
 }

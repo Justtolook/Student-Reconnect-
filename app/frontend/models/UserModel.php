@@ -40,5 +40,27 @@ class UserModel extends Model {
         return $firstname . " " . $lastname;
     }
 
+    public function delete() {
+        $db = new Database();
+        $statement = $db->prepare('DELETE FROM user WHERE id_user = :id_user');
+        $statement->bindValue(':id_user', $this->id_user);
+        $statement->execute();
+        $statement = $db->prepare('DELETE FROM event WHERE id_userCreator = :id_user');
+        $statement->bindValue(':id_user', $this->id_user);
+        $statement->execute();
+        $statement = $db->prepare('DELETE FROM eventSignOn WHERE id_User = :id_user');
+        $statement->bindValue(':id_user', $this->id_user);
+        $statement->execute();
+        $statement = $db->prepare('DELETE FROM hasInterest WHERE id_user = :id_user');
+        $statement->bindValue(':id_user', $this->id_user);
+        $statement->execute();
+        $statement = $db->prepare('DELETE FROM matches WHERE id_User_1 = :id_user OR id_User_2 = :id_user');
+        $statement->bindValue(':id_user', $this->id_user);
+        $statement->execute();
+        $statement = $db->prepare('DELETE FROM matching_instance WHERE id_user_given = :id_user OR id_user_received = :id_user');
+        $statement->bindValue(':id_user', $this->id_user);
+        $statement->execute();
+    }
+
 
 }

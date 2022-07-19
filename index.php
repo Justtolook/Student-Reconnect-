@@ -95,6 +95,8 @@ $app->router->setRoute("post","frontend", "moderation", [ModerationController::c
 $app->router->setRoute("get","frontend", "reportEvent", [ModerationController::class, 'reportEvent'], 1);
 $app->router->setRoute("get","frontend", "reportUser", [ModerationController::class, 'reportUser'], 1);
 $app->router->setRoute("post","frontend", "handleReport", [ModerationController::class, 'handleReport'], 1);
+$app->router->setRoute("get","frontend", "API_dismissReport", [ModerationController::class, 'dismissReport'], 2);
+$app->router->setRoute("get","frontend", "API_acceptReport", [ModerationController::class, 'acceptReport'], 2);
 
 
 $app->router->setRoute("get","backend", "user", [A_UserController::class, 'home'], 3);
