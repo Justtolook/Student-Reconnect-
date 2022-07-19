@@ -6,6 +6,7 @@ require_once 'app/frontend/models/HasInterestModel.php';
 require_once 'app/frontend/models/MatchingInstanceModel.php';
 require_once 'app/frontend/models/InterestModel.php';
 require_once 'app/frontend/models/MatchModel.php';
+require_once 'app/frontend/models/EditProfilePicModel.php';
 require_once 'Database.php';
 
 class MatchingController extends Controller {
@@ -19,6 +20,8 @@ class MatchingController extends Controller {
     public InterestModel $interestModel;
     public MatchModel $matchModel;
     public array $interestFilter = []; //array with their id's
+    public bool $flag_noInterestOverlaps = false;
+    public EditProfilePicModel $EditProfilePicModel;
 
     public function __construct() {
         /**
@@ -286,6 +289,7 @@ class MatchingController extends Controller {
         }
         if(count($this->UserAll) == 0) {
             //echo "No users found";
+            $this->flag_noInterestOverlaps = true;
             $this->UserAll = $this->UserAllBase;
         }
     }
@@ -296,7 +300,8 @@ class MatchingController extends Controller {
      */
     public function renderRandomUser() {
         $randomUser = array_rand($this->UserAll);
-        return $this->render("matching", ["model" => $this->UserAll[$randomUser], "interestModel" => $this->interestModel]);
+        $this->EditProfilePicModel = new EditProfilePicModel($randomUser);
+        return $this->render("matching", ["model" => $this->UserAll[$randomUser], "interestModel" => $this->interestModel, "filter" => $this->interestFilter, "flag_noInterestOverlaps" => $this->flag_noInterestOverlaps, "imagemodel" => $this->EditProfilePicModel]);
     }
 
     /**
@@ -306,7 +311,8 @@ class MatchingController extends Controller {
      * debug only
      */
     public function renderUserByID($id_user) {
-        return $this->render("matching", ["model" => $this->UserAll[$id_user], "interestModel" => $this->interestModel]);
+        $this->EditProfilePicModel = new EditProfilePicModel($id_user);
+        return $this->render("matching", ["model" => $this->UserAll[$id_user], "interestModel" => $this->interestModel, "imagemodel" => $this->EditProfilePicModel]);
     }
 
     /**

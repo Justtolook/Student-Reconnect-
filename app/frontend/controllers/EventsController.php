@@ -3,6 +3,7 @@
 require_once 'Controller.php';
 require_once 'app/frontend/models/EventFeedModel.php';
 require_once 'app/frontend/models/UserModel.php';
+require_once 'app/frontend/models/EventModel.php';
 
 class EventsController extends Controller {
     public EventFeedModel $eventFeedModel;
@@ -21,11 +22,42 @@ class EventsController extends Controller {
     }
 
     /**
+     * @return string
+     * return the view for the event creation
+     */
+    public function eventcreation() {
+        $eventModel = new EventModel();
+        return $this->render('eventcreation', ['model' => $eventModel]);
+    }
+
+    /**
+     * @param Request $request
+     * @return void if the creation was successful, otherwise renders the creation page again
+     * creates the event and sends the user back to the event mainpage
+     */
+    public function handleEventCreation(Request $request) {
+        $eventModel = new EventModel();
+        $temp = $request->getBody();
+        $temp['numberAttendees'] = intval($temp['numberAttendees']);
+        $eventModel->loadData($temp);
+        $eventModel->id_userCreator = $_SESSION['user']['id_user'];
+        $eventModel->createdTimestamp = date('Y-m-d',time());
+        if($eventModel->validate()) {
+            if($eventModel->createEvent()) {
+                Application::$app->response->redirect("?t=frontend&request=events");
+                return;
+            }
+        }
+        return $this->render('eventcreation', ['model' => $eventModel]);
+    }
+
+    /**
      * @return void
      * returns a json object with all events
      */
     public function API_getAllEvents() {
         //$this->eventFeedModel->initEvents($this->eventFeedModel->fetchAllEvents());
+        $this->eventFeedModel->removePastEvents();
         $this->renderEventCards($this->eventFeedModel->events);
     }
 

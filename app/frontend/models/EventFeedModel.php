@@ -30,6 +30,7 @@ class EventFeedModel extends Model{
             $eventModel->fetchAndSetSignOns();
             $this->events[] = $eventModel;
         }
+        //$this->removePastEvents();
     }
 
     /**
@@ -99,6 +100,16 @@ class EventFeedModel extends Model{
             }
         }
         return $searchResults;
+    }
+
+    /**
+     * @return void
+     * removes all past events from the events array
+     */
+    public function removePastEvents() {
+        $this->events = array_filter($this->events, function($event) {
+            return strtotime($event->eventDate) > time();
+        });
     }
 
 }

@@ -4,7 +4,7 @@
     </div>
     <div class="container-fluid matchingFilter">
         <div class="row d-flex justify-content-center">
-            <span class="mb-3 mt-2">Interessen</span>
+            <span class="mb-3 mt-2">Nach welchen Interessen möchtest du Filtern?</span>
         </div>
         <!-- checkboxes with interest to filter the user list -->
         <form action="?t=frontend&request=matching/filter" method="post">
@@ -12,9 +12,11 @@
                 <?php
                 foreach ($interestModel->interests as $interest) {
                     echo '<label class="PillList-item"><input type="checkbox" name="interests[]" value="' .
-                        $interest . '"><span class="PillList-label">' . $interest .
-                        '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span></span></label>';
-                }
+                        $interest . '" ' ;
+                    if(in_array(($interestModel->getInterestID($interest)), $filter)) echo "checked";
+                    echo '><span class="PillList-label">' . $interest .
+                    '<span class="Icon Icon--checkLight Icon--smallest"><i class="fa fa-check"></i></span></span></label>';
+            }
                 ?>
             </div>
             <input class="btn" type="submit" name="filter" value="Filter setzen">
@@ -28,25 +30,39 @@
             <input class="btn" type="submit" name="clear" value="Filter löschen">
         </form>
     </div>
+    <?php
+    // check if the flag_noInterestOverlaps is set to true and if so, display an alert
+    if ($flag_noInterestOverlaps) {
+        echo '<div class="alert alert-warning" role="alert">
+            <strong>Vorsicht!</strong>
+            <p>Es wurden keine Personen diesen Interessen gefunden!</p>
+        </div>';
+    }
+
+    ?>
     <div class="card pastelgruen border-success m-3">
         <div class="p-3">
             <h2>
                 <?php echo $model->firstname . " " . $model->lastname; ?>
             </h2>
             <div class="text-center">
-                <img class="card-img w-50 mt-2 mb-4" src="res/Marie Becker.png" alt="Profilbild">
+                <img class="rounded-circle w-50 mt-2" <?php echo'src="' . $imagemodel->getProfileImagePath() . '"' ?> alt="Profilbild">
             </div>
         </div>
         <div class="card-body">
             <p>
                 <?php echo $model->description; ?>
             </p>
-            <p>Interessen:
+            <p>Interessen:</p>
                 <!-- print the interests of the user in plain text-->
+            <div class="row d-flex ml-2 mr-2">
                 <?php foreach ($model->interests as $interest) {
-                    echo "<li>" . $interestModel->getInterestName($interest) . "</li>";
+                    echo '<label class="PillList-item"><input disabled checked type="checkbox" name="interests[]" value="' . $interestModel->getInterestName($interest) . '">';
+                    echo '<span class="PillList-label">' . $interestModel->getInterestName($interest) .
+                        '</span></label>';
+                    //echo "<li>" . $interestModel->getInterestName($interest) . "</li>";
                 } ?>
-            </p>
+            </div>
         </div>
         <div class="row justify-content-md-center">
             <div class="col col-lg-2 text-center">
