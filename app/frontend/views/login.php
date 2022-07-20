@@ -19,7 +19,8 @@
 <div style = "padding: 100px 100px 10px;" class="row justify-content-center">
     <button type="submit" class="btn btn-success mx-auto">Einloggen</button>
 </div>
-<div style = "padding: 500px 100px 10px;">
+        <div class="p-5"></div>
+<div>
     <br><h2>Du hast noch keinen Account?</h2><br>
     <div class="row justify-content-center">
         <a href="?t=frontend&request=register" class="btn mx-auto">Jetzt registrieren</a><br>

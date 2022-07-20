@@ -72,7 +72,7 @@ h2 {
 .landingpage {
     background: linear-gradient(158.86deg, #40BF8E 4.13%, #196145 52.09%, #194333 88.61%);
     mix-blend-mode: normal;
-    height: auto;
+    height: 100%;
 }
 
 input {
