@@ -33,14 +33,22 @@
         <tr>
             <!-- Scores -->
             <th scope="col">Host Score:
-                <?php
-                echo $visitenkarte->scoreHost . '</div>';
-                ?>
-            </th>
-            <th scope="col">Teilnehmer Score:
-                <?php
-                echo $visitenkarte->scoreAttendee . '</div>';
-                ?>
+            <?php
+            if ($visitenkarte->scoreHost == null) {
+                echo "0";
+            } else {
+                echo $visitenkarte->scoreHost;
+            }
+            ?>
+        </th>
+        <th scope="col">Teilnehmer Score:
+            <?php
+            if ($visitenkarte->scoreAttendee == null) {
+                echo "0";
+            } else {
+                echo $visitenkarte->scoreAttendee;
+            }
+            ?>
             </th>
         </tr>
         </thead>

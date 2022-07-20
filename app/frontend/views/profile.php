@@ -98,12 +98,20 @@
         <!-- Scores -->
         <th scope="col">Host Score:
             <?php
-            echo $visitenkarte->scoreHost . '</div>';
+            if ($visitenkarte->scoreHost == null) {
+                echo "0";
+            } else {
+                echo $visitenkarte->scoreHost;
+            }
             ?>
         </th>
         <th scope="col">Teilnehmer Score:
             <?php
-            echo $visitenkarte->scoreAttendee . '</div>';
+            if ($visitenkarte->scoreAttendee == null) {
+                echo "0";
+            } else {
+                echo $visitenkarte->scoreAttendee;
+            }
             ?>
         </th>
     </tr>
