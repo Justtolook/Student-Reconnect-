@@ -2,7 +2,7 @@
     <div class="overflow-auto">
         <div class="p-4"></div>
         <h1 class="p-2 text-white">Willkommen bei</h1>
-        <img src="res/Logo_weiß_Schrift_transparent 1.png" alt="Logo" class="mx-auto d-block"  width="800" height="800">
+        <img src="res/Logo_weiß_Schrift_transparent.png" alt="Logo" class="mx-auto d-block"  width="800" height="800">
         <br>
         <br>
         <a type="button" class="p-2 btn btn-success mx-auto" href="?t=frontend&request=login">Login</a><br>
