@@ -95,7 +95,7 @@
                         <span id="my-event-details-eventDate"></span>
                     </div>
                     <div>
-                        <i class="fas fa-map-marker-alt"> </i>
+                        <i class="fas fa-map-marker-alt mr-1"> </i>
                         <span id="my-event-details-location_rough"></span>
                     </div>
                     <div id="my-event-details-attendees">
@@ -104,17 +104,19 @@
                         <span id="my-event-details-signons"></span>/<span id="my-event-details-maxAttendees"></span>
                     </div>
                     <br>
-                    <table class="my-event-details-attendees-list">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Aktionen</th>
-                        </tr>
-                        </thead>
-                        <tbody id="my-event-details-attendees-list-body">
+                    <div class="container-fluid my-event-details-attendees-list">
+                        <div class="row text-center font-weight-bold mb-2">
+                            <div class="col-md-4">
+                                <span>Name</span>
+                            </div>
+                            <div class="col-md-8">
+                                <span>Aktionen</span>
+                            </div>
+                        </div>
+                        <div id="my-event-details-attendees-list-body">
 
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer align-self-center">

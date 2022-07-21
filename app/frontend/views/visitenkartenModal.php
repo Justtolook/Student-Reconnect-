@@ -6,15 +6,6 @@
     }
 </script>
 <div class="visitenkartenModal">
-
-    <?php
-    if ($visitenkarte->id_user != $_SESSION['user']['id_user']) {
-        echo '<button onclick="reportUser(' .  $visitenkarte->id_user . ')" type="button" class="btn btn-primary" data-toggle="modal" data-target="#visitenkartenModal">
-            User melden
-        </button>';
-    }
-    ?>
-
     <div class="text-center">
         <img class="rounded-circle w-50 mt-2 mb-2" alt="Profile Image"
              src="<?php echo($profilepicmodel->getProfileImagePath()) ?>"
@@ -28,32 +19,32 @@
 
     <h2 class="text-center">
 
-    <table class="table table-borderless ml-3">
-        <thead>
-        <tr>
-            <!-- Scores -->
-            <th scope="col">Host Score:
-            <?php
-            if ($visitenkarte->scoreHost == null) {
-                echo "0";
-            } else {
-                echo $visitenkarte->scoreHost;
-            }
-            ?>
-        </th>
-        <th scope="col">Teilnehmer Score:
-            <?php
-            if ($visitenkarte->scoreAttendee == null) {
-                echo "0";
-            } else {
-                echo $visitenkarte->scoreAttendee;
-            }
-            ?>
-            </th>
-        </tr>
-        </thead>
-    </table>
-</h2>
+        <table class="table table-borderless ml-3">
+            <thead>
+            <tr>
+                <!-- Scores -->
+                <th scope="col">Host Score:
+                    <?php
+                    if ($visitenkarte->scoreHost == null) {
+                        echo "0";
+                    } else {
+                        echo $visitenkarte->scoreHost;
+                    }
+                    ?>
+                </th>
+                <th scope="col">Teilnehmer Score:
+                    <?php
+                    if ($visitenkarte->scoreAttendee == null) {
+                        echo "0";
+                    } else {
+                        echo $visitenkarte->scoreAttendee;
+                    }
+                    ?>
+                </th>
+            </tr>
+            </thead>
+        </table>
+    </h2>
 
     <table class="table table-borderless">
         <thead>
@@ -126,5 +117,13 @@
             </td>
         </tr>
     </table>
-
+    <div class="text-center">
+        <?php
+        if ($visitenkarte->id_user != $_SESSION['user']['id_user']) {
+            echo '<button onclick="reportUser(' . $visitenkarte->id_user . ')" type="button" class="btn" data-toggle="modal" data-target="#visitenkartenModal">
+            User melden
+        </button>';
+        }
+        ?>
+    </div>
 </div>
