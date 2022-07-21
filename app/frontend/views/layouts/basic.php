@@ -12,7 +12,7 @@
 <!-- define navbar -->
 <nav class="navbar sticky-top container-fluid">
     <a class="navbar-brand" href="?t=frontend&request=landingpage">
-        <img src="res/Logo_weiß_Schrift_transparent 1.png" width="150" height="150" class="d-inline-block align-top" alt="">
+        <img src="res/Logo_weiß_Schrift_transparent 1.png" width="150" height="150" class="d-inline-block align-middle" alt="">
         Student Reconnect
     </a>
 </nav>
