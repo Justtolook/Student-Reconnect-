@@ -166,3 +166,8 @@ input {
         margin:auto;
     }
 }
+
+.table-font {
+    font-size: 1rem;
+    font-family: sans-serif;
+}
