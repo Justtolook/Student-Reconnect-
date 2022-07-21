@@ -4,11 +4,11 @@
     <a href="?t=frontend&request=eventcreation" class="btn">Event erstellen</a>
     <button class="btn search-my-events-button" onclick="getMyEvents()">Meine Events</button>
     <button class="search-all-events-button btn" onclick="getAllEvents()">Alle</button>
-        <div class="form-group">
-            <input type="text" class="form-control border-dark" id="search-events-input" name="searchTerm"
-                   placeholder="Suche">
-            <button type="button" class="btn" onclick="searchEvents()">Suchen</button>
-        </div>
+    <div class="form-group">
+        <input type="text" class="form-control border-dark" id="search-events-input" name="searchTerm"
+               placeholder="Suche">
+        <button type="button" class="btn" onclick="searchEvents()">Suchen</button>
+    </div>
 
     <div class="eventFeed" id="eventFeed">
     </div>
@@ -20,14 +20,8 @@
                 <div class="modal-header">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-7">
+                            <div class="col-md-11">
                                 <h5 class="modal-title" id="event-details-name"></h5>
-                            </div>
-                            <div class="col-md-4">
-                                <button type="button" data-eid="" id="report-event-button"
-                                        class="report-event-button btn btn-outline-danger" onclick="report()">
-                                    Melden
-                                </button>
                             </div>
                             <div class="col-md-1">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -45,22 +39,30 @@
                         <span id="event-details-eventDate"></span>
                     </div>
                     <div>
-                        <i class="fas fa-map-marker-alt"> </i>
+                        <i class="fas fa-map-marker-alt mr-1"> </i>
                         <span id="event-details-location_rough"></span>
                     </div>
                     <div id="event-details-attendees">
                         <i class="fas fa-user-alt"> </i>
                         Teilnehmende:
                         <span id="event-details-signons"></span>/<span id="event-details-maxAttendees"></span>
+                        <div class="row justify-content-md-center mt-4">
+                            <div class="col col-md-5 text-center">
+                                <!-- sign on button -->
+                                <button type="button" class="btn event-sign-on-button" id="event-sign-on-button"
+                                        data-eid=""
+                                        onclick="toggleSignOn()">Anmelden
+                                </button>
+                            </div>
+                            <div class="col col-md-5 text-center">
+                                <button type="button" data-eid="" id="report-event-button"
+                                        class="report-event-button btn btn-outline-danger"
+                                        onclick="report()">
+                                    Melden
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="modal-footer align-self-center">
-                    <!-- sign on button -->
-                    <button type="button" class="btn event-sign-on-button" id="event-sign-on-button"
-                            data-eid=""
-                            onclick="toggleSignOn()">Anmelden
-                    </button>
                 </div>
             </div>
         </div>
@@ -74,7 +76,7 @@
                 <div class="modal-header">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-11 mr-3">
+                            <div class="col-md-11">
                                 <h5 class="modal-title" id="my-event-details-name"></h5>
                             </div>
                             <div class="col-md-1">

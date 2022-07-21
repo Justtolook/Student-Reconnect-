@@ -16,16 +16,16 @@
     <!-- define navbar -->
     <nav class="navbar sticky-top container-fluid">
         <a class="navbar-brand" href="?t=frontend&request=landingpage">
-            <img src="res/Logo_weiß_Schrift_transparent 1.png" width="150" height="150" class="d-inline-block align-top" alt="">
+            <img src="res/Logo_weiß_Schrift_transparent 1.png" width="150" height="150" class="d-inline-block align-middle" alt="">
             Student Reconnect
         </a>
         <!-- only show notification and settings button if the user is logged in -->
         <?php if (Application::$app->controller->isLoggedIn()) echo '
         <a class="nav-link" href="?t=frontend&request=notifications">
-            <img src="res/notifications.png" width="55" height="55" class="d-inline-block align-top" alt="">
+            <i class="fas fa-bell"></i>
         </a>
         <a class="nav-link" href="?t=frontend&request=settings">
-            <img src="res/settings.png" width="55" height="55" class="d-inline-block align-top" alt="">
+            <i class="fas fa-cog"></i>
         </a>
         ';?>
     </nav>
@@ -33,9 +33,7 @@
     <div class="content">
         {{content}}
     </div>
-    <div class="bottom-spacer">
-
-    </div>
+    <div style = "padding: 60px 0px;"></div>
     <!-- define footer -->
     <footer class="fixed-bottom container-fluid">
         <div class="row">

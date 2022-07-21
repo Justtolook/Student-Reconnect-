@@ -65,12 +65,12 @@ function openVisitenkarte(id_user) {
                 console.log(eventDetails);
                 //fill the modal with the event details
                 //$('#event-details-id').val(eventDetails.id_event);
-                $('#event-details-name').text('Name: '+eventDetails.name);
-                $('#event-details-description').text('Beschreibung: '+eventDetails.description);
-                $('#event-details-location_rough').text('Gegend: '+eventDetails.location_rough);
-                $('#event-details-eventDate').text('Zeit: '+eventDetails.eventDate);
+                $('#event-details-name').text(eventDetails.name);
+                $('#event-details-description').text(eventDetails.description);
+                $('#event-details-location_rough').text(eventDetails.location_rough);
+                $('#event-details-eventDate').text(eventDetails.eventDate);
                 $('#event-details-signons').text(eventDetails.numberSignOns);
-                $('#event-details-maxAttendees').text('Max. Teilnehmerzahl: '+eventDetails.numberAttendees);
+                $('#event-details-maxAttendees').text(eventDetails.numberAttendees);
                 //set the data-eid attribute of the sign-on button to the event id
                 $('#event-sign-on-button').attr('data-eid', event_id);
                 //set the data-eid attribute of the report button to the event id
@@ -309,7 +309,7 @@ function RatingAttendees(event_id) {
                             <div style = "padding: 20px 10px 10px;"></div>
                             <?php
                             if(!$match['notificationRead']) {
-                                echo "<div class='newNotification'>Neu!</div>";
+                                echo "<div class='newNotification'>Du hast einen neuen Match!</div>";
                                 echo "<form action='?t=frontend&request=notifications/markAsReadNotification'  method='POST'>";
                                 echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>";
                                 echo "<button type='submit' class='btn btn-success' name='markAsReadNotification'>Gelesen</button";
@@ -331,7 +331,7 @@ function RatingAttendees(event_id) {
                 //}
             }
         } else {
-            echo "<div class='ml-3'>Leider noch keine Matches</div>";
+            echo "<div class='ml-3'>Aktuell keine Matches</div>";
         }
         ?>
     </div>
@@ -421,7 +421,6 @@ function RatingAttendees(event_id) {
             echo "Sie sind zu keinem Event angemeldet.";
         }
         ?>
-        <div style = "padding: 100px 10px 10px;"></div>
     </div>
 </div>
 
@@ -439,9 +438,18 @@ function RatingAttendees(event_id) {
             </div>
             <div class="modal-body">
                 <div id="event-details-description"></div>
-                <div id="event-details-location_rough"></div>
-                <div id="event-details-eventDate"></div>
-                <div id="event-details-attendees">Teilnehmende:
+                <br>
+                <div>
+                    <i class="fa fa-clock-four"> </i>
+                    <span id="event-details-eventDate"></span>
+                </div>
+                <div>
+                    <i class="fas fa-map-marker-alt mr-1"> </i>
+                    <span id="event-details-location_rough"></span>
+                </div>
+                <div id="event-details-attendees">
+                    <i class="fas fa-user-alt"> </i>
+                    Teilnehmende:
                     <span id="event-details-signons"></span>/<span id="event-details-maxAttendees"></span>
                 </div>
             </div>
