@@ -183,7 +183,7 @@
 </div>
 
 <div>
-    <a href="?t=frontend&request=profileedit" class="btn text-center mb-5">Profil bearbeiten</a><br>
+    <a href="?t=frontend&request=profileedit" class="btn text-center">Profil bearbeiten</a><br>
 </div>
 
 <style>
