@@ -8,7 +8,7 @@
         else if($report->type == 'u') echo 'den User';
 
             ?> melden?</label>
-        <textarea class="form-control border-dark <?php echo $report->hasError('description') ? 'is-invalid' : ''?>" id="report-description" name="description" rows="3"></textarea>
+        <textarea class="form-control border-dark shadow <?php echo $report->hasError('description') ? 'is-invalid' : ''?>" id="report-description" name="description" rows="3"></textarea>
         <div class="invalid-feedback">
             <?php echo $report->getError('description') ?>
         </div>

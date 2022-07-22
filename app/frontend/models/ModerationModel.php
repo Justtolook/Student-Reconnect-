@@ -19,7 +19,7 @@ class ModerationModel extends Model {
         foreach ($reportsQuery as $report) {
             $temp = new ReportModel();
             $temp->loadData($report);
-            $this->reports[] = $temp;
+            if($temp->status == 0) $this->reports[] = $temp;
         }
     }
 

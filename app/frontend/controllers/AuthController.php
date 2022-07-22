@@ -12,6 +12,7 @@ class AuthController extends Controller {
     }
 
     public function login() {
+        $this->setLayout('basic');
         $loginModel = new LoginModel();
         return $this->render('login', ['model' => $loginModel]);
     }
@@ -23,6 +24,7 @@ class AuthController extends Controller {
     }
 
     public function handleLogin(Request $request) {
+        $this->setLayout('basic');
         $loginModel = new LoginModel();
         $loginModel->loadData($request->getBody());
         //validate user input data for login
@@ -45,11 +47,13 @@ class AuthController extends Controller {
 
 
     public function register(Request $request) {
+        $this->setLayout('basic');
         $registerModel = new RegisterModel();
         return $this->render('register', ['model' => $registerModel]);
     }
 
     public function handleRegistration(Request $request) {
+        $this->setLayout('basic');
         $registerModel = new RegisterModel();
         $registerModel->loadData($request->getBody());
         //check if registration data is valid and if the registration was successful s
@@ -61,6 +65,7 @@ class AuthController extends Controller {
     }
 
     public function pwReset() {
+        $this->setLayout('basic');
         return $this->render('pwreset');
     }
 
@@ -72,6 +77,7 @@ class AuthController extends Controller {
      */
 
     public function handlePWResetEmail(Request $request) {
+        $this->setLayout('basic');
         $PWResetEmailModel = new PWResetEmailModel();
         $PWResetEmailModel->loadData($request->getBody());
         if($PWResetEmailModel->validate()) {
@@ -85,6 +91,7 @@ class AuthController extends Controller {
     }
 
     public function handlePWReset(Request $request) {
+        $this->setLayout('basic');
         $PWResetModel = new PWResetModel();
         if(!$PWResetModel->isVerifCodeSet()) {
             return $this->render("error_verifcode_not_set");

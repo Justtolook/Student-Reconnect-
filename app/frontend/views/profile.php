@@ -98,12 +98,20 @@
         <!-- Scores -->
         <th scope="col">Host Score:
             <?php
-            echo $visitenkarte->scoreHost . '</div>';
+            if ($visitenkarte->scoreHost == null) {
+                echo "0";
+            } else {
+                echo $visitenkarte->scoreHost;
+            }
             ?>
         </th>
         <th scope="col">Teilnehmer Score:
             <?php
-            echo $visitenkarte->scoreAttendee . '</div>';
+            if ($visitenkarte->scoreAttendee == null) {
+                echo "0";
+            } else {
+                echo $visitenkarte->scoreAttendee;
+            }
             ?>
         </th>
     </tr>
@@ -175,7 +183,7 @@
 </div>
 
 <div>
-    <a href="?t=frontend&request=profileedit" class="btn text-center mb-5">Profil bearbeiten</a><br>
+    <a href="?t=frontend&request=profileedit" class="btn text-center">Profil bearbeiten</a><br>
 </div>
 
 <style>

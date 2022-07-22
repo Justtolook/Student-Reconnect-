@@ -22,7 +22,7 @@
             </div>
             <form method="POST" action="index.php?t=frontend&request=pwresetemail">
                 <div class="form-group row justify-content-center">
-                    <input type="email" class="form-control w-75 border border-dark" id="email" name="email" placeholder="E-Mail">
+                    <input type="email" class="form-control w-75 border border-dark shadow" id="email" name="email" placeholder="E-Mail">
                 </div>
                 <div class="row justify-content-center">
                     <button type="submit"  class="btn text-center">Senden</button>
@@ -37,13 +37,13 @@
             <div method="POST" action="?t=frontend&request=pwreset">
                 <!-- TODO display errors if there are any -->
                 <div class="form-group row justify-content-center">
-                    <input type="text" class="form-control w-75 border border-dark" id="enteredcode" name="enteredcode" placeholder="Verifizierungscode">
+                    <input type="text" class="form-control w-75 border border-dark shadow" id="enteredcode" name="enteredcode" placeholder="Verifizierungscode">
                 </div><br>
                 <div class="form-group row justify-content-center">
-                    <input type="password" class="form-control w-75 border border-dark" id="newpassword" name="newpassword" placeholder="Passwort setzen">
+                    <input type="password" class="form-control w-75 border border-dark shadow" id="newpassword" name="newpassword" placeholder="Passwort setzen">
                 </div><br>
                 <div class="form-group row justify-content-center">
-                    <input type="password" class="form-control w-75 border border-dark" id="passwordrepeat" name="passwordrepeat" placeholder="Passwort wiederholen">
+                    <input type="password" class="form-control w-75 border border-dark shadow" id="passwordrepeat" name="passwordrepeat" placeholder="Passwort wiederholen">
                 </div><br>
                 <div class="row justify-content-center">
                     <button type="submit" class="btn text-center">Passwort zurücksetzen</button>
@@ -54,6 +54,7 @@
     <a href="?t=frontend&request=login" class="mr-5 link-primary float-right">Zurück zum Login</a><br>
     </form>
 </div>
+<div style="padding: 20px 0px;"></div>
 
 <?php
 if(isset($_SESSION['verifcode'])) { ?>

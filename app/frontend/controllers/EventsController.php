@@ -67,6 +67,7 @@ class EventsController extends Controller {
      * returns a json object with the event details for the given id
      */
     public function API_getEventDetails(Request $request) {
+        error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
         $eid = $request->getBody()['eid'];
         $uid = $this->getIDUser();
         $event = $this->eventFeedModel->getEventById($eid);
