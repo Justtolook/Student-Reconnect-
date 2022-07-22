@@ -67,14 +67,14 @@ function openVisitenkarte(id_user) {
                 //$('#event-details-id').val(eventDetails.id_event);
                 $("#event-details-name").text("");
                 $("#event-details-description").text("");
-                $("#event-details-location_rough").text("");
+                $("#event-details-location").text("");
                 $("#event-details-eventDate").text("");
                 $("#event-details-signons").text("");
                 $("#event-details-maxAttendees").text("");
                 $("#event-sign-on.button").attr("data-eid", "");
                 $('#event-details-name').text(eventDetails.name);
                 $('#event-details-description').text(eventDetails.description);
-                $('#event-details-location_rough').text(eventDetails.location_rough);
+                $('#event-details-location').text(eventDetails.location);
                 $('#event-details-eventDate').text(eventDetails.eventDate);
                 $('#event-details-signons').text(eventDetails.numberSignOns);
                 $('#event-details-maxAttendees').text(eventDetails.numberAttendees);
@@ -454,7 +454,7 @@ function RatingAttendees(event_id) {
                 </div>
                 <div>
                     <i class="fas fa-map-marker-alt mr-1"> </i>
-                    <span id="event-details-location_rough"></span>
+                    <span id="event-details-location"></span>
                 </div>
                 <div id="event-details-attendees">
                     <i class="fas fa-user-alt"> </i>

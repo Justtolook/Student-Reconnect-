@@ -94,6 +94,7 @@ class EventsController extends Controller {
             'name' => $event->name,
             'description' => $event->description,
             'location_rough' => $event->location_rough,
+            'location' => $event->location,
             'eventDate' => $event->eventDate,
             'id_userCreator' => $event->id_userCreator,
             'createdTimestamp' => $event->createdTimestamp,
