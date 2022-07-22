@@ -65,6 +65,13 @@ function openVisitenkarte(id_user) {
                 console.log(eventDetails);
                 //fill the modal with the event details
                 //$('#event-details-id').val(eventDetails.id_event);
+                $("#event-details-name").text("");
+                $("#event-details-description").text("");
+                $("#event-details-location_rough").text("");
+                $("#event-details-eventDate").text("");
+                $("#event-details-signons").text("");
+                $("#event-details-maxAttendees").text("");
+                $("#event-sign-on.button").attr("data-eid", "");
                 $('#event-details-name').text(eventDetails.name);
                 $('#event-details-description').text(eventDetails.description);
                 $('#event-details-location_rough').text(eventDetails.location_rough);
@@ -309,7 +316,7 @@ function RatingAttendees(event_id) {
                             <div style = "padding: 20px 10px 10px;"></div>
                             <?php
                             if(!$match['notificationRead']) {
-                                echo "<div class='newNotification'>Du hast einen neuen Match!</div>";
+                                echo "<div class='newNotification'>Du hast ein neues Match!</div>";
                                 echo "<form action='?t=frontend&request=notifications/markAsReadNotification'  method='POST'>";
                                 echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>";
                                 echo "<button type='submit' class='btn btn-success' name='markAsReadNotification'>Gelesen</button";
@@ -366,7 +373,9 @@ function RatingAttendees(event_id) {
                                 <div class="col-md-8">
                                     <?php
                                     if (strtotime("now") > strtotime($event['event_time'])) {
-                                        echo "Das Event " . $event['event_name'] . " ist vorbei<br>";
+                                        echo "Das Event ist vorbei.<br>";
+                                    }else{
+                                        echo "Du bist erfolgreich angemeldet.<br>";
                                     }
                                     ?>
                                 </div>
