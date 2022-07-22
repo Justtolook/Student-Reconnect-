@@ -304,7 +304,7 @@ function RatingAttendees(event_id) {
                                 </div>
                             </div>
                             <?php
-                            echo "Sie haben ein Match mit: " . $match['id_user'] . "<br>";
+                            echo "Sie haben ein Match mit: " . $userModel->getUserNameByID($match['id_user']) . "<br>";
                             ?>
                             <div style = "padding: 20px 10px 10px;"></div>
                             <?php
