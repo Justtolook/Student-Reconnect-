@@ -427,7 +427,7 @@ function RatingAttendees(event_id) {
                 echo "<br>";
             }
         } else {
-            echo "Sie sind zu keinem Event angemeldet.";
+            echo "<div class='ml-3'>Sie sind zu keinem Event angemeldet.</div>";
         }
         ?>
     </div>
