@@ -27,7 +27,7 @@
             <!-- two buttons: one for matching and one for not matching -->
             <form action="?t=frontend&request=matching/matching" method="post">
                 <input type="hidden" name="id_user" value="<?php echo $model->id_user; ?>">
-                <button class="btn-matching" type="submit" id="matchen">
+                <button class="btn-matching text-center" type="submit" id="matchen">
                     <i class="fa-solid fa-check fa-2xl text-success"></i>
                 </button>
             </form>
@@ -35,7 +35,7 @@
         <div class="col col-lg-2 text-center">
             <form action="?t=frontend&request=matching/notmatching" method="post">
                 <input type="hidden" name="id_user" value="<?php echo $model->id_user; ?>">
-                <button class="btn-matching" type="submit" id="nichtMatchen">
+                <button class="btn-matching text-center" type="submit" id="nichtMatchen">
                     <i class="fa-solid fa-xmark fa-2xl text-danger"></i>
                 </button>
             </form>

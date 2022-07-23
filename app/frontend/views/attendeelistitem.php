@@ -1,9 +1,9 @@
 <div class="row text-center">
-    <div class="col-md-4 align-middle"><?php
+    <div class="col-md-3 align-middle"><?php
         echo $user->firstname . " " . $user->lastname;
         ?>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9">
         <button class="btn" onclick="getVisitenkartenContent(<?php echo $user->id_user; ?>)" data-uid="<?php echo $user->id_user; ?>" data-toggle="modal" data-target="#userDetailsModal">
             Details
         </button>
