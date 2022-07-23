@@ -175,8 +175,8 @@
                 include 'visitenkartenModal.php'
                 ?>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+            <div class="modal-body text-center">
+                <button type="button" class="btn" data-dismiss="modal">Schließen</button>
             </div>
         </div>
     </div>

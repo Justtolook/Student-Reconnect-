@@ -17,3 +17,8 @@
         </div>
     </form>
 </div>
+<div class="text-center">
+    <form action="?t=frontend&request=matching" method="post">
+        <button class="btn mt-4">Zurück zum Matching</button>
+    </form>
+</div>

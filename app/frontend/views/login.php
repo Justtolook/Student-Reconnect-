@@ -17,7 +17,7 @@
 <br>
 <a href="?t=frontend&request=pwreset" class="mr-5 link-primary float-right">Passwort vergessen?</a><br>
 <div style = "padding: 100px 100px 10px;" class="row justify-content-center">
-    <button type="submit" class="btn btn-success mx-auto">Einloggen</button>
+    <button type="submit" class="btn mx-auto">Einloggen</button>
 </div>
         <div class="p-5"></div>
 <div>

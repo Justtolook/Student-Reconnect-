@@ -319,10 +319,10 @@ function RatingAttendees(event_id) {
                                 echo "<div class='newNotification'>Du hast ein neues Match!</div>";
                                 echo "<form action='?t=frontend&request=notifications/markAsReadNotification'  method='POST'>";
                                 echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>";
-                                echo "<button type='submit' class='btn btn-success' name='markAsReadNotification'>Gelesen</button";
+                                echo "<button type='submit' class='btn' name='markAsReadNotification'>Gelesen</button";
                                 echo "</form>";
                             }
-                            echo "<button type='button' class='btn btn-success float-left' onclick='getVisitenkartenContent(" . $match['id_user'] . ")'>Visitenkarte</button>";
+                            echo "<button type='button' class='btn float-left' onclick='getVisitenkartenContent(" . $match['id_user'] . ")'>Visitenkarte</button>";
                             /*
                             echo "<form action='?t=frontend&request=notifications/showVisitenkarte'  method='POST'>";
                             echo "<input type='hidden' name='id_user_match' value= '" . $match['id_user'] . "'>";
@@ -401,15 +401,15 @@ function RatingAttendees(event_id) {
                                 // echo "Session User ID: " . $_SESSION['user']['id_user'] . "<br>";
                                 /* If Event is over --> Insert Ratings Button, depending on EventOwner or Attende */
                                 if ($event['event_id_userCreator'] == $_SESSION['user']['id_user']) {
-                                    echo "<button type='button' class='btn btn-success' onclick='RatingAttendees(" . $event['event_id'] . ")'>Teilnehmer Bewerten</button>";
+                                    echo "<button type='button' class='btn' onclick='RatingAttendees(" . $event['event_id'] . ")'>Teilnehmer Bewerten</button>";
 
                                 } else {
                                     /* insert button onclick RatingHost */
-                                    echo "<button type='button' class='btn btn-success' onclick='RatingHost(" . $event['event_id'] . ")'>Host bewerten</button>";
+                                    echo "<button type='button' class='btn' onclick='RatingHost(" . $event['event_id'] . ")'>Host bewerten</button>";
                                 }
                             }
                             echo "<input type='hidden' name='id_user' value= '" . $event['event_id_user'] . "'>";
-                            echo "<button type='button' class='btn btn-success float-left' onclick='openEventDetails(" . $event['event_id'] . ")'>Details</button>";
+                            echo "<button type='button' class='btn float-left' onclick='openEventDetails(" . $event['event_id'] . ")'>Details</button>";
                             ?>
 
                             <?php
@@ -465,7 +465,7 @@ function RatingAttendees(event_id) {
 
             <div class="modal-footer">
                 <!-- sign off button -->
-                <button type="button" class="btn btn-primary event-sign-on-button" id="event-sign-on-button" data-eid="" onclick="EventSignOff()">Abmelden</button>
+                <button type="button" class="btn event-sign-on-button" id="event-sign-on-button" data-eid="" onclick="EventSignOff()">Abmelden</button>
             </div>
         </div>
     </div>
