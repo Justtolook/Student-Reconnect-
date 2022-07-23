@@ -34,7 +34,7 @@
     <div style ="padding: 50px 80px 10px;" class="row justify-content-center">
         <div class="card pastelgruen border-success m-3" style="width: 25rem;">
             <div style = "padding: 40px 20px 10px;"></div>
-            <div method="POST" action="?t=frontend&request=pwreset">
+            <form method="POST" action="?t=frontend&request=pwreset">
                 <!-- TODO display errors if there are any -->
                 <div class="form-group row justify-content-center">
                     <input type="text" class="form-control w-75 border border-dark shadow" id="enteredcode" name="enteredcode" placeholder="Verifizierungscode">
@@ -48,11 +48,10 @@
                 <div class="row justify-content-center">
                     <button type="submit" class="btn text-center">Passwort zurücksetzen</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div> <br>
     <a href="?t=frontend&request=login" class="mr-5 link-primary float-right">Zurück zum Login</a><br>
-    </form>
 </div>
 <div style="padding: 20px 0px;"></div>
 
