@@ -38,37 +38,13 @@
     </div>
 </div>
 
-<table class="table table-borderless">
-    <thead>
-    <tr>
-        <th scope="col">Vorname</th>
-        <th scope="col">Nachname</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td scope="row">
-            <div class="card border-dark">
-                <div class="card-body">
-                    <?php
-                    echo $profile->firstname;
-                    ?>
-                </div>
-            </div>
-        </td>
-        <td>
-            <div class="card border-dark">
-                <div class="card-body">
-                    <?php
-                    echo $profile->lastname;
-                    ?>
-                </div>
-            </div>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div style="text-align: center;">
+    <b>
+    <?php
+    echo $profile->firstname . " " . $profile->lastname;
+    ?>
+    </b>
+</div>
 
 <table class="table table-borderless">
     <thead>
@@ -132,7 +108,7 @@
 <table class="table table-borderless">
     <thead>
     <tr>
-        <th scope="col">Kurzbeschreibung</th>
+        <th scope="col">Beschreibung</th>
     </tr>
     </thead>
     <tbody>
