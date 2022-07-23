@@ -116,11 +116,12 @@ $app->router->setRoute("get","backend", "API_toggleAttendeeAcceptance", [A_Event
 $app->router->setRoute("get","backend", "API_deleteAttendee", [A_EventsController::class, 'API_deleteAttendee'], 3);
 
 
-$app->router->setRoute("get","backend", "interests", [A_InterestsController::class, 'home'], 3);
-$app->router->setRoute("get","backend", "API_getInterest", [A_InterestsController::class, 'API_getInterest'], 3);
-$app->router->setRoute("post","backend", "API_editInterest", [A_InterestsController::class, 'API_editInterest'], 3);
-$app->router->setRoute("post","backend", "API_addInterest", [A_InterestsController::class, 'API_addInterest'], 3);
-$app->router->setRoute("get","backend", "API_deleteInterest", [A_InterestsController::class, 'API_deleteInterest'], 3);
+$app->router->setRoute("get","backend", "interests", [A_InterestsController::class, 'home'], 2);
+$app->router->setRoute("post","backend", "interests", [A_InterestsController::class, 'home'], 2);
+$app->router->setRoute("get","backend", "API_getInterest", [A_InterestsController::class, 'API_getInterest'], 2);
+$app->router->setRoute("post","backend", "API_editInterest", [A_InterestsController::class, 'API_editInterest'], 2);
+$app->router->setRoute("post","backend", "API_addInterest", [A_InterestsController::class, 'API_addInterest'], 2);
+$app->router->setRoute("get","backend", "API_deleteInterest", [A_InterestsController::class, 'API_deleteInterest'], 2);
 
 $app->run();
 

@@ -34,7 +34,14 @@
     <form action="?t=frontend&request=moderation" method="post">
         <button class="btn text-center">Moderationsbereich </button>
     </form>
-    </div>';
+    </div>
+    
+    <div style = "padding: 20px 10px 10px;" class="form-group">
+    <form action="?t=backend&request=interests" method="post">
+        <button type="submit" class="btn text-center">Interessensverwaltung </button>
+    </form>
+    </div>
+    ';
         }
         ?>
     </div>
