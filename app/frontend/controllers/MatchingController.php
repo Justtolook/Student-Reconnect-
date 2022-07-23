@@ -21,6 +21,7 @@ class MatchingController extends Controller {
     public MatchModel $matchModel;
     public array $interestFilter = []; //array with their id's
     public bool $flag_noInterestOverlaps = false;
+    public bool $flag_noMoreMatches = false;
     public EditProfilePicModel $EditProfilePicModel;
 
     public function __construct() {
@@ -299,9 +300,24 @@ class MatchingController extends Controller {
      * selects a random user from the UserAll array and render the matching view with that user
      */
     public function renderRandomUser() {
-        $randomUser = array_rand($this->UserAll);
-        $this->EditProfilePicModel = new EditProfilePicModel($randomUser);
-        return $this->render("matching", ["model" => $this->UserAll[$randomUser], "interestModel" => $this->interestModel, "filter" => $this->interestFilter, "flag_noInterestOverlaps" => $this->flag_noInterestOverlaps, "imagemodel" => $this->EditProfilePicModel]);
+        if(count($this->UserAll) > 0) {
+            $randomUser = array_rand($this->UserAll);
+            $this->EditProfilePicModel = new EditProfilePicModel($randomUser);
+            return $this->render("matching",
+                ["model" => $this->UserAll[$randomUser],
+                    "interestModel" => $this->interestModel,
+                    "filter" => $this->interestFilter,
+                    "flag_noInterestOverlaps" => $this->flag_noInterestOverlaps,
+                    "imagemodel" => $this->EditProfilePicModel,
+                    "flag_noMoreMatches" => $this->flag_noMoreMatches]);
+        }
+        $this->flag_noMoreMatches = true;
+        return $this->render("matching",
+            ["model" => false,
+            "interestModel" => $this->interestModel,
+            "filter" => $this->interestFilter,
+            "flag_noInterestOverlaps" => $this->flag_noInterestOverlaps,
+            "flag_noMoreMatches" => $this->flag_noMoreMatches]);
     }
 
     /**
