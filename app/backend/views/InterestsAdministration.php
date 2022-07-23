@@ -62,8 +62,8 @@ $(document).ready( function () {
             <td><?php echo $id; ?></td>
             <td><?php echo $name; ?></td>
             <td>
-                <a data-toggle="modal" data-target="#InterestEditModal" class="interest-edit-button btn btn-primary" data-interest-id="<?php echo $id; ?>">Edit</a>
-                <a href="?t=backend&request=API_deleteInterest&iid=<?php echo $id; ?>" class="btn btn-danger">Delete</a>
+                <a data-toggle="modal" data-target="#InterestEditModal" class="btn btn-success interest-edit-button" data-interest-id="<?php echo $id; ?>">Edit</a>
+                <a href="?t=backend&request=API_deleteInterest&iid=<?php echo $id; ?>" class="btn btn-outline-danger">Delete</a>
             </td>
         </tr>
         <?php } ?>
@@ -87,7 +87,7 @@ $(document).ready( function () {
                         <label for="interest-edit-modal-name">Name</label>
                         <input type="name" class="form-control" id="interest-edit-modal-name" name="name">
                     </div>
-                    <button type="submit" class="btn btn-primary interest-edit-modal-save">Daten Updaten</button>
+                    <button type="submit" class="btn btn-success interest-edit-modal-save">Daten Updaten</button>
                 </form>
             </div>
         </div>

@@ -2,7 +2,8 @@
 <script src="app/backend/js/jquery.dataTables.min.js"></script>
 <h1>Events Administration</h1>
 <!-- reload button -->
-<button class="btn btn-primary" onclick="loadEventList()">Reload</button>
+<button class="btn btn-secondary" onclick="loadEventList()">Reload</button>
+<br>
 
 <script>
     function loadAttendeeList(id_event) {
@@ -29,7 +30,7 @@
                         attendees[i].ratingHost,
                         attendees[i].ratingAttendee,
                         attendees[i].accepted,
-                        '<button data-user-id="' + attendees[i].id_User + '" data-event-id="' + id_event + '" class="btn btn-outline-primary" id="toggle-acceptance" type="button">Toggle Akzeptierung</button>' +
+                        '<button data-user-id="' + attendees[i].id_User + '" data-event-id="' + id_event + '" class="btn btn-outline-success" id="toggle-acceptance" type="button">Toggle Akzeptierung</button>' +
                         '<button data-user-id="' + attendees[i].id_User + '" data-event-id="' + id_event + '" class="btn btn-outline-danger" id="delete-attendee" type="button">Löschen</button>'
                     ]).draw();
                 }
@@ -65,7 +66,7 @@
                         events[i].eventDate,
                         events[i].createdTimestamp,
                         events[i].numberAttendees,
-                        '<button data-event-id="' + events[i].id_event + '" data-toggle="modal" data-target="#EventEditModal" class="event-edit-button btn btn-primary">Edit</button>' +
+                        '<button data-event-id="' + events[i].id_event + '" data-toggle="modal" data-target="#EventEditModal" class="event-edit-button btn btn-success">Edit</button>' +
                         '<button data-event-id="' + events[i].id_event + '" type="button" class="btn btn-outline-danger event-delete-button">Delete</button>'
                     ]).draw();
 
@@ -240,8 +241,8 @@
                         <input type="text" class="form-control" id="eventCreator" placeholder="Ersteller" name="id_userCreator">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                        <button type="submit" class="btn btn-primary" id="eventEditSubmit">Speichern</button>
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Schließen</button>
+                        <button type="submit" class="btn btn-success" id="eventEditSubmit">Speichern</button>
                     </div>
                 </form>
                 <hr>

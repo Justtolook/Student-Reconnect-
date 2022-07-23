@@ -101,7 +101,7 @@ $(document).ready( function () {
             <td><?php echo $user->scoreHost; ?></td>
             <td><?php echo $user->scoreAttendee; ?></td>
             <td><?php echo $user->id_role; ?></td>
-            <td><button data-toggle="modal" data-target="#UserEditModal" class="user-edit-button btn btn-primary" data-user-id="<?php echo $user->id_user; ?>">Edit</button></td>
+            <td><button data-toggle="modal" data-target="#UserEditModal" class="user-edit-button btn btn-success" data-user-id="<?php echo $user->id_user; ?>">Edit</button></td>
         </tr>
         <?php } ?>
     </tbody>
@@ -179,11 +179,11 @@ $(document).ready( function () {
                             <?php } ?>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary user-edit-modal-save">Daten Updaten</button>
+                    <button type="submit" class="btn btn-success user-edit-modal-save">Daten Updaten</button>
                 </form>
                 <form action="?t=backend&request=API_deleteUser" method="POST">
                     <input type="hidden" id="user-delete-modal-id" name="id_user" value="">
-                    <button type="submit" class="btn btn-danger user-edit-modal-delete">User Löschen</button>
+                    <button type="submit" class="btn btn-outline-danger user-edit-modal-delete">User Löschen</button>
                 </form>
             </div>
         </div>
