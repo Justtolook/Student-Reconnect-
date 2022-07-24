@@ -20,8 +20,8 @@ class PWResetEmailModel extends model {
 
     public function sendEmail() {
         $to = $this->email;
-        $subject = "Zurücksetzen Ihres Passworts";
-        $content = "Ihr Verifizierungscode zum Zurücksetzen Ihres Passworts lautet: $this->verifcode";
+        $subject = "Zuruecksetzen Ihres Passworts";
+        $content = "Ihr Verifizierungscode zum Zuruecksetzen Ihres Passworts lautet: $this->verifcode";
         $header = "From: studreconn@noreply.com" . "\r\n";
 
         return mail($to, $subject, $content, $header);
