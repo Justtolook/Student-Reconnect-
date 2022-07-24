@@ -9,7 +9,7 @@
                 <h1>Wenn du Probleme bei der Verwendung der App hast, kannst du hier unser Nutzerhandbuch
                     downloaden:</h1>
                 <div class="row justify-content-center p-4">
-                    <a href="?t=frontend&request=nutzerhandbuch" class="link-primary float-none">Nutzerhandbuch</a><br>
+                    <a href="res/Nutzerhandbuch-online.pdf" download class="link-primary float-none">Nutzerhandbuch</a><br>
                 </div>
             </div>
         </div>
