@@ -167,6 +167,23 @@ input {
     }
 }
 
+@media only screen and (min-width: 1200px) {
+    body {
+        zoom: 0.5;
+        max-width: 50%;
+        margin: auto;
+    }
+    .rounded-circle {
+        max-width : 25%;
+        height : auto;
+    }
+
+    .fixed-bottom {
+        max-width: 50%;
+        margin: auto;
+    }
+}
+
 .table-font {
     font-size: 1rem;
     font-family: sans-serif;
