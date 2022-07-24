@@ -67,7 +67,21 @@ class NotificationModel extends Model {
                     'event_time' => $item['eventDate'], 
                     'event_id_userCreator' => $item['id_userCreator']);
                 }
-        }   
+        }
+        $statement = $db->prepare('SELECT * FROM event WHERE id_userCreator = :id_user');
+        $statement->bindValue(':id_user', $id_user);
+        $statement->execute();
+        foreach($statement->fetchAll() as $item) {
+            if(date('Y-m-d') > $item['eventDate']) {
+                $this->eventsSignedIn[] = array(
+                    'event_id_user' => $item['id_userCreator'],
+                    'event_id' => $item['id_event'],
+                    'event_name' => $item['name'],
+                    'event_location_rough' => $item['location_rough'],
+                    'event_time' => $item['eventDate'],
+                    'event_id_userCreator' => $item['id_userCreator']);
+            }
+        }
     }
 
 
